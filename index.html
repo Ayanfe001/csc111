@@ -229,7 +229,7 @@
             showScreen('admin-panel-screen'); 
             loadAdminTable(); 
             adminInterval = setInterval(loadAdminTable, 10000); 
-        } else alert("Wrong Password!"); 
+        } else alert("Access Denied!"); 
     }
     function exitAdmin() { clearInterval(adminInterval); showScreen('login-screen'); }
     function loadAdminTable() {
@@ -239,7 +239,7 @@
         });
     }
     async function clearLogs() {
-        if(confirm("Wipe server?")) { 
+        if(confirm("Clear Record?")) { 
             await fetch(`${BACKEND_URL}/api/admin/clear-results`, { method: 'DELETE' }); 
             loadAdminTable(); 
         }

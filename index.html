@@ -3,59 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSC111 CBT Portal | HoRly’s Tech</title>
+    <title>CSC111 QUIZ | HoRly’sTech</title>
     <style>
-        :root {
-            --primary-dark: #00264d;
-            --accent-gold: #ff9900;
-            --bg-canvas: #f0f2f5;
-            --white: #ffffff;
-            --text-dark: #1a1a1a;
-            --success: #27ae60;
-            --danger: #e74c3c;
-        }
-
-        body { background-color: var(--bg-canvas); font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
-        #app-container { width: 100%; max-width: 550px; background: var(--white); height: 100vh; display: flex; flex-direction: column; box-shadow: 0 0 30px rgba(0,0,0,0.1); position: relative; }
-        header { background: var(--primary-dark); color: var(--white); padding: 12px; text-align: center; font-weight: 700; font-size: 0.75rem; border-bottom: 4px solid var(--accent-gold); text-transform: uppercase; }
-        .timer-bar { background: #111; color: var(--accent-gold); padding: 10px; text-align: center; font-family: 'Courier New', monospace; font-size: 1.5rem; font-weight: 900; }
-        .screen { display: none; padding: 20px; flex: 1; overflow-y: auto; animation: slideIn 0.3s ease-out; }
+        :root { --primary: #00264d; --gold: #ff9900; --bg: #f0f2f5; --white: #fff; --danger: #e74c3c; --success: #27ae60; }
+        body { background: var(--bg); font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
+        #app { width: 100%; max-width: 550px; background: var(--white); height: 100vh; display: flex; flex-direction: column; box-shadow: 0 0 30px rgba(0,0,0,0.1); position: relative; }
+        header { background: var(--primary); color: var(--white); padding: 12px; text-align: center; font-size: 0.75rem; border-bottom: 4px solid var(--gold); text-transform: uppercase; }
+        .timer { background: #111; color: var(--gold); padding: 10px; text-align: center; font-family: monospace; font-size: 1.5rem; font-weight: 900; }
+        .screen { display: none; padding: 20px; flex: 1; overflow-y: auto; animation: slide 0.3s ease; }
         .active { display: flex; flex-direction: column; }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slide { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
         input { width: 100%; padding: 15px; margin-bottom: 20px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; box-sizing: border-box; }
-        .question-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 20px; line-height: 1.5; }
-        .options-container { display: flex; flex-direction: column; gap: 12px; }
-        .option-btn { background: #fff; border: 2px solid #eee; padding: 14px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; transition: 0.2s; }
-        .option-btn.selected { border-color: var(--primary-dark); background: #eef5ff; }
-        .option-letter { background: var(--primary-dark); color: white; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 12px; font-weight: 800; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 20px; line-height: 1.5; }
+        .opt-btn { background: #fff; border: 2px solid #eee; padding: 14px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; margin-bottom: 12px; transition: 0.2s; }
+        .opt-btn.selected { border-color: var(--primary); background: #eef5ff; }
+        .opt-letter { background: var(--primary); color: white; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 12px; font-weight: 800; }
         .bottom-nav { padding: 15px; background: #f8f9fa; border-top: 1px solid #ddd; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
         .nav-btn { padding: 12px 5px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.75rem; color: white; text-transform: uppercase; }
-        .btn-prev { background: #6c757d; }
-        .btn-skip { background: var(--primary-dark); }
-        .btn-submit { background: var(--danger); }
-        .main-btn { background: var(--accent-gold); color: #000; border: none; padding: 15px; border-radius: 10px; width: 100%; font-weight: 800; cursor: pointer; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; font-size: 0.8rem; }
-        .summary-card { background: var(--primary-dark); color: white; padding: 25px; border-radius: 12px; text-align: center; margin-bottom: 20px; }
-        .result-item { padding: 15px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+        .main-btn { background: var(--gold); color: #000; border: none; padding: 15px; border-radius: 10px; width: 100%; font-weight: 800; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+        .card { background: var(--primary); color: white; padding: 25px; border-radius: 12px; text-align: center; margin-bottom: 20px; }
+        .res-item { padding: 15px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
         .correct { color: var(--success); font-weight: bold; }
         .wrong { color: var(--danger); font-weight: bold; }
-        #modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 1000; }
-        .modal { background: white; padding: 25px; border-radius: 15px; width: 85%; text-align: center; }
+        #modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 1000; }
+        .modal-box { background: white; padding: 25px; border-radius: 15px; width: 85%; text-align: center; }
     </style>
 </head>
 <body>
 
-<div id="app-container">
-    <header>CSC111 100 questions generated by HoRly’s_Tech gadgets Sales N repair… 09121213936</header>
-    <div id="timerDisplay" class="timer-bar" style="display: none;">20:00</div>
+<div id="app">
+    <header>CSC111 100 questions generated by HoRly’s_Tech gadgets Sales N repair… /09121213936</header>
+    <div id="timerDisplay" class="timer" style="display: none;">20:00</div>
 
     <div id="login-screen" class="screen active">
         <div style="margin: auto; width: 100%; text-align: center;">
-            <h2 style="color: var(--primary-dark)">Candidate Login</h2>
-            <input type="text" id="studentName" placeholder="Full Name" autocomplete="off">
-            <button class="main-btn" onclick="startQuiz()">START EXAM</button>
-            <p onclick="showAdminLogin()" style="margin-top: 40px; font-size: 0.7rem; color: #ccc; cursor: pointer;">Admin Access</p>
+            <h2>CSC111 20-minutes Quiz</h2>
+            <p>welcome, pls provide your details</p>
+            <input type="text" id="studentName" placeholder="Enter Your Name">
+            <button class="main-btn" onclick="startQuiz()">LOGIN & START QUIZ</button>
+            <p onclick="showAdminLogin()" style="margin-top: 40px; font-size: 0.7rem; color: #ccc; cursor: pointer;">Admin Dashboard</p>
         </div>
     </div>
 
@@ -64,62 +52,50 @@
             <h3>Admin Access</h3>
             <input type="password" id="adminPass" placeholder="Enter Password">
             <button class="main-btn" onclick="verifyAdmin()">LOGIN</button>
-            <button class="nav-btn btn-prev" style="margin-top:10px; width:100%" onclick="showScreen('login-screen')">BACK</button>
+            <button class="nav-btn" style="background:#6c757d; margin-top:10px; width:100%" onclick="showScreen('login-screen')">BACK</button>
         </div>
     </div>
 
     <div id="admin-panel-screen" class="screen">
-        <h3>Master Results</h3>
-        <button onclick="clearLogs()" style="color: red; background:none; border:none; cursor:pointer;">Clear All</button>
-        <div style="overflow-x: auto;">
-            <table>
-                <thead><tr><th>Name</th><th>Score</th><th>Date</th></tr></thead>
-                <tbody id="adminTableBody"></tbody>
-            </table>
+        <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <h3>Live Scores <span id="liveStatus" style="color:var(--success); font-size:0.6rem;">● LIVE</span></h3>
+            <div>
+                <button onclick="downloadCSV()" style="background:var(--success); border:none; color:#fff; padding:5px; border-radius:4px; font-size:0.7rem;">Excel</button>
+                <button onclick="clearLogs()" style="background:var(--danger); border:none; color:#fff; padding:5px; border-radius:4px; font-size:0.7rem;">Clear</button>
+            </div>
         </div>
-        <button class="main-btn" style="margin-top: 20px;" onclick="showScreen('login-screen')">LOGOUT ADMIN</button>
+        <div style="overflow-x: auto;">
+            <table><thead><tr><th>Name</th><th>Score</th><th>Date</th></tr></thead><tbody id="adminTable"></tbody></table>
+        </div>
+        <button class="main-btn" style="margin-top: 20px;" onclick="exitAdmin()">EXIT DASHBOARD</button>
     </div>
 
     <div id="quiz-screen" class="screen">
-        <div style="display: flex; justify-content: space-between; font-weight: bold; color: var(--primary-dark); font-size: 0.85rem; margin-bottom: 10px;">
+        <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 0.8rem; margin-bottom: 10px; color: var(--primary);">
             <span>Q: <span id="qNum">1</span> / 100</span>
             <span id="answeredCount">0 Answered</span>
         </div>
-        <div id="qText" class="question-text"></div>
-        <div id="options" class="options-container"></div>
+        <div id="qText" class="q-text"></div>
+        <div id="options"></div>
         <div class="bottom-nav">
-            <button class="nav-btn btn-prev" onclick="prevQ()">PREVIOUS</button>
-            <button class="nav-btn btn-skip" onclick="nextQ()">SKIP / NEXT</button>
-            <button class="nav-btn btn-submit" onclick="toggleModal(true)">SUBMIT</button>
+            <button class="nav-btn" style="background:#6c757d" onclick="prevQ()">PREV</button>
+            <button class="nav-btn" style="background:var(--primary)" onclick="nextQ()">SKIP</button>
+            <button class="nav-btn" style="background:var(--danger)" onclick="toggleModal(true)">SUBMIT</button>
         </div>
     </div>
 
     <div id="result-screen" class="screen">
-        <div class="summary-card">
-            <h1 id="finalScore" style="font-size: 3rem; margin: 0;"></h1>
-            <p id="resCandidateDisplay" style="font-size: 1.1rem; margin-top: 10px; font-weight: bold; text-transform: uppercase;"></p>
-        </div>
-        <h3 style="border-bottom: 2px solid #eee; padding-bottom: 10px;">Review Correction</h3>
+        <div class="card"><h1 id="finalScore" style="font-size: 3rem; margin: 0;"></h1><p id="resCandidate" style="font-weight: bold;"></p></div>
+        <h3>Review Correction</h3>
         <div id="resultsList"></div>
-        <button class="main-btn" style="margin-top: 20px;" onclick="location.reload()">LOGOUT PORTAL</button>
+        <button class="main-btn" onclick="location.reload()" style="margin-top:20px">LOGOUT</button>
     </div>
 
-    <div id="modal-overlay">
-        <div class="modal">
-            <h3>Final Submission?</h3>
-            <p>Ready to end the exam? Your score will be recorded immediately.</p>
-            <div style="display: flex; gap: 10px; margin-top: 15px;">
-                <button class="nav-btn btn-prev" style="flex:1" onclick="toggleModal(false)">NO, BACK</button>
-                <button class="nav-btn btn-submit" style="flex:1" onclick="endExam()">YES, SUBMIT</button>
-            </div>
-        </div>
-    </div>
+    <div id="modal"><div class="modal-box"><h3>Submit Script?</h3><div style="display:flex; gap:10px; margin-top:15px;"><button class="nav-btn" style="background:#6c757d; flex:1" onclick="toggleModal(false)">NO</button><button class="nav-btn" style="background:var(--danger); flex:1" onclick="endExam()">YES</button></div></div></div>
 </div>
 
 <script>
-    // ENTER YOUR DEPLOYED BACKEND URL HERE
     const BACKEND_URL = "https://csc-backend-v4na.onrender.com"; 
-
     const quizData = [
         { q: "A DBMS is a collection of ________.", a: ["Programs only", "Interrelated data only", "Interrelated data and programs", "Files only"], c: 2 },
         { q: "The primary goal of a DBMS is to provide ________.", a: ["Fast computers", "Secure hardware", "Convenient and efficient data storage and retrieval", "Cheap storage"], c: 2 },
@@ -223,61 +199,60 @@
         { q: "DBMS is essential because programming languages cannot store data ________.", a: ["Temporarily", "Securely", "Permanently", "Logically"], c: 2 }
     ];
 
-    let currentIdx = 0, studentAns = new Array(100).fill(null), timeLeft = 20 * 60, timerId;
+    let currentIdx = 0, studentAns = new Array(100).fill(null), timeLeft = 20 * 60, timerId, adminInterval;
 
     function showScreen(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
     function startQuiz() { if(!document.getElementById('studentName').value) return alert("Enter name."); showScreen('quiz-screen'); document.getElementById('timerDisplay').style.display = 'block'; timerId = setInterval(tick, 1000); renderQ(); }
     function tick() { timeLeft--; let m = Math.floor(timeLeft/60), s = timeLeft%60; document.getElementById('timerDisplay').innerText = `${m}:${s<10?'0':''}${s}`; if(timeLeft <= 0) endExam(); }
-    function renderQ() { const data = quizData[currentIdx]; document.getElementById('qNum').innerText = currentIdx+1; document.getElementById('qText').innerText = data.q; const optCont = document.getElementById('options'); optCont.innerHTML = ''; data.a.forEach((opt, i) => { const btn = document.createElement('div'); btn.className = `option-btn ${studentAns[currentIdx] === i ? 'selected' : ''}`; btn.innerHTML = `<span class="option-letter">${String.fromCharCode(65+i)}</span> ${opt}`; btn.onclick = () => { studentAns[currentIdx] = i; updateStats(); renderQ(); }; optCont.appendChild(btn); }); }
+    function renderQ() { const data = quizData[currentIdx]; document.getElementById('qNum').innerText = currentIdx+1; document.getElementById('qText').innerText = data.q; const optCont = document.getElementById('options'); optCont.innerHTML = ''; data.a.forEach((opt, i) => { const btn = document.createElement('div'); btn.className = `opt-btn ${studentAns[currentIdx] === i ? 'selected' : ''}`; btn.innerHTML = `<span class="opt-letter">${String.fromCharCode(65+i)}</span> ${opt}`; btn.onclick = () => { studentAns[currentIdx] = i; updateStats(); renderQ(); }; optCont.appendChild(btn); }); }
     function updateStats() { document.getElementById('answeredCount').innerText = `${studentAns.filter(a => a !== null).length} Answered`; }
     function nextQ() { if(currentIdx < 99) { currentIdx++; renderQ(); } }
     function prevQ() { if(currentIdx > 0) { currentIdx--; renderQ(); } }
-    function toggleModal(s) { document.getElementById('modal-overlay').style.display = s ? 'flex' : 'none'; }
+    function toggleModal(s) { document.getElementById('modal').style.display = s ? 'flex' : 'none'; }
 
-    function endExam() {
+    async function endExam() {
         clearInterval(timerId); toggleModal(false); showScreen('result-screen'); document.getElementById('timerDisplay').style.display = 'none';
-        let score = 0;
-        const list = document.getElementById('resultsList'); list.innerHTML = '';
+        let score = 0; const list = document.getElementById('resultsList'); list.innerHTML = '';
         quizData.forEach((q, i) => {
-            const user = studentAns[i]; const isCorrect = user === q.c; if(isCorrect) score++;
-            const div = document.createElement('div'); div.className = 'result-item';
-            div.innerHTML = `<strong>${i+1}. ${q.q}</strong><br>Your Answer: <span class="${isCorrect?'correct':'wrong'}">${user !== null ? q.a[user] : 'No Answer'}</span><br>Correct Answer: <span class="correct">${q.a[q.c]}</span>`;
-            list.appendChild(div);
+            const user = studentAns[i]; if(user === q.c) score++;
+            list.innerHTML += `<div class="res-item"><strong>${i+1}. ${q.q}</strong><br>Your Answer: <span class="${user===q.c?'correct':'wrong'}">${user!==null?q.a[user]:'No Answer'}</span><br>Correct: <span class="correct">${q.a[q.c]}</span></div>`;
         });
         const name = document.getElementById('studentName').value;
         document.getElementById('finalScore').innerText = `${score} / 100`;
-        document.getElementById('resCandidateDisplay').innerText = "CANDIDATE: " + name;
-
-        // SEND TO BACKEND
-        fetch(`${BACKEND_URL}/api/save-score`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: name, score: score })
-        }).catch(e => console.error("Server error:", e));
+        document.getElementById('resCandidate').innerText = "CANDIDATE: " + name;
+        await fetch(`${BACKEND_URL}/api/save-score`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: name, score: score }) });
     }
 
     function showAdminLogin() { showScreen('admin-login-screen'); }
-    function verifyAdmin() {
-        if(document.getElementById('adminPass').value === "miracle@3") {
-            showScreen('admin-panel-screen');
-            loadAdminTable();
-        } else { alert("Access Denied!"); }
+    function verifyAdmin() { 
+        if(document.getElementById('adminPass').value === "miracle@3") { 
+            showScreen('admin-panel-screen'); 
+            loadAdminTable(); 
+            adminInterval = setInterval(loadAdminTable, 10000); 
+        } else alert("Wrong Password!"); 
     }
+    function exitAdmin() { clearInterval(adminInterval); showScreen('login-screen'); }
     function loadAdminTable() {
-        const tbody = document.getElementById('adminTableBody');
-        tbody.innerHTML = '<tr><td colspan="3">Loading...</td></tr>';
-        fetch(`${BACKEND_URL}/api/admin/results`)
-            .then(res => res.json())
-            .then(data => {
-                tbody.innerHTML = '';
-                data.forEach(r => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `<td>${r.name}</td><td>${r.score}</td><td>${r.date}</td>`;
-                    tbody.appendChild(tr);
-                });
-            });
+        fetch(`${BACKEND_URL}/api/admin/results`).then(res => res.json()).then(data => {
+            const body = document.getElementById('adminTable'); body.innerHTML = '';
+            data.forEach(r => { body.innerHTML += `<tr><td>${r.name}</td><td>${r.score}</td><td>${r.date}</td></tr>`; });
+        });
     }
-    function clearLogs() { if(confirm("Wipe records?")) { localStorage.removeItem('csc111_db'); adminRecords=[]; loadAdminTable(); } }
+    async function clearLogs() {
+        if(confirm("Wipe server?")) { 
+            await fetch(`${BACKEND_URL}/api/admin/clear-results`, { method: 'DELETE' }); 
+            loadAdminTable(); 
+        }
+    }
+    function downloadCSV() {
+        fetch(`${BACKEND_URL}/api/admin/results`).then(res => res.json()).then(data => {
+            let csv = "Name,Score,Date\n";
+            data.forEach(r => { csv += `${r.name},${r.score},${r.date}\n`; });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = "csc_results.csv"; a.click();
+        });
+    }
 </script>
 </body>
 </html>

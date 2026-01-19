@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSC111 CBT Portal | HoRly’s Tech</title>
     <style>
-        /* CSS DESIGN SCRIPT */
         :root {
             --primary-dark: #00264d;
             --accent-gold: #ff9900;
@@ -14,23 +13,21 @@
             --text-dark: #1a1a1a;
             --success: #27ae60;
             --danger: #e74c3c;
-            --shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         body {
             background-color: var(--bg-canvas);
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             margin: 0;
             display: flex;
             justify-content: center;
-            color: var(--text-dark);
             height: 100vh;
             overflow: hidden;
         }
 
         #app-container {
             width: 100%;
-            max-width: 500px;
+            max-width: 550px;
             background: var(--white);
             height: 100vh;
             display: flex;
@@ -48,13 +45,6 @@
             font-size: 0.75rem;
             border-bottom: 4px solid var(--accent-gold);
             text-transform: uppercase;
-            z-index: 10;
-        }
-
-        /* Standard Professional Animation */
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(20px); }
-            to { opacity: 1; transform: translateX(0); }
         }
 
         .timer-bar {
@@ -65,7 +55,6 @@
             font-family: 'Courier New', monospace;
             font-size: 1.5rem;
             font-weight: 900;
-            letter-spacing: 2px;
         }
 
         .screen {
@@ -78,48 +67,34 @@
 
         .active { display: flex; flex-direction: column; }
 
-        /* Login Screen */
-        .login-box { margin: auto; text-align: center; width: 100%; }
-        .login-box h2 { color: var(--primary-dark); margin-bottom: 20px; }
-        input[type="text"] {
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        input[type="text"], input[type="password"] {
             width: 100%; padding: 15px; margin-bottom: 20px;
             border: 2px solid #ddd; border-radius: 10px;
             font-size: 1rem; box-sizing: border-box;
         }
 
-        /* Question UI */
-        .q-meta {
-            display: flex; justify-content: space-between;
-            font-weight: bold; color: var(--primary-dark);
-            margin-bottom: 15px; font-size: 0.9rem;
-        }
-        .question-text {
-            font-size: 1.15rem; line-height: 1.5;
-            margin-bottom: 25px; font-weight: 600;
-        }
-
-        /* Options Visibility */
+        .question-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 20px; line-height: 1.5; }
         .options-container { display: flex; flex-direction: column; gap: 12px; }
+        
         .option-btn {
             background: #fff; border: 2px solid #eee;
-            padding: 15px; border-radius: 12px; cursor: pointer;
+            padding: 14px; border-radius: 10px; cursor: pointer;
             display: flex; align-items: center; transition: 0.2s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
-        .option-btn:hover { border-color: var(--accent-gold); background: #fffcf5; }
-        .option-btn.selected {
-            border-color: var(--primary-dark);
-            background: #eef5ff;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        }
+        .option-btn.selected { border-color: var(--primary-dark); background: #eef5ff; }
+        
         .option-letter {
             background: var(--primary-dark); color: white;
-            width: 30px; height: 30px; display: flex;
+            width: 28px; height: 28px; display: flex;
             align-items: center; justify-content: center;
-            border-radius: 50%; margin-right: 15px; font-weight: 800;
+            border-radius: 50%; margin-right: 12px; font-weight: 800;
         }
 
-        /* Bottom Navigation Bar */
         .bottom-nav {
             padding: 15px; background: #f8f9fa;
             border-top: 1px solid #ddd; display: grid;
@@ -134,61 +109,82 @@
         .btn-skip { background: var(--primary-dark); }
         .btn-submit { background: var(--danger); }
 
-        /* Confirmation Modal */
+        .main-btn {
+            background: var(--accent-gold); color: #000;
+            border: none; padding: 15px; border-radius: 10px;
+            width: 100%; font-weight: 800; cursor: pointer;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; font-size: 0.8rem; }
+        th { background: #f8f9fa; }
+
+        .summary-card {
+            background: var(--primary-dark); color: white;
+            padding: 25px; border-radius: 12px; text-align: center;
+            margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        .result-item { padding: 15px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+        .correct { color: var(--success); font-weight: bold; }
+        .wrong { color: var(--danger); font-weight: bold; }
+
         #modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.8); display: none;
             justify-content: center; align-items: center; z-index: 1000;
         }
-        .modal {
-            background: white; padding: 25px; border-radius: 15px;
-            width: 80%; max-width: 350px; text-align: center;
-        }
-
-        /* Results */
-        .summary-card {
-            background: var(--primary-dark); color: white;
-            padding: 25px; border-radius: 15px; text-align: center;
-            margin-bottom: 20px;
-        }
-        .results-list { border-top: 1px solid #eee; }
-        .result-item { padding: 15px 0; border-bottom: 1px solid #eee; font-size: 0.85rem; }
-        .correct { color: var(--success); font-weight: bold; }
-        .wrong { color: var(--danger); font-weight: bold; }
-
-        .main-btn {
-            background: var(--accent-gold); color: #000;
-            border: none; padding: 15px; border-radius: 10px;
-            width: 100%; font-weight: 800; cursor: pointer; font-size: 1rem;
-        }
+        .modal { background: white; padding: 25px; border-radius: 15px; width: 85%; text-align: center; }
     </style>
 </head>
 <body>
 
 <div id="app-container">
     <header>
-        CSC111 100 questions generated by HoRly’s_Tech gadgets Sales N repair… /09121213936
+        CSC111 100 questions generated by HoRly’s_Tech gadgets Sales N repair… 09121213936
     </header>
 
     <div id="timerDisplay" class="timer-bar" style="display: none;">20:00</div>
 
     <div id="login-screen" class="screen active">
-        <div class="login-box">
-            <h2>CSC111 20-minute Quiz</h2>
+        <div style="margin: auto; width: 100%; text-align: center;">
+            <h2 style="color: var(--primary-dark)">CSC 20-minute Quiz</h2>
             <p>Welcome, please provide your details.</p>
-            <input type="text" id="studentName" placeholder="Enter Your Name" autocomplete="off">
+            <input type="text" id="studentName" placeholder="Enter Full Name" autocomplete="off">
             <button class="main-btn" onclick="startQuiz()">LOGIN & START QUIZ</button>
+            <p onclick="showAdminLogin()" style="margin-top: 40px; font-size: 0.7rem; color: #ccc; cursor: pointer;">Admin Dashboard</p>
         </div>
     </div>
 
+    <div id="admin-login-screen" class="screen">
+        <div style="margin: auto; width: 100%;">
+            <h3>Admin Access</h3>
+            <input type="password" id="adminPass" placeholder="Enter Password">
+            <button class="main-btn" onclick="verifyAdmin()">LOGIN</button>
+            <button class="nav-btn btn-prev" style="margin-top:10px; width:100%" onclick="showScreen('login-screen')">BACK</button>
+        </div>
+    </div>
+
+    <div id="admin-panel-screen" class="screen">
+        <div style="display:flex; justify-content: space-between;">
+            <h3>Admin Panel</h3>
+            <button onclick="clearLogs()" style="color: red; background:none; border:none; cursor:pointer;">Clear</button>
+        </div>
+        <div style="overflow-x: auto;">
+            <table id="resultsTable">
+                <thead><tr><th>Name</th><th>Score</th><th>Date</th></tr></thead>
+                <tbody id="adminTableBody"></tbody>
+            </table>
+        </div>
+        <button class="main-btn" style="margin-top: 20px;" onclick="showScreen('login-screen')">EXIT</button>
+    </div>
+
     <div id="quiz-screen" class="screen">
-        <div class="q-meta">
-            <span>QUESTION <span id="qNum">1</span> / 100</span>
-            <span id="answeredLabel">0 Answered</span>
+        <div style="display: flex; justify-content: space-between; font-weight: bold; color: var(--primary-dark); font-size: 0.85rem; margin-bottom: 10px;">
+            <span>Q: <span id="qNum">1</span> / 100</span>
+            <span id="answeredCount">0 Answered</span>
         </div>
         <div id="qText" class="question-text"></div>
         <div id="options" class="options-container"></div>
-        
         <div class="bottom-nav">
             <button class="nav-btn btn-prev" onclick="prevQ()">PREVIOUS</button>
             <button class="nav-btn btn-skip" onclick="nextQ()">SKIP / NEXT</button>
@@ -198,21 +194,21 @@
 
     <div id="result-screen" class="screen">
         <div class="summary-card">
-            <h1 id="finalScore">0 / 100</h1>
-            <p id="candidateName"></p>
+            <h1 id="finalScore" style="font-size: 3rem; margin: 0;"></h1>
+            <p id="resCandidateDisplay" style="font-size: 1.1rem; margin-top: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;"></p>
         </div>
-        <h3>Review Performance</h3>
-        <div id="resultsList" class="results-list"></div>
-        <button class="main-btn" onclick="location.reload()" style="margin-top:20px">EXIT PORTAL</button>
+        <h3 style="border-bottom: 2px solid #eee; padding-bottom: 10px;">Review Correction</h3>
+        <div id="resultsList"></div>
+        <button class="main-btn" style="margin-top: 20px;" onclick="location.reload()">LOGOUT</button>
     </div>
 
     <div id="modal-overlay">
         <div class="modal">
-            <h3>Final Submission</h3>
-            <p>Are you sure you want to end your test? You cannot return to the questions.</p>
-            <div style="display:flex; gap:10px; margin-top:20px;">
-                <button class="nav-btn btn-prev" style="flex:1" onclick="toggleModal(false)">CANCEL</button>
-                <button class="nav-btn btn-submit" style="flex:1" onclick="endExam()">SUBMIT</button>
+            <h3>Finish Exam?</h3>
+            <p>You are about to submit your script. Click YES to proceed.</p>
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button class="nav-btn btn-prev" style="flex:1" onclick="toggleModal(false)">NO</button>
+                <button class="nav-btn btn-submit" style="flex:1" onclick="endExam()">YES, SUBMIT</button>
             </div>
         </div>
     </div>
@@ -326,13 +322,17 @@
     let studentAns = new Array(100).fill(null);
     let timeLeft = 20 * 60;
     let timerId;
+    let adminRecords = JSON.parse(localStorage.getItem('csc111_db')) || [];
+
+    function showScreen(id) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
 
     function startQuiz() {
-        const name = document.getElementById('studentName').value;
-        if(!name) return alert("Please enter your name to proceed.");
-        document.getElementById('candidateName').innerText = "Candidate: " + name;
-        document.getElementById('login-screen').classList.remove('active');
-        document.getElementById('quiz-screen').classList.add('active');
+        const n = document.getElementById('studentName').value;
+        if(!n) return alert("Please enter candidate name.");
+        showScreen('quiz-screen');
         document.getElementById('timerDisplay').style.display = 'block';
         timerId = setInterval(tick, 1000);
         renderQ();
@@ -351,35 +351,27 @@
         document.getElementById('qText').innerText = data.q;
         const optCont = document.getElementById('options');
         optCont.innerHTML = '';
-
         data.a.forEach((opt, i) => {
             const btn = document.createElement('div');
             btn.className = `option-btn ${studentAns[currentIdx] === i ? 'selected' : ''}`;
             btn.innerHTML = `<span class="option-letter">${String.fromCharCode(65+i)}</span> ${opt}`;
-            btn.onclick = () => {
-                studentAns[currentIdx] = i;
-                updateStats();
-                renderQ();
-            };
+            btn.onclick = () => { studentAns[currentIdx] = i; updateStats(); renderQ(); };
             optCont.appendChild(btn);
         });
     }
 
     function updateStats() {
-        const answered = studentAns.filter(a => a !== null).length;
-        document.getElementById('answeredLabel').innerText = `${answered} Answered`;
+        document.getElementById('answeredCount').innerText = `${studentAns.filter(a => a !== null).length} Answered`;
     }
 
     function nextQ() { if(currentIdx < 99) { currentIdx++; renderQ(); } }
     function prevQ() { if(currentIdx > 0) { currentIdx--; renderQ(); } }
-
-    function toggleModal(show) { document.getElementById('modal-overlay').style.display = show ? 'flex' : 'none'; }
+    function toggleModal(s) { document.getElementById('modal-overlay').style.display = s ? 'flex' : 'none'; }
 
     function endExam() {
         clearInterval(timerId);
         toggleModal(false);
-        document.getElementById('quiz-screen').classList.remove('active');
-        document.getElementById('result-screen').classList.add('active');
+        showScreen('result-screen');
         document.getElementById('timerDisplay').style.display = 'none';
 
         let score = 0;
@@ -388,21 +380,44 @@
 
         quizData.forEach((q, i) => {
             const user = studentAns[i];
-            const correct = user === q.c;
-            if(correct) score++;
+            const isCorrect = user === q.c;
+            if(isCorrect) score++;
 
             const div = document.createElement('div');
             div.className = 'result-item';
             div.innerHTML = `
                 <strong>${i+1}. ${q.q}</strong><br>
-                Selected: <span class="${correct?'correct':'wrong'}">${user !== null ? q.a[user] : 'SKIPPED'}</span><br>
-                Correct: <span class="correct">${q.a[q.c]}</span>
+                Your Answer: <span class="${isCorrect?'correct':'wrong'}">${user !== null ? q.a[user] : 'No Answer'}</span><br>
+                Correct Answer: <span class="correct">${q.a[q.c]}</span>
             `;
             list.appendChild(div);
         });
-        document.getElementById('finalScore').innerText = `Score: ${score} / 100`;
-    }
-</script>
 
+        const nameInput = document.getElementById('studentName').value;
+        document.getElementById('finalScore').innerText = `${score} / 100`;
+        document.getElementById('resCandidateDisplay').innerText = "CANDIDATE: " + nameInput;
+        
+        adminRecords.push({ name: nameInput, score: score, date: new Date().toLocaleString() });
+        localStorage.setItem('csc111_db', JSON.stringify(adminRecords));
+    }
+
+    function showAdminLogin() { showScreen('admin-login-screen'); }
+    function verifyAdmin() {
+        if(document.getElementById('adminPass').value === "miracle@3") {
+            showScreen('admin-panel-screen');
+            loadAdminTable();
+        } else { alert("Access Denied!"); }
+    }
+    function loadAdminTable() {
+        const tbody = document.getElementById('adminTableBody');
+        tbody.innerHTML = '';
+        adminRecords.forEach(r => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${r.name}</td><td>${r.score}</td><td>${r.date}</td>`;
+            tbody.appendChild(tr);
+        });
+    }
+    function clearLogs() { if(confirm("Wipe records?")) { localStorage.removeItem('csc111_db'); adminRecords=[]; loadAdminTable(); } }
+</script>
 </body>
 </html>

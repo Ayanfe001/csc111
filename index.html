@@ -16,6 +16,13 @@
         @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .modal-bg { animation: fadeIn 0.2s ease-out forwards; }
         .modal-content { animation: slideUp 0.3s ease-out forwards; }
+        
+        /* WhatsApp Button entry animation */
+        @keyframes popIn {
+            0% { transform: scale(0.5) translateY(50px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        .wa-animate-in { animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
     </style>
 </head>
 <body class="bg-slate-50 font-sans text-slate-800 min-h-screen flex flex-col items-center p-4">
@@ -30,14 +37,13 @@
     <div id="welcome-screen" class="bg-white p-8 sm:p-12 rounded-2xl shadow-xl w-full max-w-lg border border-slate-100 mt-6 text-center">
         <div class="flex justify-center mb-6">
             <div class="bg-indigo-50 p-6 rounded-full border-4 border-indigo-100">
-                <!-- Academic Icon -->
                 <svg class="text-indigo-600 w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
             </div>
         </div>
-        <h2 class="text-3xl font-extrabold text-slate-800 mb-4 tracking-tight">Welcome to Horly's_Tech Quiz</h2>
+        <h2 class="text-3xl font-extrabold text-slate-800 mb-4 tracking-tight">Welcome to Horly's_tech Quiz</h2>
         <p class="text-slate-500 mb-8 text-lg font-medium">Test your knowledge with our comprehensive question banks.</p>
         
-        <button onclick="switchScreen('login')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center transition-all shadow-lg hover:shadow-xl text-lg transform hover:-translate-y-1">
+        <button onclick="handleWelcomeStart()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center transition-all shadow-lg hover:shadow-xl text-lg transform hover:-translate-y-1">
             Start
             <svg class="ml-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
         </button>
@@ -62,9 +68,6 @@
                 <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </button>
         </form>
-        <button onclick="switchScreen('welcome')" class="w-full text-slate-500 hover:text-slate-700 font-semibold py-3 mt-2 text-sm transition-colors">
-            &larr; Go Back
-        </button>
     </div>
 
     <!-- 2. COURSE SELECTION SCREEN -->
@@ -133,9 +136,7 @@
     <div id="quiz-screen" class="hidden w-full max-w-3xl">
         <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex justify-between items-center mb-6 sticky top-4 z-10">
             <div class="flex items-center">
-                <span id="progress-text" class="bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-sm font-bold shadow-inner">
-                    Q 1 / 30
-                </span>
+                <span id="progress-text" class="bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-sm font-bold shadow-inner"></span>
                 <span id="course-badge" class="ml-3 text-sm font-bold text-indigo-600 hidden sm:inline-block"></span>
             </div>
             <div id="timer-display" class="flex items-center font-mono font-bold text-lg px-4 py-2 rounded-lg bg-slate-100 text-slate-800 shadow-inner">
@@ -224,10 +225,19 @@
         </div>
     </div>
 
+    <!-- 7. WHATSAPP FLOATING BUTTON -->
+    <a id="wa-button" href="https://chat.whatsapp.com/B9KnUjaH6xN1yIF5HMKLT9?mode=gi_t" target="_blank" class="hidden fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-[100] bg-[#25D366] text-white px-5 py-3 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.25)] flex items-center gap-3 hover:bg-[#1ebd5a] transition-transform transform hover:-translate-y-1 hover:scale-105 border-2 border-white">
+        <svg viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 sm:w-10 sm:h-10">
+            <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.195 1.604 6.014L.045 24l6.105-1.602a11.968 11.968 0 005.881 1.536h.005c6.645 0 12.03-5.385 12.03-12.031 0-3.222-1.255-6.25-3.475-8.471A11.963 11.963 0 0012.031 0zm0 19.957h-.004a9.981 9.981 0 01-5.088-1.385l-.365-.216-3.784.992.992-3.69-.237-.377a9.966 9.966 0 01-1.523-5.25c0-5.502 4.478-9.98 9.98-9.98 2.673 0 5.184 1.042 7.073 2.931 1.889 1.89 2.93 4.4 2.93 7.073 0 5.502-4.478 9.98-9.98 9.98zm5.474-7.485c-.3-.15-1.776-.876-2.052-.977-.276-.1-.477-.15-.678.15s-.777.977-.953 1.177c-.176.2-.352.226-.652.076-.3-.15-1.267-.468-2.414-1.492-.892-.797-1.494-1.78-1.67-2.08-.176-.3-.02-.462.131-.611.135-.135.3-.35.45-.526.15-.175.2-.3.301-.5.1-.2.05-.375-.025-.525-.075-.15-.678-1.635-.928-2.239-.244-.59-.492-.51-.678-.519-.175-.01-.376-.01-.577-.01-.2 0-.526.075-.801.375-.276.3-1.053 1.028-1.053 2.505 0 1.477 1.078 2.903 1.228 3.103.15.2 2.115 3.228 5.123 4.526 2.054.887 2.723.953 3.327.852.684-.113 2.185-.892 2.492-1.753.307-.862.307-1.598.215-1.753-.092-.15-.343-.226-.643-.376z"/>
+        </svg>
+        <div class="flex flex-col text-left">
+            <span class="font-bold text-sm sm:text-base leading-tight">Join us our channel</span>
+            <span class="font-medium text-[10px] sm:text-xs opacity-90 uppercase tracking-wide">for intensive tutorial</span>
+        </div>
+    </a>
+
     <script>
         // --- 1. DATA (COS 101 AND PHY 101) ---
-        
-        // Data for COS 101 (100 Questions)
         const cosQuestions = [
             { q: "What is a computer?", opts: ["An electronic device that processes data", "A mechanical typewriter", "A power supply unit", "A type of calculator"], ans: 0 },
             { q: "Which of the following is an input device?", opts: ["Printer", "Monitor", "Keyboard", "Speaker"], ans: 2 },
@@ -331,7 +341,6 @@
             { q: "What is the recycle bin used for?", opts: ["To store viruses", "To temporarily store deleted files", "To burn documents", "To keep important files safe"], ans: 1 }
         ];
 
-        // Data for PHY 101 (150 Questions parsed exactly from prompt)
         const phyQuestions = [
             { q: "The maximum range of a projectile occurs at an angle of:", opts: ["30°", "45°", "60°", "90°"], ans: 1 },
             { q: "A car travelling with a uniform velocity of 30 m s⁻¹ overcomes a frictional force of 600 N. Calculate the power of the engine.", opts: ["6,000 W", "12,000 W", "18,000 W", "30,000 W"], ans: 2 },
@@ -492,13 +501,14 @@
 
         // --- 2. STATE VARIABLES ---
         let userName = "";
-        let selectedCourse = null; // 'cos' or 'phy'
-        let selectedCount = 30; // Default
+        let selectedCourse = null;
+        let selectedCount = 30;
         let timeRemaining = 0;
         let timerInterval = null;
         let activeQuestions = [];
         let currentIndex = 0;
-        let userAnswers = {}; // Mapping of questionIndex -> optionIndex
+        let userAnswers = {};
+        let waVanishTimer = null; // WhatsApp popup timer
 
         // --- 3. DOM ELEMENTS ---
         const screens = {
@@ -510,6 +520,7 @@
             results: document.getElementById('results-screen')
         };
         const warningModal = document.getElementById('warning-modal');
+        const waButton = document.getElementById('wa-button');
 
         // --- 4. LOGIC & FUNCTIONS ---
         function switchScreen(screenName) {
@@ -533,7 +544,35 @@
             return `${m}:${s}`;
         }
 
+        // WhatsApp Floating Button Logic
+        function showWhatsApp(temporary = false) {
+            waButton.classList.remove('hidden');
+            waButton.classList.add('wa-animate-in'); // Trigger entrance animation
+            
+            if (waVanishTimer) clearTimeout(waVanishTimer);
+            
+            if (temporary) {
+                // Vanish after 2 minutes (120,000 ms)
+                waVanishTimer = setTimeout(() => {
+                    hideWhatsApp();
+                }, 120000);
+            }
+        }
+
+        function hideWhatsApp() {
+            waButton.classList.add('hidden');
+            waButton.classList.remove('wa-animate-in');
+            if (waVanishTimer) clearTimeout(waVanishTimer);
+        }
+
         // --- 5. EVENT LISTENERS ---
+
+        // Welcome Start
+        function handleWelcomeStart() {
+            switchScreen('login');
+            // Show WA popup temporarily (vanishes after 2 mins)
+            showWhatsApp(true); 
+        }
 
         // Step 1: Login Form
         document.getElementById('login-form').addEventListener('submit', (e) => {
@@ -557,7 +596,6 @@
             switchScreen('setup');
         }
 
-        // Render dynamic count buttons based on course
         function renderCountOptions() {
             const container = document.getElementById('question-count-buttons');
             container.innerHTML = '';
@@ -575,7 +613,7 @@
                 btn.textContent = num;
                 btn.onclick = () => {
                     selectedCount = num;
-                    renderCountOptions(); // Re-render to update classes
+                    renderCountOptions();
                     updateWarningText();
                 };
                 container.appendChild(btn);
@@ -592,6 +630,9 @@
 
         // Step 3: Start Quiz
         document.getElementById('start-quiz-btn').addEventListener('click', () => {
+            // CRITICAL: Hide WhatsApp button so they aren't distracted during the test
+            hideWhatsApp(); 
+
             let minutes = 7;
             if (selectedCount === 50) minutes = 10;
             if (selectedCount === 100) minutes = 20;
@@ -625,7 +666,7 @@
 
                 if (timeRemaining <= 0) {
                     clearInterval(timerInterval);
-                    forceSubmit(); // Time is up, force submit without warning
+                    forceSubmit();
                 }
             }, 1000);
         });
@@ -662,7 +703,6 @@
                 optsContainer.appendChild(btn);
             });
 
-            // Update Navigation logic
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
             const submitBtn = document.getElementById('submit-btn');
@@ -684,7 +724,6 @@
             }
         }
 
-        // Navigation
         document.getElementById('prev-btn').addEventListener('click', () => {
             if (currentIndex > 0) { currentIndex--; renderQuestion(); }
         });
@@ -692,7 +731,7 @@
             if (currentIndex < activeQuestions.length - 1) { currentIndex++; renderQuestion(); }
         });
 
-        // Submit Button Click (Check for warnings)
+        // Submit Warning Check
         document.getElementById('submit-btn').addEventListener('click', () => {
             const answeredCount = Object.keys(userAnswers).length;
             const unanswered = selectedCount - answeredCount;
@@ -741,7 +780,6 @@
             msgEl.textContent = passed ? 'Great Job! You Passed.' : 'Keep studying! You failed this time.';
             msgEl.className = `inline-block px-6 py-2 rounded-full font-bold text-lg ${passed ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`;
 
-            // Generate Review
             const reviewContainer = document.getElementById('review-container');
             reviewContainer.innerHTML = '';
             
@@ -789,6 +827,9 @@
             });
 
             switchScreen('results');
+            
+            // Re-show the WhatsApp popup permanently while they review answers
+            showWhatsApp(false); 
         }
     </script>
 </body>

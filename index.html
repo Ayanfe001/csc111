@@ -3,59 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.8">
-    <title>COS 101 Quiz by HoRly's_Tech</title>
+    <title>HoRly's Tech Gadgets CBT</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom scrollbar for a polished look */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         .hidden { display: none !important; }
+        /* Modal Animation */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .modal-bg { animation: fadeIn 0.2s ease-out forwards; }
+        .modal-content { animation: slideUp 0.3s ease-out forwards; }
     </style>
 </head>
 <body class="bg-slate-50 font-sans text-slate-800 min-h-screen flex flex-col items-center p-4">
 
     <!-- Header (Always visible) -->
-    <div class="bg-indigo-900 text-white p-4 shadow-md rounded-b-lg sm:rounded-b-2xl mb-6 sm:mb-8 text-center border-b-4 border-indigo-500 max-w-4xl w-full">
-        <h1 class="text-xl sm:text-2xl font-bold leading-tight">COS 101 quiz by HoRly’s_Tech Gadgets Sales N Repair.</h1>
-        <p class="text-indigo-200 mt-1 sm:text-lg font-medium tracking-wide">Tell: 09121213936</p>
+    <div class="bg-indigo-900 text-white p-5 shadow-md rounded-b-lg sm:rounded-b-2xl mb-6 sm:mb-8 text-center border-b-4 border-indigo-500 max-w-4xl w-full">
+        <h1 class="text-xl sm:text-3xl font-bold leading-tight uppercase tracking-wide">Quiz By HoRly’s_Tech Gadgets Sales N Repair</h1>
+        <p class="text-indigo-200 mt-2 sm:text-lg font-bold tracking-widest bg-indigo-800 inline-block px-4 py-1 rounded-full">Tell: 09121213936</p>
+    </div>
+
+    <!-- 0. WELCOME SCREEN -->
+    <div id="welcome-screen" class="bg-white p-8 sm:p-12 rounded-2xl shadow-xl w-full max-w-lg border border-slate-100 mt-6 text-center">
+        <div class="flex justify-center mb-6">
+            <div class="bg-indigo-50 p-6 rounded-full border-4 border-indigo-100">
+                <!-- Academic Icon -->
+                <svg class="text-indigo-600 w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
+            </div>
+        </div>
+        <h2 class="text-3xl font-extrabold text-slate-800 mb-4 tracking-tight">Welcome to Horly's_Tech Quiz</h2>
+        <p class="text-slate-500 mb-8 text-lg font-medium">Test your knowledge with our comprehensive question banks.</p>
+        
+        <button onclick="switchScreen('login')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center transition-all shadow-lg hover:shadow-xl text-lg transform hover:-translate-y-1">
+            Start
+            <svg class="ml-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </button>
     </div>
 
     <!-- 1. LOGIN SCREEN -->
-    <div id="login-screen" class="bg-white p-6 sm:p-10 rounded-2xl shadow-xl w-full max-w-md border border-slate-100 mt-10">
+    <div id="login-screen" class="hidden bg-white p-6 sm:p-10 rounded-2xl shadow-xl w-full max-w-md border border-slate-100 mt-6">
         <div class="flex justify-center mb-6">
             <div class="bg-indigo-100 p-4 rounded-full">
-                <!-- User Icon -->
-                <svg class="text-indigo-600 w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                <svg class="text-indigo-600 w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
             </div>
         </div>
-        <h2 class="text-2xl font-bold text-center mb-2">Student Login</h2>
-        <p class="text-slate-500 text-center mb-8">Please enter your name to begin the test.</p>
+        <h2 class="text-2xl font-bold text-center mb-2">Student Portal</h2>
+        <p class="text-slate-500 text-center mb-8">Please enter your name to proceed.</p>
         <form id="login-form" class="space-y-6">
             <div>
-                <label class="block text-sm font-semibold text-slate-700 mb-2">Your Name</label>
-                <input type="text" id="student-name" required class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none" placeholder="e.g. horly's_tech" />
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Full Name</label>
+                <input type="text" id="student-name" required class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none" placeholder="e.g. Horly's_tech" />
             </div>
-            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center transition-colors">
+            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center transition-colors shadow-md">
                 Continue 
                 <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </button>
         </form>
+        <button onclick="switchScreen('welcome')" class="w-full text-slate-500 hover:text-slate-700 font-semibold py-3 mt-2 text-sm transition-colors">
+            &larr; Go Back
+        </button>
     </div>
 
-    <!-- 2. SETUP SCREEN -->
+    <!-- 2. COURSE SELECTION SCREEN -->
+    <div id="course-screen" class="hidden bg-white p-6 sm:p-10 rounded-2xl shadow-xl w-full max-w-lg border border-slate-100 mt-6">
+        <h2 class="text-2xl font-bold mb-2">Welcome, <span id="course-display-name" class="text-indigo-600"></span>!</h2>
+        <p class="text-slate-500 mb-8">Select the course you want to attempt today.</p>
+        
+        <div class="space-y-4">
+            <button onclick="selectCourse('cos')" class="w-full text-left p-5 rounded-xl border-2 border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 transition-all group">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800 group-hover:text-indigo-700">COS 101</h3>
+                        <p class="text-slate-500 mt-1">Introduction to Computer Science</p>
+                    </div>
+                    <span class="bg-indigo-100 text-indigo-800 text-sm font-bold px-3 py-1 rounded-full">100 Questions Available</span>
+                </div>
+            </button>
+
+            <button onclick="selectCourse('phy')" class="w-full text-left p-5 rounded-xl border-2 border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 transition-all group">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800 group-hover:text-indigo-700">PHY 101</h3>
+                        <p class="text-slate-500 mt-1">General Physics I</p>
+                    </div>
+                    <span class="bg-indigo-100 text-indigo-800 text-sm font-bold px-3 py-1 rounded-full">150 Questions Available</span>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <!-- 3. SETUP SCREEN -->
     <div id="setup-screen" class="hidden bg-white p-6 sm:p-10 rounded-2xl shadow-xl w-full max-w-lg border border-slate-100 mt-6">
-        <h2 class="text-2xl font-bold mb-2">Welcome, <span id="display-name" class="text-indigo-600"></span>!</h2>
-        <p class="text-slate-500 mb-8">Customize your test settings before starting.</p>
+        <div class="flex items-center justify-between mb-6 border-b pb-4">
+            <h2 class="text-2xl font-bold text-slate-800">Quiz Settings</h2>
+            <button onclick="switchScreen('course')" class="text-sm text-indigo-600 font-bold hover:underline">Change Course</button>
+        </div>
+        
+        <div class="mb-6 bg-slate-50 border border-slate-200 p-4 rounded-lg">
+            <p class="text-sm text-slate-500 font-semibold uppercase tracking-wider mb-1">Selected Course</p>
+            <p id="setup-course-title" class="text-xl font-bold text-indigo-800"></p>
+        </div>
         
         <div class="space-y-6">
             <div>
-                <label class="block text-sm font-semibold text-slate-700 mb-3">Select Number of Questions:</label>
-                <div class="grid grid-cols-3 gap-3" id="question-count-buttons">
-                    <button type="button" data-count="30" class="count-btn py-3 rounded-lg border-2 font-bold transition-all border-indigo-600 bg-indigo-50 text-indigo-700">30</button>
-                    <button type="button" data-count="50" class="count-btn py-3 rounded-lg border-2 font-bold transition-all border-slate-200 text-slate-600 hover:border-indigo-300">50</button>
-                    <button type="button" data-count="100" class="count-btn py-3 rounded-lg border-2 font-bold transition-all border-slate-200 text-slate-600 hover:border-indigo-300">100</button>
+                <label class="block text-sm font-semibold text-slate-700 mb-3">Select Number of Questions to Attempt:</label>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="question-count-buttons">
+                    <!-- Buttons injected via JS -->
                 </div>
             </div>
 
@@ -63,32 +119,31 @@
                 <svg class="text-blue-500 w-5 h-5 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 <div>
                     <p class="text-sm text-blue-800 font-semibold mb-1">Time Limit Warning</p>
-                    <p id="time-warning-text" class="text-sm text-blue-700">You will have exactly 7 minutes to complete 30 questions.</p>
+                    <p id="time-warning-text" class="text-sm text-blue-700"></p>
                 </div>
             </div>
 
-            <button id="start-quiz-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-4 rounded-lg flex items-center justify-center transition-colors mt-4 text-lg">
-                Start Quiz Now
+            <button id="start-quiz-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-4 rounded-lg flex items-center justify-center transition-colors mt-4 text-lg shadow-md">
+                Begin Assessment
             </button>
         </div>
     </div>
 
-    <!-- 3. QUIZ SCREEN -->
+    <!-- 4. QUIZ SCREEN -->
     <div id="quiz-screen" class="hidden w-full max-w-3xl">
-        <!-- Dashboard -->
         <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex justify-between items-center mb-6 sticky top-4 z-10">
             <div class="flex items-center">
-                <span id="progress-text" class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-sm font-bold">
+                <span id="progress-text" class="bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-sm font-bold shadow-inner">
                     Q 1 / 30
                 </span>
+                <span id="course-badge" class="ml-3 text-sm font-bold text-indigo-600 hidden sm:inline-block"></span>
             </div>
-            <div id="timer-display" class="flex items-center font-mono font-bold text-lg px-4 py-1.5 rounded-lg bg-slate-100 text-slate-800">
+            <div id="timer-display" class="flex items-center font-mono font-bold text-lg px-4 py-2 rounded-lg bg-slate-100 text-slate-800 shadow-inner">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 <span id="time-remaining">00:00</span>
             </div>
         </div>
 
-        <!-- Question Card -->
         <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-md border border-slate-100 mb-6 min-h-[300px]">
             <h2 id="question-text" class="text-xl sm:text-2xl font-semibold mb-6 text-slate-800 leading-snug"></h2>
             <div id="options-container" class="space-y-3">
@@ -96,7 +151,6 @@
             </div>
         </div>
 
-        <!-- Navigation -->
         <div class="flex justify-between items-center">
             <button id="prev-btn" class="flex items-center px-5 py-3 rounded-lg font-bold transition-colors bg-white text-slate-700 hover:bg-slate-100 shadow-sm border border-slate-200">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg> Previous
@@ -112,16 +166,15 @@
         </div>
     </div>
 
-    <!-- 4. RESULTS SCREEN -->
+    <!-- 5. RESULTS SCREEN -->
     <div id="results-screen" class="hidden w-full max-w-4xl space-y-6 pb-12">
         <div class="bg-white p-8 rounded-2xl shadow-xl border border-slate-100 text-center relative overflow-hidden">
             <div id="result-bar" class="absolute top-0 left-0 w-full h-2"></div>
             
-            <!-- Award Icon -->
             <svg id="award-icon" class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
             
-            <h2 class="text-3xl font-bold mb-2">Test Complete, <span id="result-name"></span>!</h2>
-            <p class="text-slate-500 mb-6">Here is your final score.</p>
+            <h2 class="text-3xl font-bold mb-2">Assessment Complete, <span id="result-name"></span>!</h2>
+            <p id="result-course-text" class="text-slate-500 mb-6 font-semibold"></p>
             
             <div class="flex justify-center items-center gap-8 mb-8">
                 <div class="text-center">
@@ -139,11 +192,11 @@
         </div>
 
         <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-100">
-            <div class="flex justify-between items-center mb-6">
+            <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
                 <h3 class="text-xl font-bold text-slate-800">Review Answers</h3>
-                <button onclick="location.reload()" class="flex items-center text-indigo-600 hover:text-indigo-800 font-bold bg-indigo-50 px-4 py-2 rounded-lg transition-colors">
+                <button onclick="location.reload()" class="flex items-center text-indigo-600 hover:text-indigo-800 font-bold bg-indigo-50 px-4 py-2 rounded-lg transition-colors border border-indigo-200">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg> 
-                    Take Another Test
+                    Return to Start
                 </button>
             </div>
             <div id="review-container" class="space-y-6">
@@ -152,9 +205,30 @@
         </div>
     </div>
 
+    <!-- 6. UNANSWERED QUESTIONS WARNING MODAL -->
+    <div id="warning-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center modal-bg bg-slate-900 bg-opacity-60 p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 modal-content text-center">
+            <div class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-800 mb-2">Wait a minute!</h3>
+            <p class="text-slate-600 mb-6">You have <strong id="unanswered-count" class="text-red-600 text-lg"></strong> unattempted questions. Are you absolutely sure you want to submit?</p>
+            <div class="flex flex-col gap-3">
+                <button onclick="closeModal()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-3 px-4 rounded-lg transition-colors">
+                    No, take me back
+                </button>
+                <button onclick="forceSubmit()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition-colors shadow-md">
+                    Yes, submit anyway
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // --- 1. DATA (ALL 100 QUESTIONS) ---
-        const allQuestions = [
+        // --- 1. DATA (COS 101 AND PHY 101) ---
+        
+        // Data for COS 101 (100 Questions)
+        const cosQuestions = [
             { q: "What is a computer?", opts: ["An electronic device that processes data", "A mechanical typewriter", "A power supply unit", "A type of calculator"], ans: 0 },
             { q: "Which of the following is an input device?", opts: ["Printer", "Monitor", "Keyboard", "Speaker"], ans: 2 },
             { q: "The basic operations performed by a computer are:", opts: ["Arithmetic operations", "Logical operations", "Storage and retrieval", "All of the above"], ans: 3 },
@@ -257,22 +331,185 @@
             { q: "What is the recycle bin used for?", opts: ["To store viruses", "To temporarily store deleted files", "To burn documents", "To keep important files safe"], ans: 1 }
         ];
 
+        // Data for PHY 101 (150 Questions parsed exactly from prompt)
+        const phyQuestions = [
+            { q: "The maximum range of a projectile occurs at an angle of:", opts: ["30°", "45°", "60°", "90°"], ans: 1 },
+            { q: "A car travelling with a uniform velocity of 30 m s⁻¹ overcomes a frictional force of 600 N. Calculate the power of the engine.", opts: ["6,000 W", "12,000 W", "18,000 W", "30,000 W"], ans: 2 },
+            { q: "Name the device that converts heat energy to electrical energy.", opts: ["Transformer", "Generator", "Thermocouple", "Battery"], ans: 2 },
+            { q: "The point where the line of best fit cuts the vertical axis is called:", opts: ["Gradient", "Intercept", "Origin", "Axis"], ans: 1 },
+            { q: "A body moving at a constant speed accelerates when it is in:", opts: ["Straight-line motion", "Rest", "Circular motion", "Uniform motion"], ans: 2 },
+            { q: "A body accelerates uniformly from rest at 2 m s⁻². Find its velocity after travelling 4 m.", opts: ["2 m s⁻¹", "4 m s⁻¹", "6 m s⁻¹", "8 m s⁻¹"], ans: 1 },
+            { q: "A force of 100 N acts on a mass of 0.15 kg for 0.03 s. Find the change in speed.", opts: ["10 m s⁻¹", "15 m s⁻¹", "20 m s⁻¹", "25 m s⁻¹"], ans: 2 },
+            { q: "An object undergoes oscillatory motion when it moves:", opts: ["In a straight line", "In a circle", "To and fro about a fixed point", "Randomly"], ans: 2 },
+            { q: "A body rotates in a circle of radius 2.5 m with angular speed 5 rad s⁻¹. Find the radial acceleration.", opts: ["12.5 m s⁻²", "25 m s⁻²", "50 m s⁻²", "62.5 m s⁻²"], ans: 3 },
+            { q: "If A = 5i + 2j + k and B = 2i + 4j − 3k, find A × B.", opts: ["−10i + 17j + 16k", "10i − 17j + 16k", "−16i + 17j − 10k", "16i − 17j + 10k"], ans: 0 },
+            { q: "The potential energy in an elastic string is expressed as:", opts: ["kx²", "½kx²", "2kx", "k/x"], ans: 1 },
+            { q: "The motion of a simple pendulum is given by a = −100x. Find the period.", opts: ["0.31 s", "0.63 s", "1.26 s", "2.00 s"], ans: 1 },
+            { q: "Which of the following is NOT a unit of energy?", opts: ["Joule", "Calorie", "Watt", "Electronvolt"], ans: 2 },
+            { q: "Given x = 5t² + 2, find the instantaneous velocity at t = 2 s.", opts: ["10 m s⁻¹", "15 m s⁻¹", "20 m s⁻¹", "25 m s⁻¹"], ans: 2 },
+            { q: "The unit cycle per second is called:", opts: ["Newton", "Joule", "Hertz", "Pascal"], ans: 2 },
+            { q: "The trajectory of a projectile is:", opts: ["Straight line", "Circle", "Ellipse", "Parabola"], ans: 3 },
+            { q: "Which of the following is a fundamental unit?", opts: ["Newton", "Joule", "Candela", "Watt"], ans: 2 },
+            { q: "For T = KLˣgʸ, find x and y.", opts: ["x = 1, y = −1", "x = ½, y = −½", "x = −½, y = ½", "x = 2, y = −1"], ans: 1 },
+            { q: "From points (20,5) and (10,3) on a velocity–time graph, find acceleration.", opts: ["0.1 m s⁻²", "0.2 m s⁻²", "0.5 m s⁻²", "2.0 m s⁻²"], ans: 1 },
+            { q: "A force F = 2i + 4j moves a body through S = i + 5j. Find the work done.", opts: ["18 J", "20 J", "22 J", "24 J"], ans: 2 },
+            { q: "Which of the following units is derived?", opts: ["Metre", "Kilogram", "Second", "Newton"], ans: 3 },
+            { q: "The slope of a displacement–time graph represents:", opts: ["Acceleration", "Velocity", "Force", "Momentum"], ans: 1 },
+            { q: "A body is projected at 20 m s⁻¹ at 60° to the vertical. Find the time of flight.", opts: ["1.00 s", "1.41 s", "1.73 s", "2.00 s"], ans: 2 },
+            { q: "Which set of quantities is fundamental?", opts: ["Force, energy, power", "Length, mass and time", "Velocity, acceleration, force", "Pressure, temperature, volume"], ans: 1 },
+            { q: "Given T = kmˣlʸgᶻ, find x, y and z.", opts: ["1, −½, ½", "0, ½, −½", "½, 0, −½", "−½, ½, 0"], ans: 1 },
+            { q: "A force of 20 N moves a body at constant speed 0.2 m s⁻¹. Find power.", opts: ["2 W", "4 W", "6 W", "10 W"], ans: 1 },
+            { q: "A body remains at rest or uniform motion if no net force acts. This is Newton’s:", opts: ["First law", "Second law", "Third law", "Law of gravitation"], ans: 0 },
+            { q: "A bullet rises to a height of 500 m. Find initial velocity (g = 10 m s⁻²).", opts: ["50 m s⁻¹", "70 m s⁻¹", "100 m s⁻¹", "120 m s⁻¹"], ans: 2 },
+            { q: "A force of 5 N acts for 5 s on a 5 kg mass at rest. Find final momentum.", opts: ["5 kg m s⁻¹", "10 kg m s⁻¹", "20 kg m s⁻¹", "25 kg m s⁻¹"], ans: 3 },
+            { q: "Acceleration is equal to the:", opts: ["Area under v–t graph", "Gradient of a velocity–time graph", "Slope of displacement graph", "Momentum divided by time"], ans: 1 },
+            { q: "A chemical balance measures:", opts: ["Weight", "Density", "Mass", "Force"], ans: 2 },
+            { q: "A car overcomes a friction of 100 N at 30 m s⁻¹. Find power.", opts: ["1000 W", "2000 W", "3000 W", "4000 W"], ans: 2 },
+            { q: "The unit of moment of inertia is:", opts: ["kg m", "kg m²", "N m", "J"], ans: 1 },
+            { q: "Energy stored in a stretched elastic material is:", opts: ["Chemical energy", "Kinetic energy", "Elastic potential energy", "Heat energy"], ans: 2 },
+            { q: "Time to reach maximum height of a projectile is:", opts: ["u/g", "2u/g", "u²/2g", "g/u"], ans: 0 },
+            { q: "Correct expression for acceleration is:", opts: ["v = u + at", "a = (v − u)/t", "s = ut", "F = ma"], ans: 0 },
+            { q: "A mass of 1000 kg falls from 10 m. Find its kinetic energy before impact (g = 10).", opts: ["10,000 J", "50,000 J", "100,000 J", "200,000 J"], ans: 2 },
+            { q: "Force between Earth and Moon is approximately:", opts: ["1.75 × 10¹⁸ N", "1.75 × 10¹⁹ N", "1.75 × 10²⁰ N", "1.75 × 10²¹ N"], ans: 2 },
+            { q: "The quantity with same dimension as PV is:", opts: ["Force", "Energy", "Power", "Momentum"], ans: 1 },
+            { q: "To determine density of a liquid, what else must be measured?", opts: ["Volume", "Mass", "Temperature", "Pressure"], ans: 1 },
+            { q: "Velocity at the highest point of vertical projection is:", opts: ["Maximum", "Zero", "Equal to g", "Constant"], ans: 1 },
+            { q: "Materials that regain shape after stress are:", opts: ["Plastic", "Rigid", "Elastic materials", "Brittle"], ans: 2 },
+            { q: "If momentum is constant, net force is:", opts: ["Maximum", "Increasing", "Zero", "Variable"], ans: 2 },
+            { q: "Which pair is made up of vectors?", opts: ["Speed and mass", "Displacement and acceleration", "Distance and time", "Energy and power"], ans: 1 },
+            { q: "The SI unit of power is:", opts: ["Joule", "Newton", "Watt", "Pascal"], ans: 2 },
+            { q: "A pendulum makes 50 oscillations in one minute. Find its period.", opts: ["0.8 s", "1.0 s", "1.2 s", "1.5 s"], ans: 2 },
+            { q: "A car covers 40 m in 10 s from rest. Find acceleration.", opts: ["0.4 m s⁻²", "0.8 m s⁻²", "1.2 m s⁻²", "2.0 m s⁻²"], ans: 1 },
+            { q: "Unit equivalent to watt is:", opts: ["kg m s⁻²", "kg m² s⁻²", "kg m² s⁻³", "kg m s⁻³"], ans: 2 },
+            { q: "Given a(t) = −3 + t², find velocity at t = 3 s.", opts: ["6 m s⁻¹", "9 m s⁻¹", "12 m s⁻¹", "15 m s⁻¹"], ans: 1 },
+            { q: "The SI unit of force is:", opts: ["Joule", "Watt", "Newton", "Pascal"], ans: 2 },
+            { q: "Which quantity has both magnitude and direction?", opts: ["Speed", "Distance", "Velocity", "Mass"], ans: 2 },
+            { q: "The rate of change of velocity is called:", opts: ["Force", "Acceleration", "Momentum", "Speed"], ans: 1 },
+            { q: "The unit of work is:", opts: ["Newton", "Watt", "Joule", "Pascal"], ans: 2 },
+            { q: "A body at rest has kinetic energy equal to:", opts: ["½mv²", "Zero", "mgh", "1 J"], ans: 1 },
+            { q: "Which instrument is used to measure atmospheric pressure?", opts: ["Thermometer", "Hydrometer", "Barometer", "Manometer"], ans: 2 },
+            { q: "The slope of a displacement–time graph gives:", opts: ["Acceleration", "Force", "Velocity", "Energy"], ans: 2 },
+            { q: "The area under a force–distance graph represents:", opts: ["Power", "Momentum", "Work done", "Acceleration"], ans: 2 },
+            { q: "The product of mass and velocity is:", opts: ["Force", "Energy", "Momentum", "Impulse"], ans: 2 },
+            { q: "The SI unit of momentum is:", opts: ["kg m s⁻²", "kg m s⁻¹", "N s²", "J s"], ans: 1 },
+            { q: "A body projected vertically upwards has zero velocity at:", opts: ["Point of projection", "Halfway point", "The highest point", "Just before landing"], ans: 2 },
+            { q: "The acceleration due to gravity on Earth is approximately:", opts: ["8.9 m s⁻²", "9.8 m s⁻²", "10.8 m s⁻²", "12 m s⁻²"], ans: 1 },
+            { q: "Which of the following is a scalar quantity?", opts: ["Velocity", "Acceleration", "Speed", "Force"], ans: 2 },
+            { q: "The resistance of a wire depends on all EXCEPT:", opts: ["Length", "Cross-sectional area", "Material", "Colour"], ans: 3 },
+            { q: "The unit of electrical current is:", opts: ["Volt", "Ohm", "Ampere", "Coulomb"], ans: 2 },
+            { q: "Which law states that force equals mass times acceleration?", opts: ["Newton’s first law", "Newton’s second law", "Newton’s third law", "Law of gravitation"], ans: 1 },
+            { q: "The tendency of a body to resist motion is called:", opts: ["Momentum", "Energy", "Inertia", "Friction"], ans: 2 },
+            { q: "Which device converts chemical energy to electrical energy?", opts: ["Generator", "Motor", "Battery", "Transformer"], ans: 2 },
+            { q: "The unit of frequency is:", opts: ["Newton", "Hertz", "Joule", "Pascal"], ans: 1 },
+            { q: "The distance travelled per unit time is:", opts: ["Velocity", "Acceleration", "Speed", "Momentum"], ans: 2 },
+            { q: "A freely falling body moves with:", opts: ["Variable acceleration", "Uniform acceleration", "Zero acceleration", "Constant velocity"], ans: 1 },
+            { q: "The force that opposes motion between surfaces in contact is:", opts: ["Tension", "Reaction", "Friction", "Gravity"], ans: 2 },
+            { q: "Which quantity is measured in watts?", opts: ["Energy", "Force", "Power", "Pressure"], ans: 2 },
+            { q: "The energy stored in a stretched spring is:", opts: ["Heat energy", "Kinetic energy", "Elastic potential energy", "Chemical energy"], ans: 2 },
+            { q: "The unit of pressure is:", opts: ["Newton", "Pascal", "Joule", "Watt"], ans: 1 },
+            { q: "The graph of velocity against time for uniform motion is:", opts: ["Curve", "Straight line parallel to time axis", "Vertical line", "Parabola"], ans: 1 },
+            { q: "The SI unit of mass is:", opts: ["Gram", "Kilogram", "Newton", "Pound"], ans: 1 },
+            { q: "A body moving in a circle experiences:", opts: ["Linear acceleration", "Centripetal acceleration", "No acceleration", "Constant velocity"], ans: 1 },
+            { q: "The time taken for one complete oscillation is called:", opts: ["Frequency", "Period", "Amplitude", "Phase"], ans: 1 },
+            { q: "Which of these is a renewable energy source?", opts: ["Coal", "Petrol", "Solar energy", "Diesel"], ans: 2 },
+            { q: "The quantity measured using a stopwatch is:", opts: ["Speed", "Distance", "Time", "Frequency"], ans: 2 },
+            { q: "The unit of density is:", opts: ["kg m⁻²", "kg m⁻³", "N m⁻²", "J m⁻³"], ans: 1 },
+            { q: "The force of attraction between two masses is:", opts: ["Magnetic force", "Electric force", "Gravitational force", "Frictional force"], ans: 2 },
+            { q: "Which mirror always forms a virtual image?", opts: ["Concave", "Convex", "Plane mirror", "Parabolic"], ans: 2 },
+            { q: "The SI unit of electric charge is:", opts: ["Volt", "Ampere", "Coulomb", "Ohm"], ans: 2 },
+            { q: "Work is done when a force produces:", opts: ["Speed", "Displacement", "Acceleration", "Power"], ans: 1 },
+            { q: "The velocity of a body moving with uniform speed in a circle is:", opts: ["Constant", "Zero", "Continuously changing", "Increasing"], ans: 2 },
+            { q: "Which quantity is conserved in an isolated system?", opts: ["Force", "Energy only", "Momentum", "Speed"], ans: 2 },
+            { q: "The unit of power equivalent to one joule per second is:", opts: ["Newton", "Pascal", "Watt", "Volt"], ans: 2 },
+            { q: "Which instrument measures relative density of liquids?", opts: ["Thermometer", "Barometer", "Hydrometer", "Ammeter"], ans: 2 },
+            { q: "The motion of a pendulum is:", opts: ["Circular", "Oscillatory", "Random", "Linear"], ans: 1 },
+            { q: "The centre of mass of a uniform rod is at its:", opts: ["End", "Quarter length", "Midpoint", "Edge"], ans: 2 },
+            { q: "The turning effect of a force is called:", opts: ["Torque", "Moment", "Pressure", "Power"], ans: 1 },
+            { q: "The unit of moment is:", opts: ["Joule", "Newton metre", "Pascal", "Watt"], ans: 1 },
+            { q: "A body moving with constant speed in a straight line has:", opts: ["Constant acceleration", "Zero acceleration", "Increasing velocity", "Variable force"], ans: 1 },
+            { q: "The unit of electric potential difference is:", opts: ["Volt", "Ohm", "Ampere", "Coulomb"], ans: 0 },
+            { q: "Which quantity determines the loudness of sound?", opts: ["Frequency", "Wavelength", "Amplitude", "Speed"], ans: 2 },
+            { q: "The speed of light in vacuum is approximately:", opts: ["3 × 10⁶ m s⁻¹", "3 × 10⁷ m s⁻¹", "3 × 10⁸ m s⁻¹", "3 × 10⁹ m s⁻¹"], ans: 2 },
+            { q: "The product of pressure and volume has the unit of:", opts: ["Force", "Energy", "Power", "Momentum"], ans: 1 },
+            { q: "Which law explains floating of objects?", opts: ["Boyle’s law", "Newton’s law", "Archimedes’ principle", "Hooke’s law"], ans: 2 },
+            { q: "The energy possessed due to position is:", opts: ["Kinetic energy", "Heat energy", "Potential energy", "Mechanical energy"], ans: 1 },
+            { q: "The energy possessed due to position is:", opts: ["Kinetic energy", "Potential energy", "Heat energy", "Sound energy"], ans: 1 },
+            { q: "Which of the following is a derived unit?", opts: ["Metre", "Kilogram", "Newton", "Second"], ans: 2 },
+            { q: "The slope of a velocity–time graph gives:", opts: ["Displacement", "Velocity", "Acceleration", "Force"], ans: 2 },
+            { q: "Which quantity is measured in joules?", opts: ["Energy", "Power", "Force", "Pressure"], ans: 0 },
+            { q: "The resistance of a conductor increases with:", opts: ["Length", "Temperature", "Cross-sectional area", "Volume"], ans: 1 },
+            { q: "The unit of angular velocity is:", opts: ["rad s⁻¹", "rad m⁻¹", "rad s", "rad m"], ans: 0 },
+            { q: "The force that keeps a body in circular motion acts:", opts: ["Outwards", "Tangent to circle", "Towards the centre", "Vertically"], ans: 2 },
+            { q: "The frequency of a wave is measured in:", opts: ["Hertz", "Joule", "Newton", "Watt"], ans: 0 },
+            { q: "Which quantity remains constant in uniform circular motion?", opts: ["Velocity", "Speed", "Acceleration", "Force"], ans: 1 },
+            { q: "The SI unit of length is:", opts: ["Kilogram", "Metre", "Newton", "Joule"], ans: 1 },
+            { q: "The work done by friction is usually:", opts: ["Positive", "Negative", "Zero", "Variable"], ans: 1 },
+            { q: "Which instrument measures electric potential difference?", opts: ["Ammeter", "Voltmeter", "Ohmmeter", "Wattmeter"], ans: 1 },
+            { q: "The ratio of distance to displacement is always:", opts: ["Less than one", "Greater than or equal to one", "Equal to one", "Zero"], ans: 1 },
+            { q: "A body thrown vertically upward returns with velocity:", opts: ["Less than initial velocity", "Equal to initial velocity", "Greater than initial velocity", "Zero"], ans: 1 },
+            { q: "Which energy conversion occurs in an electric fan?", opts: ["Electrical to mechanical", "Mechanical to electrical", "Heat to electrical", "Chemical to heat"], ans: 0 },
+            { q: "The pressure in a liquid depends on:", opts: ["Mass", "Depth", "Volume", "Temperature"], ans: 1 },
+            { q: "The unit of heat energy is:", opts: ["Joule", "Watt", "Newton", "Pascal"], ans: 0 },
+            { q: "Which quantity has the same unit as impulse?", opts: ["Force", "Energy", "Momentum", "Power"], ans: 2 },
+            { q: "A body is in equilibrium when the resultant force is:", opts: ["Maximum", "Zero", "Constant", "Variable"], ans: 1 },
+            { q: "The loudness of sound depends on:", opts: ["Frequency", "Amplitude", "Wavelength", "Speed"], ans: 1 },
+            { q: "The unit of capacitance is:", opts: ["Farad", "Henry", "Tesla", "Coulomb"], ans: 0 },
+            { q: "Which of these is NOT a vector quantity?", opts: ["Velocity", "Acceleration", "Force", "Mass"], ans: 3 },
+            { q: "The phenomenon of bending of light is called:", opts: ["Reflection", "Refraction", "Diffraction", "Interference"], ans: 1 },
+            { q: "The unit of magnetic flux is:", opts: ["Tesla", "Weber", "Henry", "Ampere"], ans: 1 },
+            { q: "The SI unit of time is:", opts: ["Minute", "Hour", "Second", "Day"], ans: 2 },
+            { q: "A graph with uniform acceleration is:", opts: ["Straight line on s–t graph", "Curve on v–t graph", "Straight line on v–t graph", "Parabola on s–t graph"], ans: 2 },
+            { q: "Which property makes metals good conductors?", opts: ["Free electrons", "Density", "Hardness", "Colour"], ans: 0 },
+            { q: "The resistance offered by a conductor is measured in:", opts: ["Volt", "Ohms", "Ampere", "Watt"], ans: 1 },
+            { q: "Which law relates pressure and volume of gas?", opts: ["Newton’s law", "Boyle’s law", "Archimedes’ principle", "Hooke’s law"], ans: 1 },
+            { q: "The energy possessed by moving charges is:", opts: ["Heat energy", "Electrical energy", "Mechanical energy", "Chemical energy"], ans: 1 },
+            { q: "Which quantity is measured using a micrometer screw gauge?", opts: ["Thickness", "Length", "Mass", "Force"], ans: 0 },
+            { q: "The SI unit of luminous intensity is:", opts: ["Lumen", "Candela", "Lux", "Watt"], ans: 1 },
+            { q: "The time rate of doing work is:", opts: ["Energy", "Power", "Force", "Momentum"], ans: 1 },
+            { q: "A body in free fall has acceleration equal to:", opts: ["Zero", "g", "v/t", "g/2"], ans: 1 },
+            { q: "Which mirror can form a real image?", opts: ["Plane mirror", "Convex mirror", "Concave mirror", "None"], ans: 2 },
+            { q: "The pressure exerted by a gas is due to:", opts: ["Collision of molecules", "Gravity", "Magnetic field", "Temperature"], ans: 0 },
+            { q: "The unit of electric resistance is:", opts: ["Ohm", "Volt", "Ampere", "Watt"], ans: 0 },
+            { q: "The device used to step up voltage is:", opts: ["Transformer", "Battery", "Generator", "Motor"], ans: 0 },
+            { q: "Which wave does not require a medium?", opts: ["Sound wave", "Water wave", "Electromagnetic wave", "Seismic wave"], ans: 2 },
+            { q: "The unit of magnetic field strength is:", opts: ["Tesla", "Weber", "Henry", "Ampere"], ans: 0 },
+            { q: "The energy stored in fuel is:", opts: ["Chemical energy", "Mechanical energy", "Electrical energy", "Heat energy"], ans: 0 },
+            { q: "Which quantity changes in accelerated motion?", opts: ["Velocity", "Mass", "Force", "Energy"], ans: 0 },
+            { q: "The measure of hotness of a body is:", opts: ["Heat", "Temperature", "Energy", "Pressure"], ans: 1 },
+            { q: "Which quantity is measured in kelvin?", opts: ["Pressure", "Temperature", "Volume", "Mass"], ans: 1 },
+            { q: "The SI unit of electric power is:", opts: ["Joule", "Watt", "Ampere", "Volt"], ans: 1 },
+            { q: "The resistance of a wire is inversely proportional to its:", opts: ["Length", "Cross-sectional area", "Temperature", "Material"], ans: 1 },
+            { q: "The force per unit area is:", opts: ["Pressure", "Tension", "Torque", "Energy"], ans: 0 },
+            { q: "The image formed by a plane mirror is:", opts: ["Real and inverted", "Virtual and erect", "Real and erect", "Virtual and inverted"], ans: 1 },
+            { q: "The unit of impulse is:", opts: ["Newton", "Newton second", "Joule", "Watt"], ans: 1 },
+            { q: "The quantity that remains constant in elastic collision is:", opts: ["Force", "Momentum", "Energy only", "Acceleration"], ans: 1 }
+        ];
+
+        const courses = {
+            'cos': { name: 'COS 101', title: 'Introduction to Computer Science', questions: cosQuestions },
+            'phy': { name: 'PHY 101', title: 'General Physics I', questions: phyQuestions }
+        };
+
         // --- 2. STATE VARIABLES ---
         let userName = "";
-        let selectedCount = 30; // 30, 50, or 100
+        let selectedCourse = null; // 'cos' or 'phy'
+        let selectedCount = 30; // Default
         let timeRemaining = 0;
         let timerInterval = null;
         let activeQuestions = [];
         let currentIndex = 0;
-        let userAnswers = {};
+        let userAnswers = {}; // Mapping of questionIndex -> optionIndex
 
         // --- 3. DOM ELEMENTS ---
         const screens = {
+            welcome: document.getElementById('welcome-screen'),
             login: document.getElementById('login-screen'),
+            course: document.getElementById('course-screen'),
             setup: document.getElementById('setup-screen'),
             quiz: document.getElementById('quiz-screen'),
             results: document.getElementById('results-screen')
         };
+        const warningModal = document.getElementById('warning-modal');
 
         // --- 4. LOGIC & FUNCTIONS ---
         function switchScreen(screenName) {
@@ -280,7 +517,6 @@
             screens[screenName].classList.remove('hidden');
         }
 
-        // Shuffle Array (Fisher-Yates)
         function shuffle(array) {
             let currentIndex = array.length, randomIndex;
             while (currentIndex != 0) {
@@ -291,7 +527,6 @@
             return array;
         }
 
-        // Format Time
         function formatTime(seconds) {
             const m = Math.floor(seconds / 60).toString().padStart(2, '0');
             const s = (seconds % 60).toString().padStart(2, '0');
@@ -300,57 +535,80 @@
 
         // --- 5. EVENT LISTENERS ---
 
-        // Login Form
+        // Step 1: Login Form
         document.getElementById('login-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const nameInput = document.getElementById('student-name').value.trim();
             if (nameInput) {
                 userName = nameInput;
-                document.getElementById('display-name').textContent = userName;
-                switchScreen('setup');
+                document.getElementById('course-display-name').textContent = userName;
+                switchScreen('course');
             }
         });
 
-        // Setup Buttons (Count Selection)
-        const countBtns = document.querySelectorAll('.count-btn');
-        countBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                // Update styling
-                countBtns.forEach(b => {
-                    b.className = "count-btn py-3 rounded-lg border-2 font-bold transition-all border-slate-200 text-slate-600 hover:border-indigo-300";
-                });
-                e.target.className = "count-btn py-3 rounded-lg border-2 font-bold transition-all border-indigo-600 bg-indigo-50 text-indigo-700";
-                
-                selectedCount = parseInt(e.target.dataset.count);
-                
-                // Update Warning Text
-                const warning = document.getElementById('time-warning-text');
-                if (selectedCount === 30) warning.textContent = "You will have exactly 7 minutes to complete 30 questions.";
-                if (selectedCount === 50) warning.textContent = "You will have exactly 10 minutes to complete 50 questions.";
-                if (selectedCount === 100) warning.textContent = "You will have exactly 20 minutes to complete 100 questions.";
-            });
-        });
+        // Step 2: Course Selection
+        function selectCourse(courseKey) {
+            selectedCourse = courseKey;
+            selectedCount = 30; // Reset default
+            
+            document.getElementById('setup-course-title').textContent = courses[courseKey].name + " - " + courses[courseKey].title;
+            renderCountOptions();
+            updateWarningText();
+            switchScreen('setup');
+        }
 
-        // Start Quiz
+        // Render dynamic count buttons based on course
+        function renderCountOptions() {
+            const container = document.getElementById('question-count-buttons');
+            container.innerHTML = '';
+            
+            let options = [30, 50, 100];
+            if (selectedCourse === 'phy') options.push(150);
+
+            options.forEach(num => {
+                const isSelected = num === selectedCount;
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `count-btn py-3 rounded-lg border-2 font-bold transition-all ${
+                    isSelected ? 'border-indigo-600 bg-indigo-50 text-indigo-700' : 'border-slate-200 text-slate-600 hover:border-indigo-300'
+                }`;
+                btn.textContent = num;
+                btn.onclick = () => {
+                    selectedCount = num;
+                    renderCountOptions(); // Re-render to update classes
+                    updateWarningText();
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        function updateWarningText() {
+            const warning = document.getElementById('time-warning-text');
+            if (selectedCount === 30) warning.textContent = "You will have exactly 7 minutes to complete 30 questions.";
+            if (selectedCount === 50) warning.textContent = "You will have exactly 10 minutes to complete 50 questions.";
+            if (selectedCount === 100) warning.textContent = "You will have exactly 20 minutes to complete 100 questions.";
+            if (selectedCount === 150) warning.textContent = "You will have exactly 30 minutes to complete 150 questions.";
+        }
+
+        // Step 3: Start Quiz
         document.getElementById('start-quiz-btn').addEventListener('click', () => {
-            // Determine time
             let minutes = 7;
             if (selectedCount === 50) minutes = 10;
             if (selectedCount === 100) minutes = 20;
+            if (selectedCount === 150) minutes = 30;
 
-            // Prepare questions
-            let shuffled = shuffle([...allQuestions]);
+            let sourceQuestions = courses[selectedCourse].questions;
+            let shuffled = shuffle([...sourceQuestions]);
             activeQuestions = shuffled.slice(0, selectedCount);
             
-            // Reset state
             currentIndex = 0;
             userAnswers = {};
             timeRemaining = minutes * 60;
             
+            document.getElementById('course-badge').textContent = courses[selectedCourse].name;
             renderQuestion();
             switchScreen('quiz');
 
-            // Start Timer
             const timerDisplay = document.getElementById('timer-display');
             const timeText = document.getElementById('time-remaining');
             
@@ -360,27 +618,25 @@
                 timeText.textContent = formatTime(timeRemaining);
                 
                 if (timeRemaining <= 60) {
-                    timerDisplay.className = "flex items-center font-mono font-bold text-lg px-4 py-1.5 rounded-lg bg-red-100 text-red-600 animate-pulse";
+                    timerDisplay.className = "flex items-center font-mono font-bold text-lg px-4 py-2 rounded-lg bg-red-100 text-red-600 animate-pulse shadow-inner";
                 } else {
-                    timerDisplay.className = "flex items-center font-mono font-bold text-lg px-4 py-1.5 rounded-lg bg-slate-100 text-slate-800";
+                    timerDisplay.className = "flex items-center font-mono font-bold text-lg px-4 py-2 rounded-lg bg-slate-100 text-slate-800 shadow-inner";
                 }
 
                 if (timeRemaining <= 0) {
                     clearInterval(timerInterval);
-                    submitQuiz();
+                    forceSubmit(); // Time is up, force submit without warning
                 }
             }, 1000);
         });
 
-        // Render Current Question
+        // Step 4: Render Current Question
         function renderQuestion() {
             const q = activeQuestions[currentIndex];
             
-            // Update Dashboard
             document.getElementById('progress-text').textContent = `Q ${currentIndex + 1} / ${selectedCount}`;
             document.getElementById('question-text').textContent = `${currentIndex + 1}. ${q.q}`;
             
-            // Update Options
             const optsContainer = document.getElementById('options-container');
             optsContainer.innerHTML = '';
             
@@ -396,7 +652,7 @@
                 }`;
                 btn.onclick = () => {
                     userAnswers[currentIndex] = idx;
-                    renderQuestion(); // Re-render to show selection
+                    renderQuestion();
                 };
                 
                 btn.innerHTML = `
@@ -406,7 +662,7 @@
                 optsContainer.appendChild(btn);
             });
 
-            // Update Navigation Buttons
+            // Update Navigation logic
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
             const submitBtn = document.getElementById('submit-btn');
@@ -435,13 +691,29 @@
         document.getElementById('next-btn').addEventListener('click', () => {
             if (currentIndex < activeQuestions.length - 1) { currentIndex++; renderQuestion(); }
         });
-        document.getElementById('submit-btn').addEventListener('click', submitQuiz);
 
-        // Submit Quiz
-        function submitQuiz() {
-            clearInterval(timerInterval);
+        // Submit Button Click (Check for warnings)
+        document.getElementById('submit-btn').addEventListener('click', () => {
+            const answeredCount = Object.keys(userAnswers).length;
+            const unanswered = selectedCount - answeredCount;
             
-            // Calculate Score
+            if (unanswered > 0) {
+                document.getElementById('unanswered-count').textContent = unanswered;
+                warningModal.classList.remove('hidden');
+            } else {
+                forceSubmit();
+            }
+        });
+
+        function closeModal() {
+            warningModal.classList.add('hidden');
+        }
+
+        // Step 5: Process Submission and Results
+        function forceSubmit() {
+            clearInterval(timerInterval);
+            warningModal.classList.add('hidden');
+            
             let score = 0;
             activeQuestions.forEach((q, idx) => {
                 if (userAnswers[idx] === q.ans) score++;
@@ -450,8 +722,8 @@
             const percentage = Math.round((score / selectedCount) * 100);
             const passed = percentage >= 50;
 
-            // Update Results UI
             document.getElementById('result-name').textContent = userName;
+            document.getElementById('result-course-text').textContent = courses[selectedCourse].name + " Assessment";
             document.getElementById('score-correct').textContent = score;
             document.getElementById('score-total').textContent = selectedCount;
             
@@ -469,7 +741,7 @@
             msgEl.textContent = passed ? 'Great Job! You Passed.' : 'Keep studying! You failed this time.';
             msgEl.className = `inline-block px-6 py-2 rounded-full font-bold text-lg ${passed ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`;
 
-            // Build Review Block
+            // Generate Review
             const reviewContainer = document.getElementById('review-container');
             reviewContainer.innerHTML = '';
             
@@ -483,10 +755,10 @@
                     const isThisCorrectOpt = optIdx === q.ans;
                     const isThisUserOpt = optIdx === userAns;
                     
-                    let optClass = "p-2 rounded border bg-white ";
-                    if (isThisCorrectOpt) optClass += "border-green-400 bg-green-100 text-green-800 font-bold ";
+                    let optClass = "p-3 rounded-lg border bg-white ";
+                    if (isThisCorrectOpt) optClass += "border-green-400 bg-green-100 text-green-800 font-bold shadow-sm ";
                     else if (isThisUserOpt && !isCorrect) optClass += "border-red-400 bg-red-100 text-red-800 font-medium ";
-                    else optClass += "border-slate-200 text-slate-500 opacity-60 ";
+                    else optClass += "border-slate-200 text-slate-500 opacity-70 ";
 
                     optsHtml += `
                         <div class="${optClass}">
@@ -500,15 +772,15 @@
                     : `<svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
 
                 const blockHtml = `
-                    <div class="p-4 rounded-xl border-l-4 ${isCorrect ? 'bg-green-50 border-green-500' : 'bg-red-50 border-red-500'}">
+                    <div class="p-4 sm:p-5 rounded-xl border-l-4 ${isCorrect ? 'bg-green-50 border-green-500' : 'bg-red-50 border-red-500'}">
                         <div class="flex items-start">
                             <div class="mt-1 mr-3 flex-shrink-0">${iconSvg}</div>
                             <div class="w-full">
-                                <p class="font-semibold text-slate-800 mb-3">${qIdx + 1}. ${q.q}</p>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                                <p class="font-bold text-slate-800 mb-4 text-lg">${qIdx + 1}. ${q.q}</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
                                     ${optsHtml}
                                 </div>
-                                ${isUnanswered ? `<p class="text-red-600 text-sm font-bold mt-2">You did not answer this question.</p>` : ''}
+                                ${isUnanswered ? `<p class="text-red-600 text-sm font-bold mt-3 bg-red-100 inline-block px-3 py-1 rounded">You did not answer this question.</p>` : ''}
                             </div>
                         </div>
                     </div>
@@ -521,4 +793,5 @@
     </script>
 </body>
 </html>
+
 

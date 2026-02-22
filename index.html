@@ -440,7 +440,7 @@
                 <div class="mt-6 mx-auto max-w-lg bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-4 text-white shadow-lg border border-white/20 relative overflow-hidden break-inside-avoid">
                     <div class="absolute inset-0 bg-white/10 w-full h-full transform -skew-x-12 translate-x-full group-hover:animate-shimmer"></div>
                     <p class="font-extrabold text-lg mb-1">Need a new laptop for school?</p>
-                    <p class="text-sm font-medium opacity-90">Get 10% off at <span class="font-bold underline">HoRly's Tech Gadgets!</span> Show this result to claim.</p>
+                    <p class="text-sm font-medium opacity-90">Get 1.0% off at <span class="font-bold underline">HoRly's Tech Gadgets!</span> Show this result to claim.</p>
                 </div>
             </div>
 
@@ -646,114 +646,157 @@
         ];
 
         const phyQuestions = [
-            { q: "The maximum range of a projectile occurs at an angle of:", opts: ["30°", "45°", "60°", "90°"], ans: 1 },
-            { q: "A car travelling with a uniform velocity of 30 m s⁻¹ overcomes a frictional force of 600 N. Calculate the power of the engine.", opts: ["6,000 W", "12,000 W", "18,000 W", "30,000 W"], ans: 2 },
-            { q: "Name the device that converts heat energy to electrical energy.", opts: ["Transformer", "Generator", "Thermocouple", "Battery"], ans: 2 },
-            { q: "The point where the line of best fit cuts the vertical axis is called:", opts: ["Gradient", "Intercept", "Origin", "Axis"], ans: 1 },
-            { q: "A body moving at a constant speed accelerates when it is in:", opts: ["Straight-line motion", "Rest", "Circular motion", "Uniform motion"], ans: 2 },
-            { q: "A body accelerates uniformly from rest at 2 m s⁻². Find its velocity after travelling 4 m.", opts: ["2 m s⁻¹", "4 m s⁻¹", "6 m s⁻¹", "8 m s⁻¹"], ans: 1 },
-            { q: "A force of 100 N acts on a mass of 0.15 kg for 0.03 s. Find the change in speed.", opts: ["10 m s⁻¹", "15 m s⁻¹", "20 m s⁻¹", "25 m s⁻¹"], ans: 2 },
-            { q: "An object undergoes oscillatory motion when it moves:", opts: ["In a straight line", "In a circle", "To and fro about a fixed point", "Randomly"], ans: 2 },
-            { q: "A body rotates in a circle of radius 2.5 m with angular speed 5 rad s⁻¹. Find the radial acceleration.", opts: ["12.5 m s⁻²", "25 m s⁻²", "50 m s⁻²", "62.5 m s⁻²"], ans: 3 },
-            { q: "If A = 5i + 2j + k and B = 2i + 4j − 3k, find A × B.", opts: ["−10i + 17j + 16k", "10i − 17j + 16k", "−16i + 17j − 10k", "16i − 17j + 10k"], ans: 0 },
-            { q: "The potential energy in an elastic string is expressed as:", opts: ["kx²", "½kx²", "2kx", "k/x"], ans: 1 },
-            { q: "The motion of a simple pendulum is given by a = −100x. Find the period.", opts: ["0.31 s", "0.63 s", "1.26 s", "2.00 s"], ans: 1 },
-            { q: "Which of the following is NOT a unit of energy?", opts: ["Joule", "Calorie", "Watt", "Electronvolt"], ans: 2 },
-            { q: "Given x = 5t² + 2, find the instantaneous velocity at t = 2 s.", opts: ["10 m s⁻¹", "15 m s⁻¹", "20 m s⁻¹", "25 m s⁻¹"], ans: 2 },
-            { q: "The unit cycle per second is called:", opts: ["Newton", "Joule", "Hertz", "Pascal"], ans: 2 },
-            { q: "The trajectory of a projectile is:", opts: ["Straight line", "Circle", "Ellipse", "Parabola"], ans: 3 },
-            { q: "Which of the following is a fundamental unit?", opts: ["Newton", "Joule", "Candela", "Watt"], ans: 2 },
-            { q: "For T = KLˣgʸ, find x and y.", opts: ["x = 1, y = −1", "x = ½, y = −½", "x = −½, y = ½", "x = 2, y = −1"], ans: 1 },
-            { q: "From points (20,5) and (10,3) on a velocity–time graph, find acceleration.", opts: ["0.1 m s⁻²", "0.2 m s⁻²", "0.5 m s⁻²", "2.0 m s⁻²"], ans: 1 },
-            { q: "A force F = 2i + 4j moves a body through S = i + 5j. Find the work done.", opts: ["18 J", "20 J", "22 J", "24 J"], ans: 2 },
-            { q: "Which of the following units is derived?", opts: ["Metre", "Kilogram", "Second", "Newton"], ans: 3 },
-            { q: "The slope of a displacement–time graph represents:", opts: ["Acceleration", "Velocity", "Force", "Momentum"], ans: 1 },
-            { q: "A body is projected at 20 m s⁻¹ at 60° to the vertical. Find the time of flight.", opts: ["1.00 s", "1.41 s", "1.73 s", "2.00 s"], ans: 2 },
-            { q: "Which set of quantities is fundamental?", opts: ["Force, energy, power", "Length, mass and time", "Velocity, acceleration, force", "Pressure, temperature, volume"], ans: 1 },
-            { q: "Given T = kmˣlʸgᶻ, find x, y and z.", opts: ["1, −½, ½", "0, ½, −½", "½, 0, −½", "−½, ½, 0"], ans: 1 },
-            { q: "A force of 20 N moves a body at constant speed 0.2 m s⁻¹. Find power.", opts: ["2 W", "4 W", "6 W", "10 W"], ans: 1 },
-            { q: "A body remains at rest or uniform motion if no net force acts. This is Newton’s:", opts: ["First law", "Second law", "Third law", "Law of gravitation"], ans: 0 },
-            { q: "A bullet rises to a height of 500 m. Find initial velocity (g = 10 m s⁻²).", opts: ["50 m s⁻¹", "70 m s⁻¹", "100 m s⁻¹", "120 m s⁻¹"], ans: 2 },
-            { q: "A force of 5 N acts for 5 s on a 5 kg mass at rest. Find final momentum.", opts: ["5 kg m s⁻¹", "10 kg m s⁻¹", "20 kg m s⁻¹", "25 kg m s⁻¹"], ans: 3 },
-            { q: "Acceleration is equal to the:", opts: ["Area under v–t graph", "Gradient of a velocity–time graph", "Slope of displacement graph", "Momentum divided by time"], ans: 1 },
-            { q: "A chemical balance measures:", opts: ["Weight", "Density", "Mass", "Force"], ans: 2 },
-            { q: "A car overcomes a friction of 100 N at 30 m s⁻¹. Find power.", opts: ["1000 W", "2000 W", "3000 W", "4000 W"], ans: 2 },
-            { q: "The unit of moment of inertia is:", opts: ["kg m", "kg m²", "N m", "J"], ans: 1 },
-            { q: "Energy stored in a stretched elastic material is:", opts: ["Chemical energy", "Kinetic energy", "Elastic potential energy", "Heat energy"], ans: 2 },
-            { q: "Time to reach maximum height of a projectile is:", opts: ["u/g", "2u/g", "u²/2g", "g/u"], ans: 0 },
-            { q: "Correct expression for acceleration is:", opts: ["v = u + at", "a = (v − u)/t", "s = ut", "F = ma"], ans: 0 },
-            { q: "A mass of 1000 kg falls from 10 m. Find its kinetic energy before impact (g = 10).", opts: ["10,000 J", "50,000 J", "100,000 J", "200,000 J"], ans: 2 },
-            { q: "Force between Earth and Moon is approximately:", opts: ["1.75 × 10¹⁸ N", "1.75 × 10¹⁹ N", "1.75 × 10²⁰ N", "1.75 × 10²¹ N"], ans: 2 },
-            { q: "The quantity with same dimension as PV is:", opts: ["Force", "Energy", "Power", "Momentum"], ans: 1 },
-            { q: "To determine density of a liquid, what else must be measured?", opts: ["Volume", "Mass", "Temperature", "Pressure"], ans: 1 },
-            { q: "Velocity at the highest point of vertical projection is:", opts: ["Maximum", "Zero", "Equal to g", "Constant"], ans: 1 },
-            { q: "Materials that regain shape after stress are:", opts: ["Plastic", "Rigid", "Elastic materials", "Brittle"], ans: 2 },
-            { q: "If momentum is constant, net force is:", opts: ["Maximum", "Increasing", "Zero", "Variable"], ans: 2 },
-            { q: "Which pair is made up of vectors?", opts: ["Speed and mass", "Displacement and acceleration", "Distance and time", "Energy and power"], ans: 1 },
-            { q: "The SI unit of power is:", opts: ["Joule", "Newton", "Watt", "Pascal"], ans: 2 },
-            { q: "A pendulum makes 50 oscillations in one minute. Find its period.", opts: ["0.8 s", "1.0 s", "1.2 s", "1.5 s"], ans: 2 },
-            { q: "A car covers 40 m in 10 s from rest. Find acceleration.", opts: ["0.4 m s⁻²", "0.8 m s⁻²", "1.2 m s⁻²", "2.0 m s⁻²"], ans: 1 },
-            { q: "Unit equivalent to watt is:", opts: ["kg m s⁻²", "kg m² s⁻²", "kg m² s⁻³", "kg m s⁻³"], ans: 2 },
-            { q: "Given a(t) = −3 + t², find velocity at t = 3 s.", opts: ["6 m s⁻¹", "9 m s⁻¹", "12 m s⁻¹", "15 m s⁻¹"], ans: 1 },
-            { q: "The SI unit of force is:", opts: ["Joule", "Watt", "Newton", "Pascal"], ans: 2 },
-            { q: "Which quantity has both magnitude and direction?", opts: ["Speed", "Distance", "Velocity", "Mass"], ans: 2 },
-            { q: "The rate of change of velocity is called:", opts: ["Force", "Acceleration", "Momentum", "Speed"], ans: 1 },
-            { q: "The unit of work is:", opts: ["Newton", "Watt", "Joule", "Pascal"], ans: 2 },
-            { q: "A body at rest has kinetic energy equal to:", opts: ["½mv²", "Zero", "mgh", "1 J"], ans: 1 },
-            { q: "Which instrument is used to measure atmospheric pressure?", opts: ["Thermometer", "Hydrometer", "Barometer", "Manometer"], ans: 2 },
-            { q: "The slope of a displacement–time graph gives:", opts: ["Acceleration", "Force", "Velocity", "Energy"], ans: 2 },
-            { q: "The area under a force–distance graph represents:", opts: ["Power", "Momentum", "Work done", "Acceleration"], ans: 2 },
-            { q: "The product of mass and velocity is:", opts: ["Force", "Energy", "Momentum", "Impulse"], ans: 2 },
-            { q: "The SI unit of momentum is:", opts: ["kg m s⁻²", "kg m s⁻¹", "N s²", "J s"], ans: 1 },
-            { q: "A body projected vertically upwards has zero velocity at:", opts: ["Point of projection", "Halfway point", "The highest point", "Just before landing"], ans: 2 },
-            { q: "The acceleration due to gravity on Earth is approximately:", opts: ["8.9 m s⁻²", "9.8 m s⁻²", "10.8 m s⁻²", "12 m s⁻²"], ans: 1 },
-            { q: "Which of the following is a scalar quantity?", opts: ["Velocity", "Acceleration", "Speed", "Force"], ans: 2 },
-            { q: "The resistance of a wire depends on all EXCEPT:", opts: ["Length", "Cross-sectional area", "Material", "Colour"], ans: 3 },
-            { q: "The unit of electrical current is:", opts: ["Volt", "Ohm", "Ampere", "Coulomb"], ans: 2 },
-            { q: "Which law states that force equals mass times acceleration?", opts: ["Newton’s first law", "Newton’s second law", "Newton’s third law", "Law of gravitation"], ans: 1 },
-            { q: "The tendency of a body to resist motion is called:", opts: ["Momentum", "Energy", "Inertia", "Friction"], ans: 2 },
-            { q: "Which device converts chemical energy to electrical energy?", opts: ["Generator", "Motor", "Battery", "Transformer"], ans: 2 },
-            { q: "The unit of frequency is:", opts: ["Newton", "Hertz", "Joule", "Pascal"], ans: 1 },
-            { q: "The distance travelled per unit time is:", opts: ["Velocity", "Acceleration", "Speed", "Momentum"], ans: 2 },
-            { q: "A freely falling body moves with:", opts: ["Variable acceleration", "Uniform acceleration", "Zero acceleration", "Constant velocity"], ans: 1 },
-            { q: "The force that opposes motion between surfaces in contact is:", opts: ["Tension", "Reaction", "Friction", "Gravity"], ans: 2 },
-            { q: "Which quantity is measured in watts?", opts: ["Energy", "Force", "Power", "Pressure"], ans: 2 },
-            { q: "The energy stored in a stretched spring is:", opts: ["Heat energy", "Kinetic energy", "Elastic potential energy", "Chemical energy"], ans: 2 },
-            { q: "The unit of pressure is:", opts: ["Newton", "Pascal", "Joule", "Watt"], ans: 1 },
-            { q: "The graph of velocity against time for uniform motion is:", opts: ["Curve", "Straight line parallel to time axis", "Vertical line", "Parabola"], ans: 1 },
-            { q: "The SI unit of mass is:", opts: ["Gram", "Kilogram", "Newton", "Pound"], ans: 1 },
-            { q: "A body moving in a circle experiences:", opts: ["Linear acceleration", "Centripetal acceleration", "No acceleration", "Constant velocity"], ans: 1 },
-            { q: "The time taken for one complete oscillation is called:", opts: ["Frequency", "Period", "Amplitude", "Phase"], ans: 1 },
-            { q: "Which of these is a renewable energy source?", opts: ["Coal", "Petrol", "Solar energy", "Diesel"], ans: 2 },
-            { q: "The quantity measured using a stopwatch is:", opts: ["Speed", "Distance", "Time", "Frequency"], ans: 2 },
-            { q: "The unit of density is:", opts: ["kg m⁻²", "kg m⁻³", "N m⁻²", "J m⁻³"], ans: 1 },
-            { q: "The force of attraction between two masses is:", opts: ["Magnetic force", "Electric force", "Gravitational force", "Frictional force"], ans: 2 },
-            { q: "Which mirror always forms a virtual image?", opts: ["Concave", "Convex", "Plane mirror", "Parabolic"], ans: 2 },
-            { q: "The SI unit of electric charge is:", opts: ["Volt", "Ampere", "Coulomb", "Ohm"], ans: 2 },
-            { q: "Work is done when a force produces:", opts: ["Speed", "Displacement", "Acceleration", "Power"], ans: 1 },
-            { q: "The velocity of a body moving with uniform speed in a circle is:", opts: ["Constant", "Zero", "Continuously changing", "Increasing"], ans: 2 },
-            { q: "Which quantity is conserved in an isolated system?", opts: ["Force", "Energy only", "Momentum", "Speed"], ans: 2 },
-            { q: "The unit of power equivalent to one joule per second is:", opts: ["Newton", "Pascal", "Watt", "Volt"], ans: 2 },
-            { q: "Which instrument measures relative density of liquids?", opts: ["Thermometer", "Barometer", "Hydrometer", "Ammeter"], ans: 2 },
-            { q: "The motion of a pendulum is:", opts: ["Circular", "Oscillatory", "Random", "Linear"], ans: 1 },
-            { q: "The centre of mass of a uniform rod is at its:", opts: ["End", "Quarter length", "Midpoint", "Edge"], ans: 2 },
-            { q: "The turning effect of a force is called:", opts: ["Torque", "Moment", "Pressure", "Power"], ans: 1 },
-            { q: "The unit of moment is:", opts: ["Joule", "Newton metre", "Pascal", "Watt"], ans: 1 },
-            { q: "A body moving with constant speed in a straight line has:", opts: ["Constant acceleration", "Zero acceleration", "Increasing velocity", "Variable force"], ans: 1 },
-            { q: "The unit of electric potential difference is:", opts: ["Volt", "Ohm", "Ampere", "Coulomb"], ans: 0 },
-            { q: "Which quantity determines the loudness of sound?", opts: ["Frequency", "Wavelength", "Amplitude", "Speed"], ans: 2 },
-            { q: "The speed of light in vacuum is approximately:", opts: ["3 × 10⁶ m s⁻¹", "3 × 10⁷ m s⁻¹", "3 × 10⁸ m s⁻¹", "3 × 10⁹ m s⁻¹"], ans: 2 },
-            { q: "The product of pressure and volume has the unit of:", opts: ["Force", "Energy", "Power", "Momentum"], ans: 1 },
-            { q: "Which law explains floating of objects?", opts: ["Boyle’s law", "Newton’s law", "Archimedes’ principle", "Hooke’s law"], ans: 2 },
-            { q: "The energy possessed due to position is:", opts: ["Kinetic energy", "Potential energy", "Heat energy", "Sound energy"], ans: 1 },
-            { q: "Which of the following is a derived unit?", opts: ["Metre", "Kilogram", "Newton", "Second"], ans: 2 },
-            { q: "The slope of a velocity–time graph gives:", opts: ["Displacement", "Velocity", "Acceleration", "Force"], ans: 2 },
-            { q: "Which quantity is measured in joules?", opts: ["Energy", "Power", "Force", "Pressure"], ans: 0 },
-            { q: "The resistance of a conductor increases with:", opts: ["Length", "Temperature", "Cross-sectional area", "Volume"], ans: 1 },
-            { q: "The unit of angular velocity is:", opts: ["rad s⁻¹", "rad m⁻¹", "rad s", "rad m"], ans: 0 },
-            { q: "The force that keeps a body in circular motion acts:", opts: ["Outwards", "Tangent to circle", "Towards the centre", "Vertically"], ans: 2 },
-            { q: "The frequency of a wave is measured in:", opts: ["Hertz", "Joule", "Newton", "Watt"], ans: 0 }
-        ];
+  { q: "The maximum range of a projectile occurs at an angle of ……", opts: ["30°", "45°", "60°", "90°"], ans: 1 },
+  { q: "A car travelling with a uniform velocity of 30 ms⁻¹ along a horizontal road overcomes a constant frictional force of 600 N. Calculate the power of the engine of the car.", opts: ["6,000 W", "12,000 W", "18,000 W", "24,000 W"], ans: 2 },
+  { q: "Name the device that converts heat energy to electrical energy.", opts: ["Dynamo", "Generator", "Thermocouple", "Transformer"], ans: 2 },
+  { q: "The point where the line of best fit cuts the vertical axis is called …", opts: ["Gradient", "Origin", "Y–intercept", "Axis"], ans: 2 },
+  { q: "Given T² = 4π²L/g, what is the correct equation for g if a graph of T² is plotted against L.", opts: ["g = 4π²S", "g = S/4π²", "g = 4π²/S", "g = Sπ²"], ans: 2 },
+  { q: "A body moving at a constant speed accelerates when it is in", opts: ["Rest", "Linear motion", "Circular motion", "Uniform motion"], ans: 2 },
+  { q: "A body accelerates uniformly from rest at 2 ms⁻². Calculate its velocity after travelling 4 m.", opts: ["2 ms⁻¹", "4 ms⁻¹", "6 ms⁻¹", "8 ms⁻¹"], ans: 1 },
+  { q: "An external force of magnitude 100 N acts on a particle of mass 0.15 kg for 0.03 s. Calculate the change in speed.", opts: ["10 ms⁻¹", "15 ms⁻¹", "20 ms⁻¹", "25 ms⁻¹"], ans: 2 },
+  { q: "An object is said to undergo oscillatory motion when it moves", opts: ["In a straight line", "In a circle", "To and fro about a fixed point", "Randomly"], ans: 2 },
+  { q: "A body rotates in a circle radius 2.5 m with angular speed 5 rad/s. Find radial acceleration.", opts: ["12.5 ms⁻²", "25 ms⁻²", "50 ms⁻²", "62.5 ms⁻²"], ans: 3 },
+  { q: "If A = 5i + 2j + k and B = 2i + 4j − 3k. Find A × B.", opts: ["10i + 17j + 16k", "−10i + 17j + 16k", "10i − 17j + 16k", "−10i − 17j − 16k"], ans: 1 },
+  { q: "The potential energy in an elastic string extended by x metres is", opts: ["Kx", "Kx²", "½Kx²", "2Kx"], ans: 2 },
+  { q: "If a = −100x, the period is", opts: ["0.628 s", "1.0 s", "2.0 s", "3.14 s"], ans: 0 },
+  { q: "Which is not a unit of energy?", opts: ["Watt", "Kilowatt-hour", "Calorie", "Joule"], ans: 0 },
+  { q: "X = 5t² + 2. Velocity at 2 s is", opts: ["10 ms⁻¹", "15 ms⁻¹", "20 ms⁻¹", "25 ms⁻¹"], ans: 2 },
+  { q: "The unit cycle per second is also called", opts: ["Newton", "Joule", "Hertz", "Watt"], ans: 2 },
+  { q: "The trajectory of a projectile is", opts: ["Straight line", "Circle", "Parabola", "Ellipse"], ans: 2 },
+  { q: "Which is a fundamental unit?", opts: ["ms⁻¹", "candela", "newton", "ms⁻²"], ans: 1 },
+  { q: "In T = KLˣgʸ, values are", opts: ["x = 1, y = 1", "x = ½, y = −½", "x = −½, y = ½", "x = 0, y = 1"], ans: 1 },
+  { q: "Points (20,5) and (10,3). Acceleration is", opts: ["0.1 ms⁻²", "0.2 ms⁻²", "0.3 ms⁻²", "0.4 ms⁻²"], ans: 1 },
+  { q: "F = 2i + 4j acts through S = i + 5j. Find the work done.", opts: ["12 J", "18 J", "20 J", "22 J"], ans: 3 },
+  { q: "Which of the following units is derived?", opts: ["kg", "m", "K", "N"], ans: 3 },
+  { q: "The slope of a straight line displacement-time graph represents", opts: ["Acceleration", "Velocity", "Force", "Momentum"], ans: 1 },
+  { q: "An object of mass 50 kg is projected at 20 ms⁻¹ at 60° to the vertical. Time of flight is", opts: ["1 s", "2 s", "3 s", "4 s"], ans: 1 },
+  { q: "Which of the following set of quantities is fundamental?", opts: ["Length, mass and time", "Speed, length and time", "Speed, mass and distance", "Distance, speed and time"], ans: 0 },
+  { q: "Given T = kmˣlʸgᶻ. Values of x, y and z are", opts: ["1, 0, 1", "0, ½, −½", "½, 0, −½", "0, 1, 1"], ans: 1 },
+  { q: "A constant force 20 N moves a body at 0.2 ms⁻¹. Power is", opts: ["2 W", "3 W", "4 W", "5 W"], ans: 2 },
+  { q: "If no net force acts on an object, it maintains rest or uniform motion. This is Newton’s", opts: ["First law", "Second law", "Third law", "Law of gravitation"], ans: 0 },
+  { q: "A bullet reaches height 500 m. Initial velocity is", opts: ["50 ms⁻¹", "70 ms⁻¹", "100 ms⁻¹", "120 ms⁻¹"], ans: 2 },
+  { q: "Force 5 N acts for 5 s on 5 kg mass. Final momentum is", opts: ["10 Ns", "15 Ns", "20 Ns", "25 Ns"], ans: 3 },
+  { q: "Acceleration is the gradient of", opts: ["Displacement-time graph", "Velocity-time graph", "Speed-time graph", "Distance-time graph"], ans: 1 },
+  { q: "A chemical balance is used for measuring", opts: ["Density", "Volume", "Mass", "Weight"], ans: 2 },
+  { q: "Car 30 ms⁻¹ overcomes 100 N. Power developed is", opts: ["1 kW", "2 kW", "3 kW", "4 kW"], ans: 2 },
+  { q: "Unit of moment of inertia is", opts: ["kg/m²", "kgm²", "kg/m³", "kg/cm²"], ans: 1 },
+  { q: "When an elastic material is stretched, the energy stored is", opts: ["Kinetic energy", "Chemical energy", "Elastic potential energy", "Heat energy"], ans: 2 },
+  { q: "Time taken to reach maximum height is", opts: ["u/g", "u cosθ/g", "u sinθ/g", "u tanθ/g"], ans: 2 },
+  { q: "Acceleration is calculated as", opts: ["(v − u)/t", "(u − v)/t", "(v + u)/t", "ut"], ans: 0 },
+  { q: "Mass 1000 kg falls from 10 m. KE before striking ground is", opts: ["10,000 J", "50,000 J", "100,000 J", "150,000 J"], ans: 2 },
+  { q: "Force between Earth and Moon is approximately", opts: ["1.75 × 10²⁰ N", "1.75 × 10¹⁸ N", "1.75 × 10²² N", "1.75 × 10¹⁶ N"], ans: 0 },
+  { q: "The product PV has same dimension as", opts: ["Force", "Power", "Work", "Pressure"], ans: 2 },
+  { q: "To determine density of liquid, measure", opts: ["Volume only", "Mass only", "Mass and volume", "Pressure"], ans: 2 },
+  { q: "Velocity at maximum height is", opts: ["Maximum", "Minimum", "Zero", "Constant"], ans: 2 },
+  { q: "Material that returns to original shape is", opts: ["Plastic", "Rigid", "Elastic", "Brittle"], ans: 2 },
+  { q: "If momentum is constant, net force is", opts: ["Maximum", "Zero", "Increasing", "Decreasing"], ans: 1 },
+  { q: "Which pair are vectors?", opts: ["Speed and displacement", "Mass and force", "Displacement and acceleration", "Momentum and length"], ans: 2 },
+  { q: "SI unit of power is", opts: ["Joule", "Newton", "Watt", "Pascal"], ans: 2 },
+  { q: "50 oscillations in 60 s. Period is", opts: ["0.8 s", "1.0 s", "1.2 s", "1.5 s"], ans: 2 },
+  { q: "Car covers 40 m in 10 s from rest. Acceleration is", opts: ["0.4 ms⁻²", "0.6 ms⁻²", "0.8 ms⁻²", "1.0 ms⁻²"], ans: 2 },
+  { q: "Equivalent to Watt is", opts: ["kgms⁻²", "kgm²s⁻³", "kgm²s⁻²", "kgm²s⁻¹"], ans: 1 },
+  { q: "If a(t) = −3 + t², velocity at t = 3 s is", opts: ["15 ms⁻¹", "−3 ms⁻¹", "9 ms⁻¹", "6 ms⁻¹"], ans: 2 },
+  { q: "Which of the following devices is used to determine the relative density of an acid?", opts: ["Manometer", "Hydrometer", "Hypsometer", "Hygrometer"], ans: 1 },
+  { q: "The electricity meters in houses measure energy units consumed in", opts: ["Joules", "Watts", "Kilowatt-hour", "Newton"], ans: 2 },
+  { q: "The tendency of a stationary body to remain at rest when a force is applied is known as", opts: ["Momentum", "Inertia", "Friction", "Impulse"], ans: 1 },
+  { q: "The total area under a force-time graph represents", opts: ["Work", "Power", "Impulse", "Acceleration"], ans: 2 },
+  { q: "The sound heard after reflection is called", opts: ["Echo", "Noise", "Reverberation", "Vibration"], ans: 0 },
+  { q: "Which dimension represents impulse?", opts: ["MLT⁻²", "MLT⁻¹", "ML⁻¹T", "ML⁻²T"], ans: 1 },
+  { q: "Which of the following is not an example of kinetic energy?", opts: ["Student running", "Electrical charges in motion", "Wind in motion", "None of the above"], ans: 3 },
+  { q: "Correct dimensions of density and pressure are", opts: ["ML⁻³, ML⁻¹T⁻²", "ML⁻¹T¹, ML⁻³", "ML⁻², ML⁻¹T²", "ML³, ML⁻¹T²"], ans: 0 },
+  { q: "Energy stored in spring (k = 2000 Nm⁻¹, x = 4 cm) is", opts: ["0.8 J", "1.6 J", "3.2 J", "6.4 J"], ans: 1 },
+  { q: "Bullet 0.2 kg at 800 ms⁻¹ hits 2 kg block. Final velocity (inelastic).", opts: ["60 ms⁻¹", "70 ms⁻¹", "72.7 ms⁻¹", "80 ms⁻¹"], ans: 2 },
+  { q: "Range of projected particle is", opts: ["Usinθ.H", "Ucosθ.T", "Utanθ.T", "Usinθ.T"], ans: 1 },
+  { q: "Boy 60 kg runs up 3 m. Work done is", opts: ["1200 J", "1500 J", "1800 J", "2000 J"], ans: 2 },
+  { q: "Maximum force before motion starts is", opts: ["Limiting friction", "Static friction", "Kinetic friction", "Thrust"], ans: 0 },
+  { q: "Density 150 gcm⁻³, mass 80 g. Volume is", opts: ["0.53 cm³", "0.67 cm³", "1.25 cm³", "2.0 cm³"], ans: 0 },
+  { q: "Which reading cannot be determined with micrometer screw gauge?", opts: ["20.15 mm", "5.02 mm", "21.130 cm", "2.54 cm"], ans: 2 },
+  { q: "Man 50 kg climbs 5 m in 5 s. Power is", opts: ["250 W", "400 W", "500 W", "600 W"], ans: 2 },
+  { q: "Under which condition is work done?", opts: ["Man holding load", "Boy climbs table", "Woman holding pot", "Bag on platform"], ans: 1 },
+  { q: "Loaded test tube slightly depressed and released. Motion is", opts: ["Random", "Circular", "Linear", "Oscillatory"], ans: 3 },
+  { q: "Which is correct?", opts: ["v = a/t", "v = u − at", "v = at − u", "v = u + at"], ans: 3 },
+  { q: "Time is measure of", opts: ["Different physical events", "Variation between events", "Rate of change", "Interval between events"], ans: 3 },
+  { q: "Physics deals with", opts: ["Matter", "Energy", "Relationship between energy forms", "Relationship between matter and energy"], ans: 3 },
+  { q: "Car 120 kmh⁻¹ for 4 min. Distance is", opts: ["6 km", "8 km", "10 km", "12 km"], ans: 1 },
+  { q: "Branch dealing with sound and waves", opts: ["Acoustics", "Geophysics", "Biophysics", "Mechanics"], ans: 0 },
+  { q: "Which is not a derived unit?", opts: ["Area", "Thrust", "Pressure", "Mass"], ans: 3 },
+  { q: "Which is incorrect?", opts: ["Distance is scalar", "Displacement is vector", "Speed is vector", "Velocity is vector"], ans: 2 },
+  { q: "Which motion could be uniform?", opts: ["Molecular motion", "Circular motion", "Vibrating pendulum", "Vibrational motion"], ans: 1 },
+  { q: "Engine power (500 N, 20 ms⁻¹) is", opts: ["5 kW", "8 kW", "10 kW", "12 kW"], ans: 2 },
+  { q: "Bullet 20 g at 216 kmh⁻¹. KE is", opts: ["18 J", "24 J", "36 J", "72 J"], ans: 2 },
+  { q: "The main cause of motion is", opts: ["Energy", "Force", "Speed", "Power"], ans: 1 },
+  { q: "Car 120 kmh⁻¹ for 4 min. Distance is", opts: ["6 km", "8 km", "10 km", "12 km"], ans: 1 },
+  { q: "A ball of mass 0.5 kg moving at 10 ms⁻¹ collides with another ball of equal mass at rest. If they move together after impact, their common velocity is", opts: ["2.5 ms⁻¹", "5 ms⁻¹", "7.5 ms⁻¹", "10 ms⁻¹"], ans: 1 },
+  { q: "Relationship between linear speed v and angular speed ω is", opts: ["v = ωr", "v = ω²r", "v = ωr²", "v = ω/r"], ans: 0 },
+  { q: "Motion is simple harmonic if", opts: ["Acceleration always toward fixed point", "Path is straight line", "Acceleration toward fixed point and proportional to distance", "Acceleration constant toward fixed point"], ans: 2 },
+  { q: "Angular speed of a body vibrating at 50 cycles per second is", opts: ["50 rad/s", "100π rad/s", "25π rad/s", "50π rad/s"], ans: 1 },
+  { q: "For vertical spring oscillation, acceleration has", opts: ["Varying magnitude, constant direction", "Constant magnitude, constant direction", "Constant magnitude, varying direction", "Varying magnitude, varying direction"], ans: 3 },
+  { q: "Period of simple pendulum is", opts: ["2π√(l/g)", "2π√(g/l)", "2l√(g/π)", "2g√(l/2π)"], ans: 0 },
+  { q: "Which is incorrect formula for uniform acceleration?", opts: ["a = (v² − u²)/2s", "v² = u² + 2as", "s = ut + ½at²", "v = u + at"], ans: 0 },
+  { q: "Energy conversion in catapult is", opts: ["KE to GPE", "GPE to KE", "Elastic PE to KE", "GPE to Elastic PE"], ans: 2 },
+  { q: "For freely falling body", opts: ["KE/PE constant", "KE + PE constant", "Total energy kinetic", "Total energy potential"], ans: 1 },
+  { q: "Impulse (50 N for 0.03 s) is", opts: ["0.5 Ns", "1.0 Ns", "1.5 Ns", "2.0 Ns"], ans: 2 },
+  { q: "Which is not a force?", opts: ["Tension", "Weight", "Mass", "Friction"], ans: 2 },
+  { q: "Which is not a conductor?", opts: ["Human body", "Silver", "Glass", "Copper"], ans: 2 },
+  { q: "Power is defined as", opts: ["Force × distance", "Work done per unit time", "Energy × time", "Force × velocity"], ans: 1 },
+  { q: "Haphazard motion is", opts: ["Random motion", "Translational motion", "Vibrational motion", "Circular motion"], ans: 0 },
+  { q: "Which has same unit as energy?", opts: ["Power", "Work", "Force", "Impulse"], ans: 1 },
+  { q: "Which is scalar?", opts: ["Tension", "Impulse", "Distance", "Force"], ans: 2 },
+  { q: "Two charges 2.0 × 10⁻¹⁰ C, 5 cm apart. Force is", opts: ["1.44 × 10⁻⁷ N", "7.2 × 10⁻⁹ N", "7.2 × 10⁻¹¹ N", "1.44 × 10⁻¹¹ N"], ans: 3 },
+  { q: "Renewable energy source", opts: ["Petroleum", "Charcoal", "Hydro", "Nuclear"], ans: 2 },
+  { q: "Centripetal force (50 kg, 5 ms⁻¹, r = 10 m)", opts: ["100 N", "125 N", "150 N", "200 N"], ans: 1 },
+  { q: "Centripetal acceleration (20 kg, 5 ms⁻¹, r = 10 m)", opts: ["1 ms⁻²", "2 ms⁻²", "2.5 ms⁻²", "5 ms⁻²"], ans: 2 },
+  { q: "Collision where objects join together is", opts: ["Elastic collision", "Inelastic collision", "Completely inelastic collision", "Oblique collision"], ans: 2 },
+  { q: "Given T² = 4π²L/g. Value of g from slope S is", opts: ["4π²L", "S/4π²", "4π²S", "4π²/S"], ans: 3 },
+  { q: "Potential energy in elastic string is", opts: ["Kx", "Kx²", "½Kx²", "2Kx"], ans: 2 },
+  { q: "In T = KLˣgʸ, values are", opts: ["½, −½", "−½, ½", "0, ½", "1, −½"], ans: 0 },
+  { q: "Given T = kmˣlʸgᶻ. Values are", opts: ["1,0,1", "0,½,−½", "0,1,½", "0,1,1"], ans: 1 },
+  { q: "A chemical balance is used for measuring", opts: ["Volume", "Density", "Mass", "Weight"], ans: 2 },
+  { q: "Energy stored when stretched is", opts: ["Kinetic energy", "Elastic potential energy", "Heat energy", "Chemical energy"], ans: 1 },
+  { q: "Material that returns to original form is", opts: ["Plastic", "Elastic", "Rigid", "Brittle"], ans: 1 },
+  { q: "If period is 1.2 s, oscillations in one minute are", opts: ["40", "45", "50", "60"], ans: 2 },
+  { q: "Density 150 gcm⁻³, mass 80 g. Volume is", opts: ["0.53 cm³", "0.67 cm³", "1.25 cm³", "2.0 cm³"], ans: 0 },
+  { q: "Which of the following is the unit of force?", opts: ["W", "J", "N", "Ns"], ans: 2 },
+  { q: "The graph showing variation of angle of deviation with angle of incidence is", opts: ["Straight line", "Curve", "Parabola", "Hyperbola"], ans: 1 },
+  { q: "Which graph will give more information?", opts: ["Linear graph", "Non-linear graph", "Asymptotic graph", "Quadratic graph"], ans: 0 },
+  { q: "If increase in A causes decrease in B, the relationship is", opts: ["Direct", "Inverse", "Quadratic", "Geometric"], ans: 1 },
+  { q: "The dependent variable in F = ke is", opts: ["k", "e", "F", "None"], ans: 2 },
+  { q: "The point where the line of best fit touches the vertical axis is called", opts: ["Gradient", "Origin", "Y–intercept", "Scale"], ans: 2 },
+  { q: "Which is not an essential component of a graph?", opts: ["Title", "Coordinate axes", "Scales", "None of the above"], ans: 3 },
+  { q: "Slope of l against T² graph is 0.25 ms⁻². Value of g is", opts: ["9.87 ms⁻²", "10 ms⁻²", "39.5 ms⁻²", "4.0 ms⁻²"], ans: 0 },
+  { q: "In simple pendulum experiment, T ____ as l increases", opts: ["Decreases", "Increases", "Remains constant", "Increases then decreases"], ans: 1 },
+  { q: "A simple pendulum makes 50 oscillations in one minute. Period is", opts: ["0.8 s", "1.0 s", "1.2 s", "1.5 s"], ans: 2 },
+  { q: "If period is 2 s at 64 cm, find period at 49 cm", opts: ["1.5 s", "1.75 s", "1.9 s", "2.0 s"], ans: 1 },
+  { q: "Force 10 N produces extension 2.5 cm. Spring constant is", opts: ["200 Nm⁻¹", "300 Nm⁻¹", "400 Nm⁻¹", "500 Nm⁻¹"], ans: 2 },
+  { q: "If slope of e vs F graph is 0.4 mN⁻¹, value of k is", opts: ["0.4 Nm⁻¹", "2.5 Nm⁻¹", "4 Nm⁻¹", "5 Nm⁻¹"], ans: 1 },
+  { q: "Energy stored in spring (k = 2000 Nm⁻¹, x = 4 cm) is", opts: ["0.8 J", "1.6 J", "3.2 J", "6.4 J"], ans: 1 },
+  { q: "Which affects period of simple pendulum?", opts: ["Length", "Mass", "Acceleration due to gravity", "Length and g"], ans: 3 },
+  { q: "Pendulum A has frequency 10 Hz, B has 5 Hz. Which is longer?", opts: ["A", "B", "Equal", "A slightly longer"], ans: 1 },
+  { q: "The period of oscillation is", opts: ["Number of oscillations per second", "Time for one complete oscillation", "Total oscillations", "Frequency"], ans: 1 },
+  { q: "Main scale reading 6.2 cm, vernier coincides at 7th division. Total reading is", opts: ["6.27 cm", "6.20 cm", "6.17 cm", "6.70 cm"], ans: 0 },
+  { q: "Diameter of wire is most accurately measured with", opts: ["Metre rule", "Vernier caliper", "Micrometer screw gauge", "Ruler"], ans: 2 },
+  { q: "Correct precision with metre rule is", opts: ["35 mm", "35.0 mm", "35.00 mm", "35.01 mm"], ans: 1 },
+  { q: "Smallest scale division of vernier caliper is", opts: ["0.1 cm", "0.01 cm", "0.1 mm", "0.01 mm"], ans: 2 },
+  { q: "Which is not part of micrometer screw gauge?", opts: ["Anvil", "Spindle", "None", "Thimble"], ans: 2 },
+  { q: "Anvil and spindle are brought into contact through", opts: ["Sleeve", "Ratchet", "Anvil", "Spindle"], ans: 1 },
+  { q: "Pendulum 0.64 m has period 1.2 s. For 0.36 m, period is", opts: ["0.9 s", "1.0 s", "1.1 s", "1.2 s"], ans: 0 },
+  { q: "Error due to defects in apparatus is", opts: ["Random error", "Systematic error", "Personal error", "Instrumental error"], ans: 1 },
+  { q: "Errors due to human reaction are", opts: ["Random errors", "Systematic errors", "Personal errors", "Instrumental errors"], ans: 2 },
+  { q: "Systematic errors can be eliminated by", opts: ["Repeating experiment", "Correcting instrument", "Averaging results", "Ignoring them"], ans: 1 },
+  { q: "Remedy to random errors is", opts: ["Repeating and averaging", "Ignoring", "Changing apparatus", "Estimating"], ans: 0 },
+  { q: "Errors due to scale division accuracy are", opts: ["Random", "Instrumental", "Systematic", "Personal"], ans: 1 },
+  { q: "Errors due to unknown causes are", opts: ["Systematic", "Personal", "Random", "Instrumental"], ans: 2 },
+  { q: "Experimental errors are divided into", opts: ["Personal & systematic", "Systematic & random", "Instrumental & random", "Human & apparatus"], ans: 1 },
+  { q: "At a glance, ____ gives comprehensive picture", opts: ["Device", "Curve", "Line", "Graph"], ans: 3 },
+  { q: "General equation of straight line is", opts: ["y = mx² + c", "xy = mc", "y = mx + c", "xy = m² + c"], ans: 2 },
+  { q: "SI unit of spring constant is", opts: ["Nm", "N", "Nm⁻¹", "N²"], ans: 2 },
+  { q: "Elongation e is", opts: ["L₁ + L₂", "L₂ − L₁", "L₁ − L₂", "L₂/L₁"], ans: 1 },
+  { q: "Change in velocity at particular time is", opts: ["Instantaneous velocity", "Instantaneous speed", "Instantaneous acceleration", "Free-fall"], ans: 2 },
+  { q: "If A = 5i + 2j + k and B = 2i + 4j − 3k. Find A • B", opts: ["13", "15", "17", "−13"], ans: 1 },
+  { q: "Mass 50 kg projected at 20 ms⁻¹ at 60° to horizontal. Time of flight is", opts: ["3.46 s", "2.0 s", "1.73 s", "1.0 s"], ans: 0 },
+  { q: "Process used to check validity of equation is", opts: ["Uncertainty", "Dimensional analysis", "Motion analysis", "Newton’s laws"], ans: 1 },
+  { q: "The independent variable in F = ke is", opts: ["F", "k", "e", "None"], ans: 2 }
+    ];
 
       const cscQuestions = [
         { q: "A DBMS is a collection of ________.", opts: ["Programs only", "Interrelated data only", "Interrelated data and programs", "Files only"], ans: 2 },
@@ -1428,17 +1471,15 @@
                 // 1. Create a pristine, non-styled container specifically for html2pdf
                 // This prevents glass blur effects from breaking the PDF canvas generator
                 const printDiv = document.createElement('div');
-                
-                // Position it invisibly behind the current viewport so html2canvas captures it perfectly
-                printDiv.style.position = 'absolute';
-                printDiv.style.top = '0';
-                printDiv.style.left = '0';
-                printDiv.style.width = '800px'; 
-                printDiv.style.zIndex = '-9999';
+                printDiv.style.width = '800px';
+                printDiv.style.padding = '40px';
                 printDiv.style.backgroundColor = '#ffffff';
                 printDiv.style.color = '#000000';
-                
-                // SVG Watermark Background
+                printDiv.style.fontFamily = 'Arial, sans-serif';
+                printDiv.style.position = 'absolute';
+                printDiv.style.left = '-9999px'; // Hide off screen
+
+                // SVG Watermark (URL Encoded)
                 const svgWatermark = `data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Ctext x='50%25' y='50%25' font-size='35' font-weight='900' fill='%239333ea' fill-opacity='0.1' text-anchor='middle' transform='rotate(-45 150 150)'%3EHoRly's_tech%3C/text%3E%3C/svg%3E`;
                 printDiv.style.backgroundImage = `url("${svgWatermark}")`;
                 printDiv.style.backgroundRepeat = 'repeat';
@@ -1449,20 +1490,19 @@
 
                 // Build Clean HTML Content
                 let htmlStr = `
-                    <div style="font-family: Arial, sans-serif; padding: 30px;">
-                        <div style="text-align: center; margin-bottom: 30px;">
-                            <h1 style="color: #7e22ce; margin: 0; font-size: 36px; font-weight: 900;">HoRly's_Tech</h1>
-                            <p style="font-size: 20px; color: #475569; margin: 5px 0 20px 0; font-weight: bold;">Official Assessment Result</p>
-                            <h2 style="font-size: 22px; margin: 0; border-bottom: 2px solid #cbd5e1; display: inline-block; padding-bottom: 10px;">Student: ${name} | Course: ${course}</h2>
-                        </div>
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <h1 style="color: #7e22ce; margin: 0; font-size: 32px;">HoRly's_Tech</h1>
+                        <p style="font-size: 20px; color: #475569; margin: 5px 0 20px 0; font-weight: bold;">Official Assessment Result</p>
+                        <h2 style="font-size: 24px; margin: 0; border-bottom: 2px solid #cbd5e1; display: inline-block; padding-bottom: 10px;">Student: ${name} | Course: ${course}</h2>
+                    </div>
 
-                        <div style="text-align: center; margin: 30px auto; padding: 20px; border: 3px solid ${passed ? '#10b981' : '#f43f5e'}; border-radius: 15px; background-color: ${passed ? '#ecfdf5' : '#fff1f2'}; width: 60%;">
-                            <p style="font-size: 48px; font-weight: 900; margin: 0; color: ${passed ? '#059669' : '#e11d48'};">${pct}%</p>
-                            <p style="font-size: 20px; margin: 10px 0; font-weight: bold; color: #333;">Score: ${score} out of ${total}</p>
-                            <p style="font-size: 16px; margin: 0; color: ${passed ? '#065f46' : '#9f1239'};">${passed ? 'Exceptional Work! You Passed.' : 'Keep studying! You failed this time.'}</p>
-                        </div>
+                    <div style="text-align: center; margin: 30px auto; padding: 20px; border: 3px solid ${passed ? '#10b981' : '#f43f5e'}; border-radius: 15px; background-color: ${passed ? '#ecfdf5' : '#fff1f2'}; width: 60%;">
+                        <p style="font-size: 48px; font-weight: 900; margin: 0; color: ${passed ? '#059669' : '#e11d48'};">${pct}%</p>
+                        <p style="font-size: 20px; margin: 10px 0; font-weight: bold;">Score: ${score} out of ${total}</p>
+                        <p style="font-size: 16px; margin: 0; color: ${passed ? '#065f46' : '#9f1239'};">${passed ? 'Exceptional Work! You Passed.' : 'Keep studying! You failed this time.'}</p>
+                    </div>
 
-                        <h3 style="font-size: 22px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 25px; color: #333;">Detailed Review</h3>
+                    <h3 style="font-size: 22px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 25px;">Detailed Review</h3>
                 `;
 
                 // Add Questions loop
@@ -1471,15 +1511,15 @@
                     const isCorrect = userAns === q.ans;
                     
                     htmlStr += `
-                        <div style="margin-bottom: 25px; padding: 15px; border: 1px solid #e2e8f0; border-radius: 10px; page-break-inside: avoid; background-color: rgba(255,255,255,0.9);">
-                            <p style="font-weight: bold; font-size: 16px; margin-top: 0; margin-bottom: 15px; color: #1e293b;">${qIdx + 1}. ${q.q}</p>
+                        <div style="margin-bottom: 25px; padding: 15px; border: 1px solid #e2e8f0; border-radius: 10px; page-break-inside: avoid; background-color: rgba(255,255,255,0.8);">
+                            <p style="font-weight: bold; font-size: 16px; margin-top: 0; margin-bottom: 15px;">${qIdx + 1}. ${q.q}</p>
                     `;
                     
                     q.opts.forEach((opt, optIdx) => {
                         const isThisCorrectOpt = optIdx === q.ans;
                         const isThisUserOpt = optIdx === userAns;
                         
-                        let optStyle = "padding: 10px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #cbd5e1; background-color: #f8fafc; font-size: 14px; color: #475569;";
+                        let optStyle = "padding: 10px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #cbd5e1; background-color: #f8fafc; font-size: 14px;";
                         if (isThisCorrectOpt) {
                             optStyle = "padding: 10px; margin-bottom: 8px; border-radius: 6px; border: 2px solid #34d399; background-color: #d1fae5; color: #065f46; font-weight: bold; font-size: 14px;";
                         } else if (isThisUserOpt && !isCorrect) {
@@ -1495,32 +1535,40 @@
                     
                     htmlStr += `</div>`;
                 });
-                
-                htmlStr += `</div>`; // Close wrapper
 
                 printDiv.innerHTML = htmlStr;
                 document.body.appendChild(printDiv);
 
-                // Wait briefly to ensure fonts/DOM are ready, then generate the PDF securely
-                setTimeout(() => {
-                    const opt = {
-                        margin:       [0.3, 0.3, 0.3, 0.3], 
-                        filename:     `${name.replace(/\s+/g, '_')}_HoRly_Result.pdf`,
-                        image:        { type: 'jpeg', quality: 0.98 },
-                        html2canvas:  { scale: 2, useCORS: true, windowWidth: 800, scrollY: 0 },
-                        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
-                        pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
-                    };
+                // 2. Generate PDF using blob extraction to force local device download
+                const opt = {
+                    margin:       0.4,
+                    filename:     `${name.replace(/\s+/g, '_')}_HoRly_Result.pdf`,
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  { scale: 2, useCORS: true },
+                    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
 
-                    // Uses standard save mechanism which natively handles downloads
-                    html2pdf().set(opt).from(printDiv).save().then(() => {
+                html2pdf().set(opt).from(printDiv).output('blob').then(function(blob) {
+                    // Create an invisible anchor to force the browser to trigger a real download
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = opt.filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    
+                    // Clean up after download triggers
+                    setTimeout(() => {
+                        URL.revokeObjectURL(url);
+                        document.body.removeChild(a);
                         document.body.removeChild(printDiv);
                         resolve();
-                    }).catch(err => {
-                        document.body.removeChild(printDiv);
-                        reject(err);
-                    });
-                }, 100);
+                    }, 100);
+                }).catch(err => {
+                    document.body.removeChild(printDiv);
+                    reject(err);
+                });
             });
         }
 
@@ -1590,5 +1638,4 @@
     </script>
 </body>
 </html>
-
 

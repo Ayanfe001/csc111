@@ -392,54 +392,70 @@
 
     <!-- 5. RESULTS SCREEN -->
     <div id="results-screen" class="hidden w-full max-w-4xl space-y-6 pb-12 z-10 screen-enter">
-        <div class="glass-panel p-8 sm:p-12 rounded-[2.5rem] text-center relative overflow-hidden" id="pdf-content-area">
-            <div id="result-bar" class="absolute top-0 left-0 w-full h-2 backdrop-blur-md"></div>
-            
-            <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-white/40 dark:bg-white/10 border border-white/60 dark:border-white/10 shadow-lg flex items-center justify-center backdrop-blur-md relative">
-                <div class="absolute inset-0 rounded-full blur-md opacity-50 mix-blend-multiply" id="result-glow"></div>
-                <svg id="award-icon" class="w-12 h-12 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
-            </div>
-            
-            <h2 class="text-3xl sm:text-4xl font-extrabold mb-2 text-slate-800 tracking-tight">Assessment Complete, <br class="sm:hidden"/><span id="result-name" class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400"></span>!</h2>
-            <p id="result-course-text" class="text-slate-500 mb-10 font-medium"></p>
-            
-            <div class="flex justify-center items-center gap-6 sm:gap-12 mb-10">
-                <div class="text-center bg-white/30 dark:bg-white/10 px-6 py-4 rounded-3xl border border-white/50 dark:border-white/10 backdrop-blur-md">
-                    <p class="text-4xl sm:text-5xl font-black text-slate-800"><span id="score-correct"></span><span class="text-2xl text-slate-400 font-bold ml-1">/ <span id="score-total"></span></span></p>
-                    <p class="text-xs font-bold text-slate-500 mt-2 uppercase tracking-widest">Correct</p>
-                </div>
-                <div class="text-center bg-white/30 dark:bg-white/10 px-6 py-4 rounded-3xl border border-white/50 dark:border-white/10 backdrop-blur-md">
-                    <p id="score-percentage" class="text-4xl sm:text-5xl font-black"></p>
-                    <p class="text-xs font-bold text-slate-500 mt-2 uppercase tracking-widest">Score</p>
-                </div>
-            </div>
-
-            <div id="pass-fail-msg" class="inline-block px-8 py-3 rounded-full font-bold text-lg backdrop-blur-xl shadow-sm mb-6"></div>
-
-            <!-- PROMO BANNER -->
-            <div class="mt-6 mx-auto max-w-lg bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-4 text-white shadow-lg border border-white/20 relative overflow-hidden">
-                <div class="absolute inset-0 bg-white/10 w-full h-full transform -skew-x-12 translate-x-full group-hover:animate-shimmer"></div>
-                <p class="font-extrabold text-lg mb-1">Need a new laptop for school?</p>
-                <p class="text-sm font-medium opacity-90">Get 1.0% off at <span class="font-bold underline">HoRly's Tech Gadgets!</span> Show this result to claim.</p>
+        
+        <!-- Options & Actions outside PDF -->
+        <div class="glass-panel p-4 sm:p-6 rounded-[2rem] flex flex-col sm:flex-row justify-between items-center gap-4">
+            <h3 class="text-xl font-bold text-slate-800 dark:text-white tracking-tight">Assessment Actions</h3>
+            <div class="flex gap-2 w-full sm:w-auto">
+                <button onclick="downloadPDF()" class="flex-1 sm:flex-none flex items-center justify-center text-white font-bold bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 px-5 py-3 rounded-2xl transition-all shadow-md">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    Save as PDF
+                </button>
+                <button onclick="location.reload()" class="flex-1 sm:flex-none flex items-center justify-center text-slate-700 dark:text-slate-200 font-bold bg-white/50 dark:bg-white/10 hover:bg-white/70 dark:hover:bg-white/20 px-5 py-3 rounded-2xl transition-all border border-white/60 dark:border-white/10 shadow-sm">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg> 
+                    Start Over
+                </button>
             </div>
         </div>
 
-        <div class="glass-panel p-6 sm:p-10 rounded-[2.5rem]">
-            <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4 border-b border-white/40 dark:border-white/10 pb-6">
-                <h3 class="text-2xl font-bold text-slate-800 tracking-tight">Review Answers</h3>
-                <div class="flex gap-2 w-full sm:w-auto">
-                    <button onclick="downloadPDF()" class="flex-1 sm:flex-none flex items-center justify-center text-white font-bold bg-blue-500 hover:bg-blue-600 px-4 py-2.5 rounded-2xl transition-all shadow-sm">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                        Save PDF
-                    </button>
-                    <button onclick="location.reload()" class="flex-1 sm:flex-none flex items-center justify-center text-slate-700 dark:text-slate-200 font-bold bg-white/50 dark:bg-white/10 hover:bg-white/70 dark:hover:bg-white/20 px-4 py-2.5 rounded-2xl transition-all border border-white/60 dark:border-white/10 shadow-sm">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg> 
-                        Restart
-                    </button>
+        <!-- PRINT AREA (Wraps both summary and reviews) -->
+        <div id="print-area" class="space-y-6 relative rounded-[2.5rem] transition-colors duration-0">
+            
+            <!-- Hidden PDF Header (Shows only when saving to PDF) -->
+            <div id="pdf-header" class="hidden text-center pb-2 pt-6">
+                <h1 class="text-4xl font-black text-purple-700 dark:text-purple-400 tracking-tight">HoRly's_Tech</h1>
+                <p class="text-lg font-bold text-slate-600 dark:text-slate-300 mt-1">Official Assessment Result</p>
+            </div>
+
+            <!-- Summary Card -->
+            <div class="glass-panel p-8 sm:p-12 rounded-[2.5rem] text-center relative overflow-hidden break-inside-avoid">
+                <div id="result-bar" class="absolute top-0 left-0 w-full h-2 backdrop-blur-md"></div>
+                
+                <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-white/40 dark:bg-white/10 border border-white/60 dark:border-white/10 shadow-lg flex items-center justify-center backdrop-blur-md relative">
+                    <div class="absolute inset-0 rounded-full blur-md opacity-50 mix-blend-multiply" id="result-glow"></div>
+                    <svg id="award-icon" class="w-12 h-12 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                </div>
+                
+                <h2 class="text-3xl sm:text-4xl font-extrabold mb-2 text-slate-800 tracking-tight">Assessment Complete, <br class="sm:hidden"/><span id="result-name" class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400"></span>!</h2>
+                <p id="result-course-text" class="text-slate-500 mb-10 font-medium"></p>
+                
+                <div class="flex justify-center items-center gap-6 sm:gap-12 mb-10">
+                    <div class="text-center bg-white/30 dark:bg-white/10 px-6 py-4 rounded-3xl border border-white/50 dark:border-white/10 backdrop-blur-md">
+                        <p class="text-4xl sm:text-5xl font-black text-slate-800"><span id="score-correct"></span><span class="text-2xl text-slate-400 font-bold ml-1">/ <span id="score-total"></span></span></p>
+                        <p class="text-xs font-bold text-slate-500 mt-2 uppercase tracking-widest">Correct</p>
+                    </div>
+                    <div class="text-center bg-white/30 dark:bg-white/10 px-6 py-4 rounded-3xl border border-white/50 dark:border-white/10 backdrop-blur-md">
+                        <p id="score-percentage" class="text-4xl sm:text-5xl font-black"></p>
+                        <p class="text-xs font-bold text-slate-500 mt-2 uppercase tracking-widest">Score</p>
+                    </div>
+                </div>
+
+                <div id="pass-fail-msg" class="inline-block px-8 py-3 rounded-full font-bold text-lg backdrop-blur-xl shadow-sm mb-6"></div>
+
+                <!-- PROMO BANNER -->
+                <div class="mt-6 mx-auto max-w-lg bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-4 text-white shadow-lg border border-white/20 relative overflow-hidden break-inside-avoid">
+                    <div class="absolute inset-0 bg-white/10 w-full h-full transform -skew-x-12 translate-x-full group-hover:animate-shimmer"></div>
+                    <p class="font-extrabold text-lg mb-1">Need a new laptop for school?</p>
+                    <p class="text-sm font-medium opacity-90">Get 1.0% off at <span class="font-bold underline">HoRly's Tech Gadgets!</span> Show this result to claim.</p>
                 </div>
             </div>
-            <div id="review-container" class="space-y-6">
-                <!-- Answer review injected via JS -->
+
+            <!-- Review Answers Card -->
+            <div class="glass-panel p-6 sm:p-10 rounded-[2.5rem]">
+                <h3 class="text-2xl font-bold text-slate-800 dark:text-white tracking-tight mb-6 border-b border-white/40 dark:border-white/10 pb-4">Detailed Review</h3>
+                <div id="review-container" class="space-y-6">
+                    <!-- Answers injected via JS -->
+                </div>
             </div>
         </div>
     </div>
@@ -468,9 +484,9 @@
     <!-- 7. HISTORY MODAL -->
     <div id="history-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-md" onclick="closeHistory()"></div>
-        <div class="glass-panel relative rounded-[2.5rem] shadow-2xl max-w-lg w-full p-8 text-center border-white/40 dark:border-white/10 screen-enter max-h-[80vh] flex flex-col">
+        <div class="glass-panel relative rounded-[2.5rem] shadow-2xl max-w-lg w-full p-6 sm:p-8 text-center border-white/40 dark:border-white/10 screen-enter max-h-[85vh] flex flex-col">
             <h3 class="text-2xl font-bold text-slate-800 mb-4 tracking-tight">Your Past Results</h3>
-            <div id="history-container" class="overflow-y-auto flex-1 space-y-3 mb-4 text-left">
+            <div id="history-container" class="overflow-y-auto flex-1 space-y-3 mb-4 text-left" style="scrollbar-width: thin;">
                 <!-- History injected via JS -->
             </div>
             <button onclick="closeHistory()" class="w-full bg-white/40 dark:bg-white/10 hover:bg-white/60 dark:hover:bg-white/20 border border-white/60 dark:border-white/10 text-slate-800 font-bold py-3 px-4 rounded-2xl transition-all backdrop-blur-md mt-auto">
@@ -596,7 +612,7 @@
             { q: "What is the purpose of the Registry in Windows?", opts: ["To register users online", "A central database used to store configuration information and settings", "To write emails", "To clean dust"], ans: 1 },
             { q: "A device used for short-range wireless connection is?", opts: ["Bluetooth", "Ethernet", "Fiber Optic", "Satellite"], ans: 0 },
             { q: "What is the function of the CPU fan?", opts: ["To make noise", "To actively cool the heat sink and CPU", "To spin the hard drive", "To power the monitor"], ans: 1 },
-            { q: "Which is NOT a type of computer case form factor?", opts: ["Tower", "Laptop", "Server", "Desk"], ans: 2 },
+            { q: "Which is NOT a type of computer case form factor?", opts: ["Tower", "Laptop", "Server"], ans: 2 },
             { q: "Which device is NOT a type of Input/Output (I/O) device?", opts: ["Mouse", "Touchscreen", "CPU", "Modem"], ans: 2 },
             { q: "Which is a type of computer battery used on the motherboard?", opts: ["CMOS Battery", "RAM Battery", "AA Battery", "Car Battery"], ans: 0 },
             { q: "A device used for network protection from external threats is?", opts: ["Firewall", "Switch", "Hub", "Repeater"], ans: 0 },
@@ -1197,64 +1213,39 @@
             warningModal.classList.add('hidden');
         }
 
-        function forceSubmit() {
-            clearInterval(timerInterval);
-            warningModal.classList.add('hidden');
-            document.getElementById('calculator-modal').classList.add('hidden');
-            document.getElementById('calc-trigger-btn').classList.add('hidden');
-            
-            let score = 0;
-            activeQuestions.forEach((q, idx) => {
-                if (userAnswers[idx] === q.ans) score++;
-            });
-            
-            const percentage = Math.round((score / selectedCount) * 100);
-            const passed = percentage >= 50;
+        // Dedicated rendering function so it can be reused for past history reviews
+        function renderResultsView(rName, rCourse, rScore, rTotal, rQuestions, rAnswers, rPassed) {
+            const percentage = Math.round((rScore / rTotal) * 100);
 
-            if(passed) playCheer();
-            else playBuzzer();
-
-            // Save to LocalStorage
-            const history = JSON.parse(localStorage.getItem('horlyTechHistory') || '[]');
-            history.push({
-                date: new Date().toLocaleDateString(),
-                name: userName,
-                course: courses[selectedCourse].name,
-                score: score,
-                total: selectedCount,
-                passed: passed
-            });
-            localStorage.setItem('horlyTechHistory', JSON.stringify(history));
-
-            document.getElementById('result-name').textContent = userName;
-            document.getElementById('result-course-text').textContent = courses[selectedCourse].name + " Assessment";
-            document.getElementById('score-correct').textContent = score;
-            document.getElementById('score-total').textContent = selectedCount;
+            document.getElementById('result-name').textContent = rName;
+            document.getElementById('result-course-text').textContent = rCourse + " Assessment";
+            document.getElementById('score-correct').textContent = rScore;
+            document.getElementById('score-total').textContent = rTotal;
             
             const percEl = document.getElementById('score-percentage');
             percEl.textContent = `${percentage}%`;
-            percEl.className = `text-4xl sm:text-5xl font-black ${passed ? 'text-emerald-600' : 'text-rose-600'}`;
+            percEl.className = `text-4xl sm:text-5xl font-black ${rPassed ? 'text-emerald-600' : 'text-rose-600'}`;
             
             const barEl = document.getElementById('result-bar');
-            barEl.className = `absolute top-0 left-0 w-full h-2 backdrop-blur-md ${passed ? 'bg-emerald-500/80' : 'bg-rose-500/80'}`;
+            barEl.className = `absolute top-0 left-0 w-full h-2 backdrop-blur-md ${rPassed ? 'bg-emerald-500/80' : 'bg-rose-500/80'}`;
 
             const iconEl = document.getElementById('award-icon');
-            iconEl.className = `w-12 h-12 relative z-10 ${passed ? 'text-emerald-500' : 'text-rose-500'}`;
+            iconEl.className = `w-12 h-12 relative z-10 ${rPassed ? 'text-emerald-500' : 'text-rose-500'}`;
             
             const glowEl = document.getElementById('result-glow');
-            glowEl.className = `absolute inset-0 rounded-full blur-md opacity-50 mix-blend-multiply ${passed ? 'bg-emerald-300' : 'bg-rose-300'}`;
+            glowEl.className = `absolute inset-0 rounded-full blur-md opacity-50 mix-blend-multiply ${rPassed ? 'bg-emerald-300' : 'bg-rose-300'}`;
 
             const msgEl = document.getElementById('pass-fail-msg');
-            msgEl.textContent = passed 
+            msgEl.textContent = rPassed 
                 ? 'Exceptional Work! You Passed. Brilliant! You deserve a new gadget.' 
                 : 'Keep studying! You failed this time. Don\'t give up! Join our tutorial group to ace it next time.';
-            msgEl.className = `inline-block px-8 py-3 rounded-full font-bold text-sm sm:text-lg backdrop-blur-xl shadow-sm border ${passed ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-400/50' : 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-400/50'}`;
+            msgEl.className = `inline-block px-8 py-3 rounded-full font-bold text-sm sm:text-lg backdrop-blur-xl shadow-sm border ${rPassed ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-400/50' : 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-400/50'}`;
 
             const reviewContainer = document.getElementById('review-container');
             reviewContainer.innerHTML = '';
             
-            activeQuestions.forEach((q, qIdx) => {
-                const userAns = userAnswers[qIdx];
+            rQuestions.forEach((q, qIdx) => {
+                const userAns = rAnswers[qIdx];
                 const isCorrect = userAns === q.ans;
                 const isUnanswered = userAns === undefined;
 
@@ -1279,7 +1270,8 @@
                     ? `<div class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900 border border-emerald-300 flex items-center justify-center text-emerald-600 dark:text-emerald-400"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg></div>`
                     : `<div class="w-8 h-8 rounded-full bg-rose-100 dark:bg-rose-900 border border-rose-300 flex items-center justify-center text-rose-600 dark:text-rose-400"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></div>`;
 
-                const blockClass = `p-5 sm:p-6 rounded-3xl border backdrop-blur-lg shadow-sm ${isCorrect ? 'bg-emerald-500/5 border-emerald-300/50' : 'bg-rose-500/5 border-rose-300/50'}`;
+                // Add break-inside-avoid to prevent PDF page splitting in the middle of a question
+                const blockClass = `break-inside-avoid p-5 sm:p-6 rounded-3xl border backdrop-blur-lg shadow-sm ${isCorrect ? 'bg-emerald-500/5 border-emerald-300/50' : 'bg-rose-500/5 border-rose-300/50'}`;
 
                 const blockHtml = `
                     <div class="${blockClass}">
@@ -1299,6 +1291,39 @@
             });
 
             switchScreen('results');
+        }
+
+        function forceSubmit() {
+            clearInterval(timerInterval);
+            warningModal.classList.add('hidden');
+            document.getElementById('calculator-modal').classList.add('hidden');
+            document.getElementById('calc-trigger-btn').classList.add('hidden');
+            
+            let score = 0;
+            activeQuestions.forEach((q, idx) => {
+                if (userAnswers[idx] === q.ans) score++;
+            });
+            
+            const passed = (score / selectedCount) >= 0.5;
+
+            if(passed) playCheer();
+            else playBuzzer();
+
+            // Save to LocalStorage WITH questions and answers so it can be reviewed later
+            const history = JSON.parse(localStorage.getItem('horlyTechHistory') || '[]');
+            history.push({
+                date: new Date().toLocaleDateString(),
+                name: userName,
+                course: courses[selectedCourse].name,
+                score: score,
+                total: selectedCount,
+                passed: passed,
+                questions: activeQuestions, 
+                answers: userAnswers        
+            });
+            localStorage.setItem('horlyTechHistory', JSON.stringify(history));
+
+            renderResultsView(userName, courses[selectedCourse].name, score, selectedCount, activeQuestions, userAnswers, passed);
             showWhatsApp(false); 
         }
 
@@ -1311,18 +1336,27 @@
             if(history.length === 0) {
                 container.innerHTML = '<p class="text-slate-500 text-center py-4">No past results found.</p>';
             } else {
-                history.reverse().forEach(entry => {
+                // Slice and reverse to show newest first, while keeping track of true original array index
+                history.slice().reverse().forEach((entry, idx) => {
+                    const originalIndex = history.length - 1 - idx;
                     const pct = Math.round((entry.score/entry.total)*100);
+                    
+                    // Only show Review button if questions and answers were saved in this entry
+                    const hasDetails = entry.questions && entry.answers;
+                    
                     container.innerHTML += `
-                        <div class="bg-white/40 dark:bg-black/40 border border-white/50 dark:border-white/10 p-4 rounded-xl flex justify-between items-center shadow-sm">
-                            <div>
-                                <p class="font-bold text-slate-800 dark:text-white">${entry.course}</p>
-                                <p class="text-xs text-slate-500">${entry.date} - ${entry.name}</p>
+                        <div class="bg-white/40 dark:bg-black/40 border border-white/50 dark:border-white/10 p-4 rounded-xl shadow-sm mb-3">
+                            <div class="flex justify-between items-center mb-2">
+                                <div>
+                                    <p class="font-bold text-slate-800 dark:text-white">${entry.course}</p>
+                                    <p class="text-xs text-slate-500">${entry.date} - ${entry.name}</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-black ${entry.passed ? 'text-emerald-500' : 'text-rose-500'}">${pct}%</p>
+                                    <p class="text-xs font-bold text-slate-500">${entry.score}/${entry.total}</p>
+                                </div>
                             </div>
-                            <div class="text-right">
-                                <p class="font-black ${entry.passed ? 'text-emerald-500' : 'text-rose-500'}">${pct}%</p>
-                                <p class="text-xs font-bold text-slate-500">${entry.score}/${entry.total}</p>
-                            </div>
+                            ${hasDetails ? `<button onclick="reviewPastResult(${originalIndex})" class="w-full mt-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-bold text-sm py-2 rounded-lg hover:bg-purple-200 dark:hover:bg-purple-900/50 transition-colors border border-purple-200 dark:border-purple-800">Review Answers</button>` : ''}
                         </div>
                     `;
                 });
@@ -1334,17 +1368,51 @@
             document.getElementById('history-modal').classList.add('hidden');
         }
 
-        // --- PDF DOWNLOAD ---
+        function reviewPastResult(index) {
+            closeHistory();
+            const history = JSON.parse(localStorage.getItem('horlyTechHistory') || '[]');
+            const entry = history[index];
+            if (entry && entry.questions && entry.answers) {
+                // Safely load up the past result view
+                renderResultsView(entry.name, entry.course, entry.score, entry.total, entry.questions, entry.answers, entry.passed);
+            }
+        }
+
+        // --- PDF DOWNLOAD ENHANCED ---
         function downloadPDF() {
-            const element = document.getElementById('pdf-content-area');
+            const element = document.getElementById('print-area');
+            const pdfHeader = document.getElementById('pdf-header');
+            
+            // 1. Reveal PDF-only Custom Header
+            pdfHeader.classList.remove('hidden');
+            
+            // 2. Generate SVG watermark to act as repeating background during PDF export
+            const isDark = document.documentElement.classList.contains('dark');
+            const watermarkColor = isDark ? '%23a855f7' : '%239333ea'; // Purple
+            const svgWatermark = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Ctext x='50%25' y='50%25' font-size='45' font-weight='900' fill='${watermarkColor}' fill-opacity='0.12' font-family='Arial, sans-serif' text-anchor='middle' transform='rotate(-45 200 200)'%3EHoRly's_tech%3C/text%3E%3C/svg%3E")`;
+            
+            // Apply styles solely for the print capture
+            element.style.backgroundImage = svgWatermark;
+            element.style.backgroundColor = isDark ? '#0f172a' : '#f8fafc'; // solid base
+            element.style.padding = '20px'; // Give it breathing room
+            
+            const resultName = document.getElementById('result-name').textContent;
             const opt = {
-              margin:       0.5,
-              filename:     `${userName.replace(/\s+/g, '_')}_HoRly_Result.pdf`,
+              margin:       0.3,
+              filename:     `${resultName.replace(/\s+/g, '_')}_HoRly_Result.pdf`,
               image:        { type: 'jpeg', quality: 0.98 },
               html2canvas:  { scale: 2, useCORS: true, logging: false },
-              jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+              jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
+              pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
             };
-            html2pdf().set(opt).from(element).save();
+            
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Restore original styles immediately after creating the PDF
+                pdfHeader.classList.add('hidden');
+                element.style.backgroundImage = '';
+                element.style.backgroundColor = '';
+                element.style.padding = '';
+            });
         }
 
         // --- CALCULATOR FUNCTIONALITY ---

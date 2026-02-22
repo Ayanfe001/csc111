@@ -393,7 +393,7 @@
     <!-- 5. RESULTS SCREEN -->
     <div id="results-screen" class="hidden w-full max-w-4xl space-y-6 pb-12 z-10 screen-enter">
         
-        <!-- Options & Actions outside PDF -->
+        <!-- Options & Actions -->
         <div class="glass-panel p-4 sm:p-6 rounded-[2rem] flex flex-col sm:flex-row justify-between items-center gap-4">
             <h3 class="text-xl font-bold text-slate-800 dark:text-white tracking-tight">Assessment Actions</h3>
             <div class="flex gap-2 w-full sm:w-auto">
@@ -408,17 +408,11 @@
             </div>
         </div>
 
-        <!-- PRINT AREA (Wraps both summary and reviews) -->
-        <div id="print-area" class="space-y-6 relative rounded-[2.5rem] transition-colors duration-0">
+        <!-- VISUAL DISPLAY (Shows in browser only) -->
+        <div id="browser-view-area" class="space-y-6 relative rounded-[2.5rem]">
             
-            <!-- Hidden PDF Header (Shows only when saving to PDF) -->
-            <div id="pdf-header" class="hidden text-center pb-2 pt-6">
-                <h1 class="text-4xl font-black text-purple-700 dark:text-purple-400 tracking-tight">HoRly's_Tech</h1>
-                <p class="text-lg font-bold text-slate-600 dark:text-slate-300 mt-1">Official Assessment Result</p>
-            </div>
-
             <!-- Summary Card -->
-            <div class="glass-panel p-8 sm:p-12 rounded-[2.5rem] text-center relative overflow-hidden break-inside-avoid">
+            <div class="glass-panel p-8 sm:p-12 rounded-[2.5rem] text-center relative overflow-hidden">
                 <div id="result-bar" class="absolute top-0 left-0 w-full h-2 backdrop-blur-md"></div>
                 
                 <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-white/40 dark:bg-white/10 border border-white/60 dark:border-white/10 shadow-lg flex items-center justify-center backdrop-blur-md relative">
@@ -840,6 +834,7 @@
         
         let pdfConfirmWait = false;
         let pdfResetTimer = null;
+        let currentResultView = null; // Stores data for the currently viewed result (for PDF generation)
 
         // Sound System
         const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -1218,6 +1213,9 @@
 
         // Dedicated rendering function so it can be reused for past history reviews
         function renderResultsView(rName, rCourse, rScore, rTotal, rQuestions, rAnswers, rPassed) {
+            // Save state globally so the PDF generator has access to it
+            currentResultView = { name: rName, course: rCourse, score: rScore, total: rTotal, questions: rQuestions, answers: rAnswers, passed: rPassed };
+            
             const percentage = Math.round((rScore / rTotal) * 100);
 
             document.getElementById('result-name').textContent = rName;
@@ -1273,8 +1271,7 @@
                     ? `<div class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900 border border-emerald-300 flex items-center justify-center text-emerald-600 dark:text-emerald-400"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg></div>`
                     : `<div class="w-8 h-8 rounded-full bg-rose-100 dark:bg-rose-900 border border-rose-300 flex items-center justify-center text-rose-600 dark:text-rose-400"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></div>`;
 
-                // Add break-inside-avoid to prevent PDF page splitting in the middle of a question
-                const blockClass = `break-inside-avoid p-5 sm:p-6 rounded-3xl border backdrop-blur-lg shadow-sm ${isCorrect ? 'bg-emerald-500/5 border-emerald-300/50' : 'bg-rose-500/5 border-rose-300/50'}`;
+                const blockClass = `p-5 sm:p-6 rounded-3xl border backdrop-blur-lg shadow-sm ${isCorrect ? 'bg-emerald-500/5 border-emerald-300/50' : 'bg-rose-500/5 border-rose-300/50'}`;
 
                 const blockHtml = `
                     <div class="${blockClass}">
@@ -1381,7 +1378,7 @@
             }
         }
 
-        // --- PDF DOWNLOAD ENHANCED WITH DOUBLE-CLICK TO CONFIRM ---
+        // --- PDF DOWNLOAD ENHANCED WITH DOUBLE-CLICK TO CONFIRM & CLEAN ENGINE ---
         function handlePDFClick() {
             const btn = document.getElementById('pdf-download-btn');
             const textEl = document.getElementById('pdf-btn-text');
@@ -1403,15 +1400,20 @@
                     btn.classList.remove('from-rose-500', 'to-red-600', 'animate-pulse');
                 }, 4000);
             } else {
-                // SECOND CLICK: Actually download the PDF
+                // SECOND CLICK: Build the Clean Print HTML and trigger download via native Blob
                 clearTimeout(pdfResetTimer);
                 pdfConfirmWait = false;
                 
                 textEl.textContent = "Downloading...";
                 btn.classList.remove('animate-pulse');
 
-                downloadPDF().then(() => {
-                    // Restore button appearance after download begins
+                generateCleanPDF().then(() => {
+                    // Restore button appearance after download
+                    textEl.textContent = "Save as PDF";
+                    btn.classList.add('from-blue-600', 'to-purple-600');
+                    btn.classList.remove('from-rose-500', 'to-red-600');
+                }).catch(err => {
+                    alert("Download failed. Please try again.");
                     textEl.textContent = "Save as PDF";
                     btn.classList.add('from-blue-600', 'to-purple-600');
                     btn.classList.remove('from-rose-500', 'to-red-600');
@@ -1419,41 +1421,114 @@
             }
         }
 
-        function downloadPDF() {
-            const element = document.getElementById('print-area');
-            const pdfHeader = document.getElementById('pdf-header');
-            
-            // 1. Reveal PDF-only Custom Header
-            pdfHeader.classList.remove('hidden');
-            
-            // 2. Generate SVG watermark to act as repeating background during PDF export
-            const isDark = document.documentElement.classList.contains('dark');
-            const watermarkColor = isDark ? '%23a855f7' : '%239333ea'; // Purple
-            const svgWatermark = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Ctext x='50%25' y='50%25' font-size='45' font-weight='900' fill='${watermarkColor}' fill-opacity='0.12' font-family='Arial, sans-serif' text-anchor='middle' transform='rotate(-45 200 200)'%3EHoRly's_tech%3C/text%3E%3C/svg%3E")`;
-            
-            // Apply styles solely for the print capture
-            element.style.backgroundImage = svgWatermark;
-            element.style.backgroundColor = isDark ? '#0f172a' : '#f8fafc'; // solid base
-            element.style.padding = '20px'; // Give it breathing room
-            
-            const resultName = document.getElementById('result-name').textContent;
-            const opt = {
-              margin:       0.3,
-              filename:     `${resultName.replace(/\s+/g, '_')}_HoRly_Result.pdf`,
-              image:        { type: 'jpeg', quality: 0.98 },
-              html2canvas:  { scale: 2, useCORS: true, logging: false },
-              jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
-              pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
-            };
-            
-            return html2pdf().set(opt).from(element).save().then(() => {
-                // Restore original styles immediately after creating the PDF
-                pdfHeader.classList.add('hidden');
-                element.style.backgroundImage = '';
-                element.style.backgroundColor = '';
-                element.style.padding = '';
+        function generateCleanPDF() {
+            if (!currentResultView) return Promise.reject("No data");
+
+            return new Promise((resolve, reject) => {
+                // 1. Create a pristine, non-styled container specifically for html2pdf
+                // This prevents glass blur effects from breaking the PDF canvas generator
+                const printDiv = document.createElement('div');
+                printDiv.style.width = '800px';
+                printDiv.style.padding = '40px';
+                printDiv.style.backgroundColor = '#ffffff';
+                printDiv.style.color = '#000000';
+                printDiv.style.fontFamily = 'Arial, sans-serif';
+                printDiv.style.position = 'absolute';
+                printDiv.style.left = '-9999px'; // Hide off screen
+
+                // SVG Watermark (URL Encoded)
+                const svgWatermark = `data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Ctext x='50%25' y='50%25' font-size='35' font-weight='900' fill='%239333ea' fill-opacity='0.1' text-anchor='middle' transform='rotate(-45 150 150)'%3EHoRly's_tech%3C/text%3E%3C/svg%3E`;
+                printDiv.style.backgroundImage = `url("${svgWatermark}")`;
+                printDiv.style.backgroundRepeat = 'repeat';
+
+                // Setup Variables
+                const { name, course, score, total, questions, answers, passed } = currentResultView;
+                const pct = Math.round((score / total) * 100);
+
+                // Build Clean HTML Content
+                let htmlStr = `
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <h1 style="color: #7e22ce; margin: 0; font-size: 32px;">HoRly's_Tech</h1>
+                        <p style="font-size: 20px; color: #475569; margin: 5px 0 20px 0; font-weight: bold;">Official Assessment Result</p>
+                        <h2 style="font-size: 24px; margin: 0; border-bottom: 2px solid #cbd5e1; display: inline-block; padding-bottom: 10px;">Student: ${name} | Course: ${course}</h2>
+                    </div>
+
+                    <div style="text-align: center; margin: 30px auto; padding: 20px; border: 3px solid ${passed ? '#10b981' : '#f43f5e'}; border-radius: 15px; background-color: ${passed ? '#ecfdf5' : '#fff1f2'}; width: 60%;">
+                        <p style="font-size: 48px; font-weight: 900; margin: 0; color: ${passed ? '#059669' : '#e11d48'};">${pct}%</p>
+                        <p style="font-size: 20px; margin: 10px 0; font-weight: bold;">Score: ${score} out of ${total}</p>
+                        <p style="font-size: 16px; margin: 0; color: ${passed ? '#065f46' : '#9f1239'};">${passed ? 'Exceptional Work! You Passed.' : 'Keep studying! You failed this time.'}</p>
+                    </div>
+
+                    <h3 style="font-size: 22px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 25px;">Detailed Review</h3>
+                `;
+
+                // Add Questions loop
+                questions.forEach((q, qIdx) => {
+                    const userAns = answers[qIdx];
+                    const isCorrect = userAns === q.ans;
+                    
+                    htmlStr += `
+                        <div style="margin-bottom: 25px; padding: 15px; border: 1px solid #e2e8f0; border-radius: 10px; page-break-inside: avoid; background-color: rgba(255,255,255,0.8);">
+                            <p style="font-weight: bold; font-size: 16px; margin-top: 0; margin-bottom: 15px;">${qIdx + 1}. ${q.q}</p>
+                    `;
+                    
+                    q.opts.forEach((opt, optIdx) => {
+                        const isThisCorrectOpt = optIdx === q.ans;
+                        const isThisUserOpt = optIdx === userAns;
+                        
+                        let optStyle = "padding: 10px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #cbd5e1; background-color: #f8fafc; font-size: 14px;";
+                        if (isThisCorrectOpt) {
+                            optStyle = "padding: 10px; margin-bottom: 8px; border-radius: 6px; border: 2px solid #34d399; background-color: #d1fae5; color: #065f46; font-weight: bold; font-size: 14px;";
+                        } else if (isThisUserOpt && !isCorrect) {
+                            optStyle = "padding: 10px; margin-bottom: 8px; border-radius: 6px; border: 2px solid #fb7185; background-color: #ffe4e6; color: #9f1239; font-weight: bold; font-size: 14px;";
+                        }
+                        
+                        htmlStr += `<div style="${optStyle}">${String.fromCharCode(65 + optIdx)}. ${opt}</div>`;
+                    });
+                    
+                    if (userAns === undefined) {
+                        htmlStr += `<p style="color: #e11d48; font-weight: bold; font-size: 14px; margin-top: 10px; margin-bottom: 0;">You did not answer this question</p>`;
+                    }
+                    
+                    htmlStr += `</div>`;
+                });
+
+                printDiv.innerHTML = htmlStr;
+                document.body.appendChild(printDiv);
+
+                // 2. Generate PDF using blob extraction to force local device download
+                const opt = {
+                    margin:       0.4,
+                    filename:     `${name.replace(/\s+/g, '_')}_HoRly_Result.pdf`,
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  { scale: 2, useCORS: true },
+                    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
+
+                html2pdf().set(opt).from(printDiv).output('blob').then(function(blob) {
+                    // Create an invisible anchor to force the browser to trigger a real download
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = opt.filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    
+                    // Clean up after download triggers
+                    setTimeout(() => {
+                        URL.revokeObjectURL(url);
+                        document.body.removeChild(a);
+                        document.body.removeChild(printDiv);
+                        resolve();
+                    }, 100);
+                }).catch(err => {
+                    document.body.removeChild(printDiv);
+                    reject(err);
+                });
             });
         }
+
 
         // --- CALCULATOR FUNCTIONALITY ---
         const calcModal = document.getElementById('calculator-modal');

@@ -1110,10 +1110,24 @@
                 }
 
                 btn.onclick = () => {
+                    if (btn.disabled) return; // Prevent double firing during timeout
+
                     userAnswers[currentIndex] = idx;
                     updateProgress();
                     updateGridColors();
-                    renderQuestion();
+                    renderQuestion(); // Immediately re-render to highlight selection
+
+                    // Auto-advance logic
+                    if (currentIndex < activeQuestions.length - 1) {
+                        // Disable buttons temporarily to prevent quick double clicking
+                        const allOpts = document.querySelectorAll('#options-container button');
+                        allOpts.forEach(b => b.disabled = true);
+
+                        setTimeout(() => {
+                            currentIndex++;
+                            renderQuestion();
+                        }, 400); // 400ms delay to let user see selection
+                    }
                 };
                 
                 const letterBadgeClass = isSelected 

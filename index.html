@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=0.8, user-scalable=no">
-    <title>HoRly's Tech Quiz</title>
+    <title>HoRly's Tech Gadgets Quiz</title>
     
     <!-- Tailwind CSS & Config for Dark Mode -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -284,6 +284,16 @@
                         <p class="text-slate-500 mt-1 text-sm font-medium">Introduction to Database Concept</p>
                     </div>
                     <span class="bg-purple-100/50 dark:bg-purple-900/50 border border-purple-200 dark:border-purple-700 text-purple-800 dark:text-purple-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">100 Qs Available</span>
+                </div>
+            </button>
+
+          <button onclick="selectCourse('vos')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-blue-300 dark:hover:border-blue-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">VOS 114</h3>
+                        <p class="text-slate-500 mt-1 text-sm font-medium">Computer Maintance And Percaution</p>
+                    </div>
+                    <span class="bg-blue-100/50 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">60 Qs Available</span>
                 </div>
             </button>
         </div>
@@ -853,11 +863,75 @@
         { q: "3-tier architecture improves ________.", opts: ["Data loss", "Security", "Redundancy", "Inconsistency"], ans: 1 },
         { q: "Direct client-server interaction is avoided in ________.", opts: ["1-tier", "2-tier", "3-tier", "File system"], ans: 2 }
       ];
+
+  const vosQuestuons = [
+  { q: "A computer system is made up of ______.", opts: ["Input, CPU, Output", "Monitor and Printer", "Keyboard and Mouse", "Software only"], ans: 0 },
+  { q: "CPU stands for ______.", opts: ["Central Process Unit", "Central Processing Unit", "Computer Processing Unit", "Control Processing Unit"], ans: 1 },
+  { q: "The CPU performs ______.", opts: ["Printing", "Processing", "Scanning", "Typing"], ans: 1 },
+  { q: "The CPU is known as the ______ of the computer.", opts: ["Hand", "Brain", "Eye", "Screen"], ans: 1 },
+  { q: "Keyboard is a(n) ______ device.", opts: ["Output", "Input", "Storage", "Display"], ans: 1 },
+  { q: "Mouse is a(n) ______ device.", opts: ["Output", "Input", "Storage", "Display"], ans: 1 },
+  { q: "Scanner is a(n) ______ device.", opts: ["Output", "Input", "Storage", "Processing"], ans: 1 },
+  { q: "Light pen is a(n) ______ device.", opts: ["Output", "Input", "Storage", "Display"], ans: 1 },
+  { q: "Joystick is a(n) ______ device.", opts: ["Output", "Input", "Storage", "Display"], ans: 1 },
+  { q: "Monitor is a(n) ______ device.", opts: ["Input", "Output", "Storage", "Processing"], ans: 1 },
+  { q: "Printer is used to produce ______.", opts: ["Soft copy", "Hard copy", "Audio", "Video"], ans: 1 },
+  { q: "Speaker produces ______ output.", opts: ["Printed", "Visual", "Audio", "Stored"], ans: 2 },
+  { q: "Monitor produces ______ output.", opts: ["Audio", "Visual", "Printed", "Stored"], ans: 1 },
+  { q: "Hard disk is used for ______.", opts: ["Printing", "Storage", "Typing", "Display"], ans: 1 },
+  { q: "Memory is a component of the ______.", opts: ["Printer", "CPU", "Speaker", "Monitor"], ans: 1 },
+  { q: "Processor is responsible for ______.", opts: ["Printing", "Processing", "Scanning", "Storing"], ans: 1 },
+  { q: "CD/DVD ROM is used to ______ data.", opts: ["Delete", "Read", "Print", "Type"], ans: 1 },
+  { q: "Motherboard connects all ______.", opts: ["Software", "Hardware components", "Speakers", "Screens"], ans: 1 },
+  { q: "Cooling fan is used to ______.", opts: ["Store files", "Cool the system", "Print documents", "Type letters"], ans: 1 },
+  { q: "CMOS battery is usually ______ volts.", opts: ["1V", "2V", "3V", "5V"], ans: 2 },
+  { q: "CMOS battery looks like a ______.", opts: ["Chip", "Coin", "Card", "Disk"], ans: 1 },
+  { q: "CMOS battery stores ______.", opts: ["Music", "Date and time", "Pictures", "Games"], ans: 1 },
+  { q: "CMOS stands for ______.", opts: ["Complementary Metal Oxide Semiconductor", "Computer Metal Oxide System", "Central Memory Operating System", "Computer Memory Operating Software"], ans: 0 },
+  { q: "BIOS means ______.", opts: ["Binary Input Output System", "Basic Input Output System", "Basic Internal Operating System", "Binary Internal Operating System"], ans: 1 },
+  { q: "CMOS battery helps to clear ______.", opts: ["RAM", "BIOS", "Printer", "Mouse"], ans: 1 },
+  { q: "There are ______ types of casing.", opts: ["One", "Two", "Three", "Four"], ans: 1 },
+  { q: "One type of casing is ______.", opts: ["Tower casing", "Speaker casing", "Monitor casing", "Printer casing"], ans: 0 },
+  { q: "Another type of casing is ______.", opts: ["Desktop casing", "Laptop casing", "Mobile casing", "Flat casing"], ans: 0 },
+  { q: "CRT stands for ______.", opts: ["Central Ray Tube", "Cathode Ray Tube", "Computer Ray Tube", "Cathode Round Tube"], ans: 1 },
+  { q: "LCD means ______.", opts: ["Light Crystal Display", "Liquid Crystal Display", "Liquid Computer Display", "Light Computer Device"], ans: 1 },
+  { q: "CRT monitor uses ______ voltage.", opts: ["Low", "High", "Medium", "No"], ans: 1 },
+  { q: "LCD monitor uses ______ voltage.", opts: ["High", "Low", "Medium", "No"], ans: 1 },
+  { q: "CRT monitor is ______.", opts: ["Portable", "Lightweight", "Not portable", "Foldable"], ans: 2 },
+  { q: "LCD monitor is ______.", opts: ["Heavy", "Portable", "Large", "Fixed"], ans: 1 },
+  { q: "Laptop screen is an example of ______.", opts: ["CRT", "LCD", "Printer", "Scanner"], ans: 1 },
+  { q: "Laser jet printer uses ______.", opts: ["Ink", "Ribbon", "Toner", "Powder"], ans: 2 },
+  { q: "Desk jet printer uses ______.", opts: ["Toner", "Ink", "Ribbon", "Powder"], ans: 1 },
+  { q: "Line printer uses ______.", opts: ["Ink", "Toner", "Ribbon", "Water"], ans: 2 },
+  { q: "Laser printer can print in ______.", opts: ["Black only", "Red only", "Black/White and Color", "Blue only"], ans: 2 },
+  { q: "Line printer prints in ______.", opts: ["Blue only", "Black and Red only", "Green only", "Color only"], ans: 1 },
+  { q: "Desk jet printer uses ______ voltage than laser printer.", opts: ["Higher", "Lower", "Equal", "No"], ans: 1 },
+  { q: "Laser printer prints more ______ than desk jet printer.", opts: ["Sounds", "Copies", "Screens", "Files"], ans: 1 },
+  { q: "The mouse is used in ______ environment.", opts: ["DOS", "Windows", "Android", "Linux"], ans: 1 },
+  { q: "The mouse pointer is shaped like a ______.", opts: ["Circle", "Arrow", "Star", "Square"], ans: 1 },
+  { q: "Clicking the left mouse button once is called ______.", opts: ["Drag", "Click", "Scroll", "Drop"], ans: 1 },
+  { q: "Clicking the right mouse button is called ______.", opts: ["Double click", "Right click", "Drag", "Scroll"], ans: 1 },
+  { q: "Pressing the left mouse button twice quickly is called ______.", opts: ["Drag", "Double click", "Scroll", "Point"], ans: 1 },
+  { q: "Moving an object while holding the mouse button is called ______.", opts: ["Click", "Drag", "Print", "Type"], ans: 1 },
+  { q: "USB stands for ______.", opts: ["Universal Serial Bus", "United System Bus", "Universal System Board", "United Serial Board"], ans: 0 },
+  { q: "PS2 is mainly used for connecting ______.", opts: ["Monitor", "Mouse and Keyboard", "Printer", "Speaker"], ans: 1 },
+  { q: "Input devices send data to the ______.", opts: ["Monitor", "CPU", "Printer", "Speaker"], ans: 1 },
+  { q: "Output devices receive data from the ______.", opts: ["Keyboard", "CPU", "Mouse", "Scanner"], ans: 1 },
+  { q: "Printer is an example of ______ device.", opts: ["Input", "Output", "Storage", "Processing"], ans: 1 },
+  { q: "Speaker is an example of ______ device.", opts: ["Input", "Output", "Storage", "Processing"], ans: 1 },
+  { q: "Hard disk is a ______ device.", opts: ["Storage", "Input", "Output", "Display"], ans: 0 },
+  { q: "The full computer operation follows ______ order.", opts: ["CPU → Input → Output", "Input → CPU → Output", "Output → CPU → Input", "Input → Output → CPU"], ans: 1 },
+  { q: "Double clicking is mainly used to ______ files.", opts: ["Delete", "Open", "Hide", "Print"], ans: 1 },
+  { q: "Dragging is used to ______ objects.", opts: ["Move", "Store", "Delete", "Print"], ans: 0 },
+  { q: "If date and time reset automatically, the problem may be the ______.", opts: ["Hard disk", "CMOS battery", "Printer", "Mouse"], ans: 1 },
+  { q: "CRT monitor uses ______ transformer.", opts: ["Line", "Step-down", "Power", "Small"], ans: 0 }
+      ];
       
         const courses = {
             'cos': { name: 'COS 101', title: 'Introduction to Computer Science', questions: cosQuestions },
             'phy': { name: 'PHY 101', title: 'General Physics I', questions: phyQuestions },
-            'csc': { name: 'CSC 111', title: 'Introduction to Database Concept', questions: cscQuestions }
+            'csc': { name: 'CSC 111', title: 'Introduction to Database Concept', questions: cscQuestions },
+            'vos': { name: 'VOS 114', title: 'Computer Maintance And Percaution', questions: vosQuestuons }
         };
 
         // --- STATE VARIABLES ---
@@ -1012,7 +1086,7 @@
             container.innerHTML = '';
             
             let options = [30, 50, 100];
-            if (selectedCourse === 'phy') options.push(150);
+            if (selectedCourse === 'phy') options.push(150)
 
             options.forEach(num => {
                 const isSelected = num === selectedCount;

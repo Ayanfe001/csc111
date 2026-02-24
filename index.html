@@ -303,7 +303,7 @@
                         <h3 class="text-xl font-bold text-slate-800 group-hover:text-purple-700 dark:group-hover:text-purple-400 transition-colors">VOS 117</h3>
                         <p class="text-slate-500 mt-1 text-sm font-medium">Fish Farming</p>
                     </div>
-                    <span class="bg-purple-100/50 dark:bg-purple-900/50 border border-purple-200 dark:border-purple-700 text-purple-800 dark:text-purple-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">50 Qs Available</span>
+                    <span class="bg-purple-100/50 dark:bg-purple-900/50 border border-purple-200 dark:border-purple-700 text-purple-800 dark:text-purple-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">100 Qs Available</span>
                 </div>
             </button>
         </div>
@@ -1560,21 +1560,17 @@
             }
         }
 
-        // --- PDF DOWNLOAD: GUARANTEED VISIBILITY ENGINE ---
+        // --- PURE VECTOR PDF GENERATOR (100% CRASH-PROOF) ---
         function handlePDFClick() {
             const btn = document.getElementById('pdf-download-btn');
             const textEl = document.getElementById('pdf-btn-text');
 
             if (!pdfConfirmWait) {
-                // FIRST CLICK: Ask for confirmation
                 pdfConfirmWait = true;
                 textEl.textContent = "Click again to download";
-                
-                // Change style to highlight the required action
                 btn.classList.remove('from-blue-600', 'to-purple-600');
                 btn.classList.add('from-rose-500', 'to-red-600', 'animate-pulse');
 
-                // Reset back to normal after 4 seconds if they don't click
                 pdfResetTimer = setTimeout(() => {
                     pdfConfirmWait = false;
                     textEl.textContent = "Save as PDF";
@@ -1582,127 +1578,164 @@
                     btn.classList.remove('from-rose-500', 'to-red-600', 'animate-pulse');
                 }, 4000);
             } else {
-                // SECOND CLICK: Build the Clean Print HTML and trigger download
                 clearTimeout(pdfResetTimer);
                 pdfConfirmWait = false;
                 
-                textEl.textContent = "Generating...";
+                textEl.textContent = "Generating PDF...";
                 btn.classList.remove('animate-pulse');
 
-                generateCleanPDF().then(() => {
-                    // Restore button appearance after download
+                // Add slight delay to let UI update before thread locks up building the file
+                setTimeout(() => {
+                    generateVectorPDF();
                     textEl.textContent = "Save as PDF";
                     btn.classList.add('from-blue-600', 'to-purple-600');
                     btn.classList.remove('from-rose-500', 'to-red-600');
-                }).catch(err => {
-                    alert("Download failed. Please try again.");
-                    console.error(err);
-                    textEl.textContent = "Save as PDF";
-                    btn.classList.add('from-blue-600', 'to-purple-600');
-                    btn.classList.remove('from-rose-500', 'to-red-600');
-                });
+                }, 100);
             }
         }
 
-        function generateCleanPDF() {
-            if (!currentResultView) return Promise.reject("No data");
+        function generateVectorPDF() {
+            if (!currentResultView) return;
 
-            return new Promise((resolve, reject) => {
-                const { name, course, score, total, questions, answers, passed } = currentResultView;
-                const pct = Math.round((score / total) * 100);
+            const { name, course, score, total, questions, answers, passed } = currentResultView;
+            const pct = Math.round((score / total) * 100);
 
-                // Create a standalone HTML element strictly for html2pdf
-                const printDiv = document.createElement('div');
-                
-                // Pure Inline CSS for the PDF Document to prevent rendering bugs
-                let htmlStr = `
-                    <div style="width: 800px; padding: 40px; font-family: Helvetica, Arial, sans-serif; background-color: #ffffff; color: #000000; position: relative; z-index: 1;">
-                        
-                        <!-- Watermarks (Repeated physically down the page to ensure they appear without breaking rendering) -->
-                        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: -1; overflow: hidden; pointer-events: none;">
-                            <div style="color: rgba(147, 51, 234, 0.08); font-size: 110px; font-weight: bold; transform: rotate(-45deg); position: absolute; top: 300px; left: 50px;">HoRly's_tech</div>
-                            <div style="color: rgba(147, 51, 234, 0.08); font-size: 110px; font-weight: bold; transform: rotate(-45deg); position: absolute; top: 1100px; left: 50px;">HoRly's_tech</div>
-                            <div style="color: rgba(147, 51, 234, 0.08); font-size: 110px; font-weight: bold; transform: rotate(-45deg); position: absolute; top: 1900px; left: 50px;">HoRly's_tech</div>
-                            <div style="color: rgba(147, 51, 234, 0.08); font-size: 110px; font-weight: bold; transform: rotate(-45deg); position: absolute; top: 2700px; left: 50px;">HoRly's_tech</div>
-                            <div style="color: rgba(147, 51, 234, 0.08); font-size: 110px; font-weight: bold; transform: rotate(-45deg); position: absolute; top: 3500px; left: 50px;">HoRly's_tech</div>
-                        </div>
+            // Access the pure jsPDF library included in the script tag
+            const { jsPDF } = window.jspdf;
+            
+            // Create a standard A4 portrait document
+            const doc = new jsPDF('p', 'pt', 'a4');
+            
+            const pageWidth = 595.28;
+            const pageHeight = 841.89;
+            const margin = 40;
+            const maxW = pageWidth - (margin * 2);
+            let y = 40;
 
-                        <!-- Header -->
-                        <div style="text-align: center; border-bottom: 3px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px;">
-                            <h1 style="color: #7e22ce; font-size: 42px; margin: 0; font-weight: 900;">HoRly's_Tech</h1>
-                            <h2 style="color: #475569; font-size: 24px; margin: 10px 0 0 0;">Official Assessment Result</h2>
-                        </div>
+            // Helper to draw watermark
+            function drawWatermark() {
+                doc.saveGraphicsState();
+                doc.setGState(new doc.GState({opacity: 0.08}));
+                doc.setTextColor(147, 51, 234); // Purple
+                doc.setFontSize(65);
+                doc.setFont("helvetica", "bold");
+                // Stamp it diagonally in the center of the page
+                doc.text("HoRly's_tech", pageWidth / 2, pageHeight / 2, { angle: -45, align: 'center' });
+                doc.restoreGraphicsState();
+            }
 
-                        <!-- Student Info -->
-                        <div style="margin-bottom: 30px; font-size: 18px; line-height: 1.6;">
-                            <div><strong>Student Name:</strong> ${name}</div>
-                            <div><strong>Course Examined:</strong> ${course}</div>
-                            <div><strong>Date Completed:</strong> ${new Date().toLocaleDateString()}</div>
-                        </div>
+            // Helper to check if we need a new page before drawing
+            function checkPageBreak(neededSpace) {
+                if (y + neededSpace > pageHeight - margin) {
+                    doc.addPage();
+                    drawWatermark();
+                    y = margin;
+                }
+            }
 
-                        <!-- Score Card -->
-                        <div style="background-color: ${passed ? '#ecfdf5' : '#fff1f2'}; border: 3px solid ${passed ? '#10b981' : '#f43f5e'}; padding: 30px; text-align: center; border-radius: 12px; margin-bottom: 40px;">
-                            <div style="font-size: 70px; font-weight: 900; color: ${passed ? '#059669' : '#e11d48'}; margin: 0; line-height: 1;">${pct}%</div>
-                            <div style="font-size: 24px; font-weight: bold; margin: 15px 0; color: #334155;">Final Score: ${score} out of ${total} correct</div>
-                            <div style="font-size: 20px; font-weight: bold; color: ${passed ? '#065f46' : '#9f1239'};">${passed ? 'Status: PASSED' : 'Status: FAILED'}</div>
-                        </div>
+            // Draw first page watermark
+            drawWatermark();
 
-                        <!-- Detailed Review -->
-                        <h3 style="font-size: 26px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 25px; color: #1e293b;">Detailed Answer Review</h3>
-                `;
+            // HEADER
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(28);
+            doc.setTextColor(126, 34, 206);
+            doc.text("HoRly's_Tech", pageWidth / 2, y, { align: 'center' });
+            y += 20;
 
-                // Add Questions Loop
-                questions.forEach((q, qIdx) => {
-                    const userAns = answers[qIdx];
-                    const isCorrect = userAns === q.ans;
-                    
-                    htmlStr += `
-                        <div style="margin-bottom: 25px; padding: 20px; border: 1px solid #cbd5e1; border-radius: 10px; background-color: rgba(255,255,255,0.95); page-break-inside: avoid;">
-                            <div style="font-weight: bold; font-size: 18px; margin-bottom: 15px; color: #0f172a;">${qIdx + 1}. ${q.q}</div>
-                    `;
-                    
-                    q.opts.forEach((opt, optIdx) => {
-                        const isThisCorrectOpt = optIdx === q.ans;
-                        const isThisUserOpt = optIdx === userAns;
-                        
-                        let optStyle = "padding: 12px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 16px; color: #475569;";
-                        if (isThisCorrectOpt) {
-                            optStyle = "padding: 12px; margin-bottom: 8px; border-radius: 6px; border: 2px solid #34d399; background-color: #d1fae5; color: #065f46; font-weight: bold; font-size: 16px;";
-                        } else if (isThisUserOpt && !isCorrect) {
-                            optStyle = "padding: 12px; margin-bottom: 8px; border-radius: 6px; border: 2px solid #fb7185; background-color: #ffe4e6; color: #9f1239; font-weight: bold; font-size: 16px;";
-                        }
-                        
-                        htmlStr += `<div style="${optStyle}">${String.fromCharCode(65 + optIdx)}. ${opt}</div>`;
-                    });
-                    
-                    if (userAns === undefined) {
-                        htmlStr += `<div style="color: #e11d48; font-weight: bold; font-size: 16px; margin-top: 15px;">[!] You did not answer this question</div>`;
+            doc.setFontSize(14);
+            doc.setTextColor(71, 85, 105);
+            doc.text("Official Assessment Result", pageWidth / 2, y, { align: 'center' });
+            y += 40;
+
+            // STUDENT INFO
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.text(`Student Name: ${name}`, margin, y); y += 15;
+            doc.text(`Course Examined: ${course}`, margin, y); y += 15;
+            doc.text(`Date Completed: ${new Date().toLocaleDateString()}`, margin, y); y += 30;
+
+            // SCORE SUMMARY
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(40);
+            doc.setTextColor(passed ? 5 : 225, passed ? 150 : 29, passed ? 105 : 72); // Green or Red
+            doc.text(`${pct}%`, pageWidth / 2, y, { align: 'center' }); y += 25;
+
+            doc.setFontSize(14);
+            doc.setTextColor(51, 65, 85);
+            doc.text(`Final Score: ${score} out of ${total} correct`, pageWidth / 2, y, { align: 'center' }); y += 20;
+
+            doc.setFontSize(12);
+            doc.setTextColor(passed ? 5 : 225, passed ? 150 : 29, passed ? 105 : 72);
+            doc.text(`Status: ${passed ? 'PASSED' : 'FAILED'}`, pageWidth / 2, y, { align: 'center' }); y += 40;
+
+            // DIVIDER
+            doc.setDrawColor(226, 232, 240);
+            doc.setLineWidth(1);
+            doc.line(margin, y, pageWidth - margin, y); y += 30;
+
+            doc.setFontSize(16);
+            doc.setTextColor(30, 41, 59);
+            doc.text("Detailed Answer Review", margin, y); y += 25;
+
+            // LOOP THROUGH QUESTIONS (Pure text logic, memory safe)
+            questions.forEach((q, qIdx) => {
+                const userAns = answers[qIdx];
+                const isCorrect = userAns === q.ans;
+                const isUnanswered = userAns === undefined;
+
+                // Prepare question text
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(11);
+                doc.setTextColor(15, 23, 42); // Black/Slate
+                let qLines = doc.splitTextToSize(`${qIdx + 1}. ${q.q}`, maxW);
+
+                // Check if the whole question block roughly fits (Q height + opts height + buffer)
+                let estimatedHeight = (qLines.length * 14) + (q.opts.length * 14) + (isUnanswered ? 14 : 0) + 20;
+                checkPageBreak(estimatedHeight);
+
+                // Draw Question
+                doc.text(qLines, margin, y);
+                y += qLines.length * 14 + 5;
+
+                // Draw Options
+                q.opts.forEach((opt, optIdx) => {
+                    const isThisCorrectOpt = optIdx === q.ans;
+                    const isThisUserOpt = optIdx === userAns;
+
+                    let prefix = "[   ]";
+                    if (isThisCorrectOpt) {
+                        prefix = "[ √ ]";
+                        doc.setTextColor(5, 150, 105); // Green
+                        doc.setFont("helvetica", "bold");
+                    } else if (isThisUserOpt && !isCorrect) {
+                        prefix = "[ X ]";
+                        doc.setTextColor(225, 29, 72); // Red
+                        doc.setFont("helvetica", "bold");
+                    } else {
+                        doc.setTextColor(71, 85, 105); // Gray
+                        doc.setFont("helvetica", "normal");
                     }
-                    
-                    htmlStr += `</div>`;
-                });
-                
-                htmlStr += `</div>`; // Close wrapper
-                printDiv.innerHTML = htmlStr;
 
-                // PDF Settings
-                const opt = {
-                    margin:       [0.4, 0.4, 0.4, 0.4], 
-                    filename:     `${name.replace(/\s+/g, '_')}_HoRly_Result.pdf`,
-                    image:        { type: 'jpeg', quality: 1.0 },
-                    // html2canvas config specifically tailored to avoid blank pages (no appending to DOM required)
-                    html2canvas:  { scale: 2, useCORS: true, letterRendering: true, windowWidth: 800 },
-                    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
-                    pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
-                };
-
-                // html2pdf natively triggers the browser download properly
-                html2pdf().set(opt).from(printDiv).save().then(() => {
-                    resolve();
-                }).catch(err => {
-                    reject(err);
+                    let optLines = doc.splitTextToSize(`${prefix} ${String.fromCharCode(65 + optIdx)}. ${opt}`, maxW);
+                    doc.text(optLines, margin + 10, y); // Indent options slightly
+                    y += optLines.length * 14;
                 });
+
+                if (isUnanswered) {
+                     doc.setFont("helvetica", "bold");
+                     doc.setTextColor(225, 29, 72);
+                     doc.text("[!] You did not answer this question", margin + 10, y);
+                     y += 14;
+                }
+
+                y += 15; // Space between questions
             });
+
+            // Trigger the native file download directly
+            const safeFilename = `${name.replace(/\s+/g, '_')}_HoRly_Result.pdf`;
+            doc.save(safeFilename);
         }
 
 

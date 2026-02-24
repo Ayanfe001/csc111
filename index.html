@@ -291,9 +291,19 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <h3 class="text-xl font-bold text-slate-800 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">VOS 114</h3>
-                        <p class="text-slate-500 mt-1 text-sm font-medium">Computer Maintance And Precaution</p>
+                        <p class="text-slate-500 mt-1 text-sm font-medium">Computer Maintance And Percaution</p>
                     </div>
                     <span class="bg-blue-100/50 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">60 Qs Available</span>
+                </div>
+            </button>
+
+          <button onclick="selectCourse('vos117')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-purple-300 dark:hover:border-purple-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800 group-hover:text-purple-700 dark:group-hover:text-purple-400 transition-colors">VOS 117</h3>
+                        <p class="text-slate-500 mt-1 text-sm font-medium">Fish Farming</p>
+                    </div>
+                    <span class="bg-purple-100/50 dark:bg-purple-900/50 border border-purple-200 dark:border-purple-700 text-purple-800 dark:text-purple-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">100 Qs Available</span>
                 </div>
             </button>
         </div>
@@ -926,12 +936,67 @@
   { q: "If date and time reset automatically, the problem may be the ______.", opts: ["Hard disk", "CMOS battery", "Printer", "Mouse"], ans: 1 },
   { q: "CRT monitor uses ______ transformer.", opts: ["Line", "Step-down", "Power", "Small"], ans: 0 }
       ];
+
+     const vos117Questions = [
+  { q: "Fish farming can only be done in rivers.", opts: ["TRUE", "FALSE"], ans: 1 },
+  { q: "Good water quality is important in fish farming.", opts: ["TRUE", "FALSE"], ans: 0 },
+  { q: "Overfeeding fish can cause water pollution.", opts: ["TRUE", "FALSE"], ans: 0 },
+  { q: "Tilapia grows faster than all fish species.", opts: ["TRUE", "FALSE"], ans: 1 },
+  { q: "Fish farming creates employment opportunities.", opts: ["TRUE", "FALSE"], ans: 0 },
+  { q: "Poor management can lead to fish mortality.", opts: ["TRUE", "FALSE"], ans: 0 },
+  { q: "Fish farming contributes to economic development.", opts: ["TRUE", "FALSE"], ans: 0 },
+  { q: "Disease outbreak can reduce fish production.", opts: ["TRUE", "FALSE"], ans: 0 },
+  { q: "Harvesting is the final stage in fish farming.", opts: ["TRUE", "FALSE"], ans: 0 },
+  { q: "Fish farming reduces dependence on imported fish.", opts: ["TRUE", "FALSE"], ans: 0 },
+  { q: "Fish farming, also called aquaculture, is the breeding, rearing, and harvesting of fish in controlled water environments such as ponds, tanks, or cages for food and commercial purposes.", opts: ["Forestry", "Aquaculture", "Irrigation", "Grazing"], ans: 1 },
+  { q: "Aquaculture is the rearing of fish and other aquatic animals in controlled water systems.", opts: ["Crop production", "Fish and aquatic organism production", "Mining", "Banking"], ans: 1 },
+  { q: "To provide protein-rich food for human consumption is one objective of fish farming.", opts: ["TRUE", "FALSE"], ans: 0 },
+  { q: "To generate income and create employment opportunities is an objective of fish farming.", opts: ["TRUE", "FALSE"], ans: 0 },
+  { q: "Which of the following is a type of fish farming system?", opts: ["Pond culture", "Mining", "Forestry", "Hunting"], ans: 0 },
+  { q: "Which of the following is a type of fish farming system?", opts: ["Tank culture", "Banking", "Trading", "Weaving"], ans: 0 },
+  { q: "Which of the following is a type of fish farming system?", opts: ["Cage culture", "Desert culture", "Forest culture", "Mountain culture"], ans: 0 },
+  { q: "Which of the following is commonly reared in Nigeria?", opts: ["Catfish", "Whale", "Shark", "Seal"], ans: 0 },
+  { q: "Which of the following is commonly reared in Nigeria?", opts: ["Tilapia", "Dolphin", "Whale", "Octopus"], ans: 0 },
+  { q: "What happens when water is too alkaline?", opts: ["Fish grow faster", "It reduces fish growth and can cause death", "It improves feeding", "It increases oxygen"], ans: 1 },
+  { q: "Why is oxygen important in fish farming?", opts: ["Fish breathe dissolved oxygen in water", "It changes fish color", "It increases pond size", "It reduces feeding"], ans: 0 },
+  { q: "What happens when water lacks oxygen?", opts: ["Fish grow faster", "Fish will die", "Fish multiply quickly", "Nothing happens"], ans: 1 },
+  { q: "What is fish feed?", opts: ["Sand given to fish", "Food given to fish to enable growth", "Leaves in pond", "Water chemical"], ans: 1 },
+  { q: "How should fish be fed?", opts: ["Randomly", "According to their size", "Once a week", "Only at night"], ans: 1 },
+  { q: "What type of feed do fingerlings eat?", opts: ["Floating pellets", "Powdered feed", "Leaves", "Stones"], ans: 1 },
+  { q: "Why should feed be rich in protein?", opts: ["Protein helps fish grow fast", "It colors the fish", "It reduces oxygen", "It kills bacteria"], ans: 0 },
+  { q: "How many times can fish be fed daily?", opts: ["Once", "Twice daily (in small amounts)", "Five times", "Once weekly"], ans: 1 },
+  { q: "What is overfeeding?", opts: ["Giving fish less feed", "Giving fish more feed than they can eat", "Feeding once daily", "Feeding small fish"], ans: 1 },
+  { q: "One danger of overfeeding?", opts: ["Faster growth", "Water pollution", "Bigger ponds", "More oxygen"], ans: 1 },
+  { q: "Name two types of fish feed.", opts: ["Floating feed and sinking feed", "Sand and stones", "Grass and leaves", "Fruits and seeds"], ans: 0 },
+  { q: "Which feed allows you to observe fish while eating?", opts: ["Sinking feed", "Floating feed", "Powdered sand", "Mud feed"], ans: 1 },
+  { q: "One advantage of floating feed?", opts: ["Prevents overfeeding", "Pollutes water", "Sinks immediately", "Reduces oxygen"], ans: 0 },
+  { q: "What is siphoning?", opts: ["Feeding fish", "Removing dirty water and waste using a tube", "Harvesting fish", "Sorting fish"], ans: 1 },
+  { q: "Why is siphoning important?", opts: ["It maintains water quality", "It increases pond size", "It reduces feeding", "It changes fish color"], ans: 0 },
+  { q: "How often should water be changed in an earthen pond?", opts: ["Daily", "Weekly", "Every 2 weeks", "Monthly"], ans: 2 },
+  { q: "How often should water be changed in a concrete pond?", opts: ["Daily", "Weekly", "Monthly", "Yearly"], ans: 1 },
+  { q: "What is fish seed?", opts: ["Fish egg only", "Young fish used to start farming", "Fish feed", "Pond fertilizer"], ans: 1 },
+  { q: "Mention three fish seed stages.", opts: ["Fry, fingerlings, juveniles", "Egg, sand, leaf", "Small, medium, big", "Hatch, grow, die"], ans: 0 },
+  { q: "Which is stronger: fingerlings or juveniles?", opts: ["Fingerlings", "Juveniles", "Both equal", "None"], ans: 1 },
+  { q: "What is mortality in fish farming?", opts: ["Growth rate", "Death rate of fish", "Feeding process", "Sorting method"], ans: 1 },
+  { q: "Mention one cause of fish mortality.", opts: ["Clean water", "Overcrowding", "Adequate feeding", "Good management"], ans: 1 },
+  { q: "Another cause of mortality?", opts: ["Transportation stress", "Balanced feed", "Clean pond", "Oxygen supply"], ans: 0 },
+  { q: "Another cause of mortality?", opts: ["Counting stress", "Proper feeding", "Sorting", "Harvesting"], ans: 0 },
+  { q: "What is cannibalism in fish?", opts: ["Fish sleeping", "Fish eating each other", "Fish breeding", "Fish sorting"], ans: 1 },
+  { q: "What causes cannibalism?", opts: ["Balanced feeding", "Mixing different fish sizes", "Clean water", "Harvesting"], ans: 1 },
+  { q: "Solution to cannibalism?", opts: ["Mix sizes", "Sort fish by size", "Reduce oxygen", "Stop feeding"], ans: 1 },
+  { q: "What does overcrowding cause?", opts: ["Healthy growth", "Oxygen shortage and death", "Faster breeding", "Bigger fish"], ans: 1 },
+  { q: "What does feed wastage cause?", opts: ["Water pollution", "Faster growth", "Clean pond", "Bigger fish"], ans: 0 },
+  { q: "What is the effect of polluted water?", opts: ["Reduced oxygen and fish death", "Faster growth", "Bigger pond", "Increased feeding"], ans: 0 },
+  { q: "What is a hatchery?", opts: ["A place where fish are bred and hatched", "A market", "A feed store", "A river"], ans: 0 }
+];
+
       
         const courses = {
             'cos': { name: 'COS 101', title: 'Introduction to Computer Science', questions: cosQuestions },
             'phy': { name: 'PHY 101', title: 'General Physics I', questions: phyQuestions },
             'csc': { name: 'CSC 111', title: 'Introduction to Database Concept', questions: cscQuestions },
-            'vos': { name: 'VOS 114', title: 'Computer Maintance And Precaution', questions: vosQuestuons }
+            'vos': { name: 'VOS 114', title: 'Computer Maintance And Percaution', questions: vosQuestuons },
+            'vos117': {name: 'VOS 117', title: 'Fish Farming', questions: vos117Questions }
         };
 
         // --- STATE VARIABLES ---

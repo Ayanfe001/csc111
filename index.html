@@ -1560,7 +1560,7 @@
             }
         }
 
-        // --- PURE VECTOR PDF GENERATOR (100% CRASH-PROOF) ---
+        // --- PURE VECTOR PDF GENERATOR (100% CRASH-PROOF, BALANCED MARGINS) ---
         function handlePDFClick() {
             const btn = document.getElementById('pdf-download-btn');
             const textEl = document.getElementById('pdf-btn-text');
@@ -1584,7 +1584,6 @@
                 textEl.textContent = "Generating PDF...";
                 btn.classList.remove('animate-pulse');
 
-                // Add slight delay to let UI update before thread locks up building the file
                 setTimeout(() => {
                     generateVectorPDF();
                     textEl.textContent = "Save as PDF";
@@ -1600,40 +1599,43 @@
             const { name, course, score, total, questions, answers, passed } = currentResultView;
             const pct = Math.round((score / total) * 100);
 
-            // Access the pure jsPDF library included in the script tag
+            // Access the pure jsPDF library
             const { jsPDF } = window.jspdf;
             
             // Create a standard A4 portrait document
             const doc = new jsPDF('p', 'pt', 'a4');
             
-            const pageWidth = 595.28;
-            const pageHeight = 841.89;
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+            
+            // STRICT MARGINS: Left = 40px, Right = 40px. 
             const margin = 40;
-            const maxW = pageWidth - (margin * 2);
+            const maxW = pageWidth - (margin * 2); 
             let y = 40;
 
-            // Helper to draw watermark
             function drawWatermark() {
                 doc.saveGraphicsState();
-                doc.setGState(new doc.GState({opacity: 0.08}));
-                doc.setTextColor(147, 51, 234); // Purple
-                doc.setFontSize(65);
+                doc.setGState(new doc.GState({opacity: 0.06}));
+                doc.setTextColor(147, 51, 234); 
+                doc.setFontSize(75);
                 doc.setFont("helvetica", "bold");
-                // Stamp it diagonally in the center of the page
-                doc.text("HoRly's_tech", pageWidth / 2, pageHeight / 2, { angle: -45, align: 'center' });
+                
+                // Stamp dynamically so it covers the whole document
+                doc.text("HoRly's_tech", pageWidth / 2, pageHeight * 0.25, { angle: -45, align: 'center' });
+                doc.text("HoRly's_tech", pageWidth / 2, pageHeight * 0.50, { angle: -45, align: 'center' });
+                doc.text("HoRly's_tech", pageWidth / 2, pageHeight * 0.75, { angle: -45, align: 'center' });
+                
                 doc.restoreGraphicsState();
             }
 
-            // Helper to check if we need a new page before drawing
             function checkPageBreak(neededSpace) {
                 if (y + neededSpace > pageHeight - margin) {
                     doc.addPage();
                     drawWatermark();
-                    y = margin;
+                    y = margin + 10;
                 }
             }
 
-            // Draw first page watermark
             drawWatermark();
 
             // HEADER
@@ -1654,12 +1656,12 @@
             doc.setTextColor(0, 0, 0);
             doc.text(`Student Name: ${name}`, margin, y); y += 15;
             doc.text(`Course Examined: ${course}`, margin, y); y += 15;
-            doc.text(`Date Completed: ${new Date().toLocaleDateString()}`, margin, y); y += 30;
+            doc.text(`Date Completed: ${new Date().toLocaleDateString()}`, margin, y); y += 35;
 
             // SCORE SUMMARY
             doc.setFont("helvetica", "bold");
             doc.setFontSize(40);
-            doc.setTextColor(passed ? 5 : 225, passed ? 150 : 29, passed ? 105 : 72); // Green or Red
+            doc.setTextColor(passed ? 5 : 225, passed ? 150 : 29, passed ? 105 : 72); 
             doc.text(`${pct}%`, pageWidth / 2, y, { align: 'center' }); y += 25;
 
             doc.setFontSize(14);
@@ -1679,62 +1681,87 @@
             doc.setTextColor(30, 41, 59);
             doc.text("Detailed Answer Review", margin, y); y += 25;
 
-            // LOOP THROUGH QUESTIONS (Pure text logic, memory safe)
+            // LOOP THROUGH QUESTIONS (Pure vector drawing logic)
             questions.forEach((q, qIdx) => {
                 const userAns = answers[qIdx];
                 const isCorrect = userAns === q.ans;
                 const isUnanswered = userAns === undefined;
 
-                // Prepare question text
+                // PRE-CALCULATE ALL HEIGHTS PROPERLY FIRST
                 doc.setFont("helvetica", "bold");
                 doc.setFontSize(11);
-                doc.setTextColor(15, 23, 42); // Black/Slate
-                let qLines = doc.splitTextToSize(`${qIdx + 1}. ${q.q}`, maxW);
-
-                // Check if the whole question block roughly fits (Q height + opts height + buffer)
-                let estimatedHeight = (qLines.length * 14) + (q.opts.length * 14) + (isUnanswered ? 14 : 0) + 20;
-                checkPageBreak(estimatedHeight);
-
-                // Draw Question
-                doc.text(qLines, margin, y);
-                y += qLines.length * 14 + 5;
-
-                // Draw Options
-                q.opts.forEach((opt, optIdx) => {
+                
+                let qText = String(q.q);
+                let qLines = doc.splitTextToSize(`${qIdx + 1}. ${qText}`, maxW);
+                
+                let optionsData = q.opts.map((opt, optIdx) => {
                     const isThisCorrectOpt = optIdx === q.ans;
                     const isThisUserOpt = optIdx === userAns;
-
+                    
                     let prefix = "[   ]";
+                    let fontStyle = "normal";
+                    
                     if (isThisCorrectOpt) {
                         prefix = "[ √ ]";
-                        doc.setTextColor(5, 150, 105); // Green
-                        doc.setFont("helvetica", "bold");
+                        fontStyle = "bold";
                     } else if (isThisUserOpt && !isCorrect) {
                         prefix = "[ X ]";
+                        fontStyle = "bold";
+                    }
+                    
+                    // CRITICAL FIX: Set exact font state BEFORE measuring text string bounds
+                    doc.setFont("helvetica", fontStyle);
+                    doc.setFontSize(11);
+                    
+                    let optString = `${prefix}  ${String.fromCharCode(65 + optIdx)}.  ${String(opt)}`;
+                    
+                    // Generous safety margin logic (Max Width - Right Margin allowance - Indent Space)
+                    let optLines = doc.splitTextToSize(optString, maxW - 35);
+                    return { lines: optLines, fontStyle: fontStyle, isCorrectOpt: isThisCorrectOpt, isUserOpt: isThisUserOpt };
+                });
+
+                // Tally required space
+                let totalHeightNeeded = (qLines.length * 15) + 5;
+                optionsData.forEach(opt => totalHeightNeeded += (opt.lines.length * 15));
+                if (isUnanswered) totalHeightNeeded += 15;
+                totalHeightNeeded += 20;
+
+                // Check page jump before writing anything
+                checkPageBreak(totalHeightNeeded);
+
+                // DRAW QUESTION
+                doc.setFont("helvetica", "bold");
+                doc.setTextColor(15, 23, 42); 
+                doc.text(qLines, margin, y);
+                y += qLines.length * 15 + 5;
+
+                // DRAW OPTIONS
+                optionsData.forEach((optData) => {
+                    doc.setFont("helvetica", optData.fontStyle);
+                    
+                    if (optData.isCorrectOpt) {
+                        doc.setTextColor(5, 150, 105); // Green
+                    } else if (optData.isUserOpt && !isCorrect) {
                         doc.setTextColor(225, 29, 72); // Red
-                        doc.setFont("helvetica", "bold");
                     } else {
                         doc.setTextColor(71, 85, 105); // Gray
-                        doc.setFont("helvetica", "normal");
                     }
-
-                    let optLines = doc.splitTextToSize(`${prefix} ${String.fromCharCode(65 + optIdx)}. ${opt}`, maxW);
-                    doc.text(optLines, margin + 10, y); // Indent options slightly
-                    y += optLines.length * 14;
+                    
+                    doc.text(optData.lines, margin + 20, y); 
+                    y += optData.lines.length * 15;
                 });
 
                 if (isUnanswered) {
                      doc.setFont("helvetica", "bold");
                      doc.setTextColor(225, 29, 72);
-                     doc.text("[!] You did not answer this question", margin + 10, y);
-                     y += 14;
+                     doc.text("[!] You did not answer this question", margin + 20, y);
+                     y += 15;
                 }
 
-                y += 15; // Space between questions
+                y += 15; // Bottom spacing before next question
             });
 
-            // Trigger the native file download directly
-            const safeFilename = `${name.replace(/\s+/g, '_')}_HoRly_tech-quiz_Result.pdf`;
+            const safeFilename = `${name.replace(/\s+/g, '_')}_HoRly_Result.pdf`;
             doc.save(safeFilename);
         }
 

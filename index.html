@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=0.8, user-scalable=no">
     <title>HoRly's Tech Gadgets Quiz</title>
     
-    <!-- Tailwind CSS & Config for Dark Mode -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -21,8 +20,7 @@
         }
     </script>
     
-    <!-- html2pdf for PDF Generation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -178,17 +176,23 @@
         html.dark .calc-btn { background: rgba(255,255,255,0.05); color: white; }
         html.dark .calc-btn:hover { background: rgba(255,255,255,0.15); }
     </style>
+    
+    <script src="questions/cos.js"></script>
+    <script src="questions/phy.js"></script>
+    <script src="questions/csc.js"></script>
+    <script src="questions/vos.js"></script>
+    <script src="questions/vos117.js"></script>
+    <script src="questions/gns113.js"></script>
+
 </head>
 <body class="text-slate-800 min-h-screen flex flex-col items-center p-4 sm:p-6 selection:bg-purple-200 selection:text-purple-900">
 
-    <!-- Ambient Background -->
     <div class="ambient-bg">
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
         <div class="blob blob-3"></div>
     </div>
 
-    <!-- Header (Floating Glass Pill) -->
     <div class="glass-panel p-4 sm:p-5 rounded-[2rem] mb-6 sm:mb-10 text-center max-w-2xl w-full mx-auto mt-2 z-10 screen-enter flex justify-between items-center flex-wrap gap-2">
         <div class="text-left">
             <h1 class="text-lg sm:text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-purple-700 to-blue-600 dark:from-purple-400 dark:to-blue-400 tracking-tight">Quiz by HoRly’s_Tech</h1>
@@ -198,16 +202,12 @@
             </div>
         </div>
         
-        <!-- Dark Mode Toggle -->
         <button id="theme-toggle" class="p-2 rounded-full bg-white/30 dark:bg-black/30 border border-white/50 dark:border-white/10 shadow-sm hover:scale-105 transition-transform" onclick="toggleDarkMode()">
-            <!-- Sun Icon -->
             <svg id="theme-toggle-light-icon" class="w-5 h-5 hidden text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-            <!-- Moon Icon -->
             <svg id="theme-toggle-dark-icon" class="w-5 h-5 text-slate-700" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
         </button>
     </div>
 
-    <!-- 0. WELCOME SCREEN -->
     <div id="welcome-screen" class="glass-panel p-8 sm:p-12 rounded-[2.5rem] w-full max-w-lg z-10 screen-enter text-center">
         <div class="flex justify-center mb-8">
             <div class="bg-gradient-to-br from-white/80 to-white/30 dark:from-white/20 dark:to-white/5 p-5 rounded-3xl border border-white/60 dark:border-white/10 shadow-xl backdrop-blur-xl relative group">
@@ -223,14 +223,12 @@
             <svg class="ml-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
         </button>
         
-        <!-- Score History Button -->
         <button onclick="showHistory()" class="w-full text-purple-600 dark:text-purple-400 font-bold py-3 px-6 rounded-2xl bg-white/30 dark:bg-black/30 border border-white/50 dark:border-white/10 hover:bg-white/50 dark:hover:bg-white/10 transition-all flex items-center justify-center">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             View Past Results
         </button>
     </div>
 
-    <!-- 1. LOGIN SCREEN -->
     <div id="login-screen" class="hidden glass-panel p-8 sm:p-10 rounded-[2.5rem] w-full max-w-md z-10 screen-enter">
         <div class="flex justify-center mb-6">
             <div class="bg-white/40 dark:bg-white/10 p-4 rounded-full border border-white/50 dark:border-white/10 shadow-sm">
@@ -251,7 +249,6 @@
         </form>
     </div>
 
-    <!-- 2. COURSE SELECTION SCREEN -->
     <div id="course-screen" class="hidden glass-panel p-6 sm:p-10 rounded-[2.5rem] w-full max-w-lg z-10 screen-enter">
         <h2 class="text-2xl font-bold mb-2 tracking-tight text-slate-800">Welcome, <span id="course-display-name" class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400"></span>!</h2>
         <p class="text-slate-500 mb-8 font-medium">Select the course you want to attempt today.</p>
@@ -287,17 +284,17 @@
                 </div>
             </button>
 
-          <button onclick="selectCourse('vos')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-blue-300 dark:hover:border-blue-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
+            <button onclick="selectCourse('vos')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-blue-300 dark:hover:border-blue-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
                 <div class="flex justify-between items-center">
                     <div>
                         <h3 class="text-xl font-bold text-slate-800 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">VOS 114</h3>
                         <p class="text-slate-500 mt-1 text-sm font-medium">Computer Maintance And Percaution</p>
                     </div>
-                    <span class="bg-blue-100/50 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">100 Qs Available</span>
+                    <span class="bg-blue-100/50 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">60 Qs Available</span>
                 </div>
             </button>
 
-          <button onclick="selectCourse('vos117')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-purple-300 dark:hover:border-purple-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
+            <button onclick="selectCourse('vos117')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-purple-300 dark:hover:border-purple-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
                 <div class="flex justify-between items-center">
                     <div>
                         <h3 class="text-xl font-bold text-slate-800 group-hover:text-purple-700 dark:group-hover:text-purple-400 transition-colors">VOS 117</h3>
@@ -306,10 +303,19 @@
                     <span class="bg-purple-100/50 dark:bg-purple-900/50 border border-purple-200 dark:border-purple-700 text-purple-800 dark:text-purple-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">100 Qs Available</span>
                 </div>
             </button>
+
+            <button onclick="selectCourse('gns113')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-blue-300 dark:hover:border-blue-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">GNS 113</h3>
+                        <p class="text-slate-500 mt-1 text-sm font-medium">Use of Library</p>
+                    </div>
+                    <span class="bg-blue-100/50 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">30 Qs Available</span>
+                </div>
+            </button>
         </div>
     </div>
 
-    <!-- 3. SETUP SCREEN -->
     <div id="setup-screen" class="hidden glass-panel p-6 sm:p-10 rounded-[2.5rem] w-full max-w-lg z-10 screen-enter">
         <div class="flex items-center justify-between mb-8 pb-4 border-b border-white/40 dark:border-white/10">
             <h2 class="text-2xl font-bold text-slate-800 tracking-tight">Quiz Settings</h2>
@@ -325,8 +331,7 @@
             <div>
                 <label class="block text-sm font-bold text-slate-600 mb-4 text-center">Select Number of Questions:</label>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="question-count-buttons">
-                    <!-- Buttons injected via JS -->
-                </div>
+                    </div>
             </div>
 
             <div class="bg-blue-50/50 dark:bg-blue-900/30 border border-blue-200/50 dark:border-blue-700/50 backdrop-blur-md rounded-2xl p-5 flex items-start shadow-sm">
@@ -343,17 +348,13 @@
         </div>
     </div>
 
-    <!-- 4. QUIZ SCREEN -->
     <div id="quiz-screen" class="hidden w-full max-w-3xl z-10 screen-enter flex flex-col gap-4">
         
-        <!-- Main Quiz Area -->
         <div class="flex-1 w-full">
-            <!-- Progress Bar -->
             <div class="w-full bg-white/30 dark:bg-black/30 h-2 rounded-full mb-3 overflow-hidden border border-white/50 dark:border-white/10">
                 <div id="quiz-progress-bar" class="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
             </div>
 
-            <!-- Horizontal Slidable Question Navigation Grid -->
             <div class="glass-panel p-3 rounded-2xl mb-5 w-full shadow-sm flex flex-col gap-2">
                 <div class="flex items-center justify-between px-1">
                     <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Question Navigator</span>
@@ -364,11 +365,9 @@
                     </div>
                 </div>
                 <div id="nav-grid" class="flex overflow-x-auto gap-2 py-1 scroll-smooth items-center px-1 snap-x" style="scrollbar-width: thin;">
-                    <!-- Grid items injected via JS -->
-                </div>
+                    </div>
             </div>
 
-            <!-- Floating Status Bar -->
             <div class="glass-panel p-3 sm:p-4 rounded-3xl flex justify-between items-center mb-6 sticky top-4 z-20">
                 <div class="flex items-center gap-3">
                     <span id="progress-text" class="bg-white/50 dark:bg-white/10 border border-white/60 dark:border-white/10 text-slate-800 px-4 py-2 rounded-2xl text-sm font-bold shadow-sm backdrop-blur-md"></span>
@@ -380,21 +379,17 @@
                 </div>
             </div>
 
-            <!-- Question Card -->
             <div class="glass-panel p-6 sm:p-10 rounded-[2.5rem] mb-6 min-h-[350px]">
                 <h2 id="question-text" class="text-xl sm:text-2xl font-bold mb-8 text-slate-800 leading-relaxed tracking-tight"></h2>
                 <div id="options-container" class="space-y-3">
-                    <!-- Options injected via JS -->
-                </div>
+                    </div>
             </div>
 
-            <!-- Navigation Controls -->
             <div class="flex flex-wrap justify-between items-center gap-2 sm:gap-4 mb-4">
                 <button id="prev-btn" class="flex items-center justify-center px-4 py-3 sm:px-5 sm:py-4 rounded-2xl font-bold transition-all flex-1 sm:flex-none">
                     <svg class="w-5 h-5 mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg> Prev
                 </button>
 
-                <!-- Flag for Review Button -->
                 <button id="flag-btn" onclick="toggleFlag()" class="flex items-center justify-center px-4 py-3 sm:px-5 sm:py-4 rounded-2xl font-bold transition-all flex-1 sm:flex-none bg-yellow-100/50 dark:bg-yellow-900/30 border border-yellow-300/50 text-yellow-700 dark:text-yellow-400 hover:bg-yellow-200/50">
                     <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"></path></svg> Flag
                 </button>
@@ -410,10 +405,8 @@
         </div>
     </div>
 
-    <!-- 5. RESULTS SCREEN -->
     <div id="results-screen" class="hidden w-full max-w-4xl space-y-6 pb-12 z-10 screen-enter">
         
-        <!-- Options & Actions -->
         <div class="glass-panel p-4 sm:p-6 rounded-[2rem] flex flex-col sm:flex-row justify-between items-center gap-4">
             <h3 class="text-xl font-bold text-slate-800 dark:text-white tracking-tight">Assessment Actions</h3>
             <div class="flex gap-2 w-full sm:w-auto">
@@ -428,10 +421,8 @@
             </div>
         </div>
 
-        <!-- VISUAL DISPLAY (Shows in browser only) -->
         <div id="browser-view-area" class="space-y-6 relative rounded-[2.5rem]">
             
-            <!-- Summary Card -->
             <div class="glass-panel p-8 sm:p-12 rounded-[2.5rem] text-center relative overflow-hidden">
                 <div id="result-bar" class="absolute top-0 left-0 w-full h-2 backdrop-blur-md"></div>
                 
@@ -456,27 +447,22 @@
 
                 <div id="pass-fail-msg" class="inline-block px-8 py-3 rounded-full font-bold text-lg backdrop-blur-xl shadow-sm mb-6"></div>
 
-                <!-- PROMO BANNER -->
                 <div class="mt-6 mx-auto max-w-lg bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-4 text-white shadow-lg border border-white/20 relative overflow-hidden break-inside-avoid">
                     <div class="absolute inset-0 bg-white/10 w-full h-full transform -skew-x-12 translate-x-full group-hover:animate-shimmer"></div>
                     <p class="font-extrabold text-lg mb-1">Need a new laptop for school?</p>
-                    <p class="text-sm font-medium opacity-90">Get 1.0% off at <a href="https://wa.link/ixpnzi"><span class="font-bold underline">HoRly's Tech Gadgets!</span></a> Show this result to claim.</p>
+                    <p class="text-sm font-medium opacity-90">Get 1.0% off at <span class="font-bold underline">HoRly's Tech Gadgets!</span> Show this result to claim.</p>
                 </div>
             </div>
 
-            <!-- Review Answers Card -->
             <div class="glass-panel p-6 sm:p-10 rounded-[2.5rem]">
                 <h3 class="text-2xl font-bold text-slate-800 dark:text-white tracking-tight mb-6 border-b border-white/40 dark:border-white/10 pb-4">Detailed Review</h3>
                 <div id="review-container" class="space-y-6">
-                    <!-- Answers injected via JS -->
-                </div>
+                    </div>
             </div>
         </div>
     </div>
 
-    <!-- 6. UNANSWERED WARNING MODAL (Deep Glass) -->
     <div id="warning-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-        <!-- Deep blur backdrop -->
         <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-md"></div>
         <div class="glass-panel relative rounded-[2.5rem] shadow-2xl max-w-sm w-full p-8 text-center border-white/40 dark:border-white/10 screen-enter">
             <div class="w-16 h-16 bg-rose-100/50 dark:bg-rose-900/50 border border-rose-200 dark:border-rose-700 text-rose-600 dark:text-rose-400 rounded-full flex items-center justify-center mx-auto mb-5 backdrop-blur-sm">
@@ -495,21 +481,18 @@
         </div>
     </div>
 
-    <!-- 7. HISTORY MODAL -->
     <div id="history-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-md" onclick="closeHistory()"></div>
         <div class="glass-panel relative rounded-[2.5rem] shadow-2xl max-w-lg w-full p-6 sm:p-8 text-center border-white/40 dark:border-white/10 screen-enter max-h-[85vh] flex flex-col">
             <h3 class="text-2xl font-bold text-slate-800 mb-4 tracking-tight">Your Past Results</h3>
             <div id="history-container" class="overflow-y-auto flex-1 space-y-3 mb-4 text-left" style="scrollbar-width: thin;">
-                <!-- History injected via JS -->
-            </div>
+                </div>
             <button onclick="closeHistory()" class="w-full bg-white/40 dark:bg-white/10 hover:bg-white/60 dark:hover:bg-white/20 border border-white/60 dark:border-white/10 text-slate-800 font-bold py-3 px-4 rounded-2xl transition-all backdrop-blur-md mt-auto">
                 Close
             </button>
         </div>
     </div>
 
-    <!-- 8. WHATSAPP FLOATING BUTTON -->
     <a id="wa-button" href="https://chat.whatsapp.com/B9KnUjaH6xN1yIF5HMKLT9?mode=gi_t" target="_blank" class="hidden fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-[90] bg-white/20 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/10 text-emerald-600 dark:text-emerald-400 px-5 py-3 rounded-full shadow-[0_8px_32px_rgba(16,185,129,0.15)] flex items-center gap-3 hover:bg-white/40 dark:hover:bg-white/20 transition-transform transform hover:-translate-y-1 hover:scale-105">
         <div class="bg-emerald-500 text-white p-1.5 rounded-full shadow-inner">
             <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 sm:w-7 sm:h-7"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.195 1.604 6.014L.045 24l6.105-1.602a11.968 11.968 0 005.881 1.536h.005c6.645 0 12.03-5.385 12.03-12.031 0-3.222-1.255-6.25-3.475-8.471A11.963 11.963 0 0012.031 0zm0 19.957h-.004a9.981 9.981 0 01-5.088-1.385l-.365-.216-3.784.992.992-3.69-.237-.377a9.966 9.966 0 01-1.523-5.25c0-5.502 4.478-9.98 9.98-9.98 2.673 0 5.184 1.042 7.073 2.931 1.889 1.89 2.93 4.4 2.93 7.073 0 5.502-4.478 9.98-9.98 9.98zm5.474-7.485c-.3-.15-1.776-.876-2.052-.977-.276-.1-.477-.15-.678.15s-.777.977-.953 1.177c-.176.2-.352.226-.652.076-.3-.15-1.267-.468-2.414-1.492-.892-.797-1.494-1.78-1.67-2.08-.176-.3-.02-.462.131-.611.135-.135.3-.35.45-.526.15-.175.2-.3.301-.5.1-.2.05-.375-.025-.525-.075-.15-.678-1.635-.928-2.239-.244-.59-.492-.51-.678-.519-.175-.01-.376-.01-.577-.01-.2 0-.526.075-.801.375-.276.3-1.053 1.028-1.053 2.505 0 1.477 1.078 2.903 1.228 3.103.15.2 2.115 3.228 5.123 4.526 2.054.887 2.723.953 3.327.852.684-.113 2.185-.892 2.492-1.753.307-.862.307-1.598.215-1.753-.092-.15-.343-.226-.643-.376z"/></svg>
@@ -520,7 +503,6 @@
         </div>
     </a>
 
-    <!-- 9. CALCULATOR FLOATING BUTTON & MODAL -->
     <button id="calc-trigger-btn" onclick="toggleCalculator()" class="hidden fixed bottom-6 left-6 sm:bottom-8 sm:left-8 z-[90] bg-purple-600 text-white p-4 rounded-full shadow-lg hover:bg-purple-700 transition-transform transform hover:scale-105">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
     </button>
@@ -559,534 +541,16 @@
         </div>
     </div>
 
-
     <script>
-        // --- DATA BANKS ---
-        const cosQuestions = [
-            { q: "What is a computer?", opts: ["An electronic device that processes data", "A mechanical typewriter", "A power supply unit", "A type of calculator"], ans: 0 },
-            { q: "Which of the following is an input device?", opts: ["Printer", "Monitor", "Keyboard", "Speaker"], ans: 2 },
-            { q: "The basic operations performed by a computer are:", opts: ["Arithmetic operations", "Logical operations", "Storage and retrieval", "All of the above"], ans: 3 },
-            { q: "What does RAM stand for?", opts: ["Read Access Memory", "Random Access Memory", "Read Arithmetic Memory", "Random Arithmetic Memory"], ans: 1 },
-            { q: "Which of these is a secondary memory?", opts: ["RAM", "Hard Disk", "CPU", "ROM"], ans: 1 },
-            { q: "The full form of CPU is:", opts: ["Central Processing Unit", "Computer Processing Unit", "Central Programming Unit", "Computer Programming Unit"], ans: 0 },
-            { q: "Which of these is an Operating System?", opts: ["MS Word", "Chrome", "Windows", "Fortnite"], ans: 2 },
-            { q: "The smallest unit of data in a computer is?", opts: ["Byte", "Kilo", "Bit", "Mega"], ans: 2 },
-            { q: "Which device is used to convert a digital signal to an analog signal (and vice versa) for communication?", opts: ["Modem", "Monitor", "Printer", "Scanner"], ans: 0 },
-            { q: "What is the primary use of an OS (Operating System)?", opts: ["To play games", "To manage computer hardware and software resources", "To browse the internet", "To edit photos"], ans: 1 },
-            { q: "Which of these is volatile memory?", opts: ["Hard Disk", "ROM", "RAM", "Flash Drive"], ans: 2 },
-            { q: "The work of the ALU (Arithmetic Logic Unit) is:", opts: ["To store data", "To perform mathematical and logical calculations", "To control the flow of data", "To display graphics"], ans: 1 },
-            { q: "Which generation of computer used vacuum tubes?", opts: ["First Generation", "Second Generation", "Third Generation", "Fourth Generation"], ans: 0 },
-            { q: "What type of software is Microsoft PowerPoint?", opts: ["Database", "Operating System", "Presentation Software", "Spreadsheet"], ans: 2 },
-            { q: "Which port is commonly used to connect a modern printer to the computer?", opts: ["VGA", "USB", "HDMI", "PS/2"], ans: 1 },
-            { q: "What is a pixel?", opts: ["A type of virus", "The smallest controllable element of a picture represented on the screen", "A programming language", "A sound file"], ans: 1 },
-            { q: "Which of these is NOT a web browser?", opts: ["Chrome", "Firefox", "Photoshop", "Edge"], ans: 2 },
-            { q: "What does URL stand for?", opts: ["Uniform Resource Locator", "Universal Resource Locator", "Uniform Resource Link", "Unique Resource Link"], ans: 0 },
-            { q: "Which of these is an example of malware?", opts: ["Firewall", "Virus", "Antivirus", "Firefox"], ans: 1 },
-            { q: "What is a firewall?", opts: ["A wall that protects the computer from fire", "A network security system that monitors and controls incoming and outgoing traffic", "A type of virus", "A web browser"], ans: 1 },
-            { q: "Which device is used for Uninterrupted Power Supply?", opts: ["USB", "UPS", "CPU", "GPS"], ans: 1 },
-            { q: "What is a high-level programming language?", opts: ["Windows", "Python", "Linux", "Unix"], ans: 1 },
-            { q: "The meaning of HTTP is:", opts: ["HyperText Transfer Protocol", "HyperText Transmission Protocol", "High Transfer Text Protocol", "HyperText Type Protocol"], ans: 0 },
-            { q: "Which unit is used to measure the processing speed of the CPU?", opts: ["Gigabytes (GB)", "Hertz (Hz/GHz)", "Pixels", "Bits per second"], ans: 1 },
-            { q: "What is a computer application?", opts: ["The physical parts of a computer", "Software designed to perform specific tasks for the user", "The operating system", "The internet"], ans: 1 },
-            { q: "Which of these is NOT a type of printer?", opts: ["Laserjet", "Plotter", "Monitor", "Inkjet"], ans: 2 },
-            { q: "What is the purpose of the monitor?", opts: ["To process data", "To input data", "To display visual output", "To store files"], ans: 2 },
-            { q: "Which device is used to generate input graphics or copy documents into the computer?", opts: ["Scanner", "Printer", "Speaker", "Projector"], ans: 0 },
-            { q: "What is the full form of PDF?", opts: ["Printed Document Format", "Portable Document Format", "Public Document File", "Personal Data File"], ans: 1 },
-            { q: "Which of these refers to a computer network?", opts: ["CPU", "LAN (Local Area Network)", "USB", "PNG"], ans: 1 },
-            { q: "What is the purpose of BIOS?", opts: ["To edit videos", "To initialize hardware during booting", "To browse the web", "To scan for viruses"], ans: 1 },
-            { q: "Which device is used to point and select items on the screen?", opts: ["Keyboard", "Mouse", "Speaker", "Printer"], ans: 1 },
-            { q: "Which of these is NOT a valid file extension?", opts: [".exe", ".doc", ".txt", ".cpu"], ans: 3 },
-            { q: "What is the function of the motherboard?", opts: ["To supply power", "To hold and connect the crucial electronic components of the computer", "To display images", "To type text"], ans: 1 },
-            { q: "Which is a search engine?", opts: ["Google", "Microsoft Word", "Windows", "Photoshop"], ans: 0 },
-            { q: "The purpose of a server is?", opts: ["To type documents", "To provide resources, data, or services to other computers on a network", "To play music", "To cool down the CPU"], ans: 1 },
-            { q: "A device that enables online video chat is a?", opts: ["Webcam", "Scanner", "Printer", "Joystick"], ans: 0 },
-            { q: "The function of an IP address is?", opts: ["To identify the user's name", "To identify a device on a network", "To measure internet speed", "To protect against viruses"], ans: 1 },
-            { q: "The purpose of a compiler is?", opts: ["To write code", "To translate high-level code into machine code", "To execute games", "To browse the internet"], ans: 1 },
-            { q: "The function of ROM (Read Only Memory) is?", opts: ["To store temporary data", "To store permanent instructions required to start the computer", "To store user files", "To increase game speed"], ans: 1 },
-            { q: "What generation of computer uses an Integrated Circuit (IC)?", opts: ["First", "Second", "Third", "Fourth"], ans: 2 },
-            { q: "What is Cloud Computing?", opts: ["Computing during a storm", "Delivering computing services (servers, storage, etc.) over the internet", "Using a wireless mouse", "Printing from a cloud printer"], ans: 1 },
-            { q: "Which of these is a type of malware?", opts: ["Trojan", "Anti-virus", "Firewall", "Backup"], ans: 0 },
-            { q: "What is the purpose of a device driver?", opts: ["To physically drive the computer", "A program that operates or controls a particular type of device attached to a computer", "To cool the system", "To supply power"], ans: 1 },
-            { q: "Which is NOT a type of computer?", opts: ["Supercomputer", "Mainframe", "Microcomputer", "Internet"], ans: 3 },
-            { q: "What is a database?", opts: ["A base for data entry", "An organized collection of structured information, or data", "A type of monitor", "A programming language"], ans: 1 },
-            { q: "Which is NOT a type of computer memory?", opts: ["RAM", "ROM", "Monitor", "Cache"], ans: 2 },
-            { q: "What is the function of an Ethernet card (NIC)?", opts: ["To display graphics", "To connect a computer to a network", "To store files", "To print documents"], ans: 1 },
-            { q: "What is the purpose of a PSU (Power Supply Unit)?", opts: ["To store data", "To convert mains AC to low-voltage regulated DC power for the internal components", "To process calculations", "To cool the CPU"], ans: 1 },
-            { q: "A device used to control video games is a?", opts: ["Joystick / Gamepad", "Scanner", "Printer", "Microphone"], ans: 0 },
-            { q: "A network switch is used to?", opts: ["Turn the internet on and off", "Connect multiple devices on a computer network and route data to the destination", "Scan for viruses", "Print photos"], ans: 1 },
-            { q: "What is the purpose of virtual memory?", opts: ["To download more RAM", "To use a section of the hard drive as an extension of RAM", "To play virtual reality games", "To store emails"], ans: 1 },
-            { q: "What device is typically used to connect a home network to the Internet Service Provider (ISP)?", opts: ["Monitor", "Modem", "Printer", "Sound Card"], ans: 1 },
-            { q: "A sound card is used to?", opts: ["Record video", "Process and deliver audio output", "Connect to the internet", "Save Word documents"], ans: 1 },
-            { q: "Which is NOT a type of monitor technology?", opts: ["LED", "CRT", "LCD", "UPS"], ans: 3 },
-            { q: "The use of a backup is to?", opts: ["Go back to a previous webpage", "Create a copy of data to recover it in case of data loss", "Speed up the computer", "Hack a system"], ans: 1 },
-            { q: "Which is a type of computer file system?", opts: ["NTFS", "HTTP", "HTML", "URL"], ans: 0 },
-            { q: "What is the purpose of the taskbar in Windows?", opts: ["To physically hold the monitor", "To locate and launch programs, and view currently open windows", "To clean the screen", "To cool the keyboard"], ans: 1 },
-            { q: "What is the purpose of the heat sink?", opts: ["To heat up the computer", "To dissipate heat from the CPU or other components to prevent overheating", "To store hot files", "To burn CDs"], ans: 1 },
-            { q: "Which is NOT a type of user interface?", opts: ["GUI (Graphical User Interface)", "CLI (Command Line Interface)", "Apps", "VUI (Voice User Interface)"], ans: 2 },
-            { q: "What is the purpose of the Registry in Windows?", opts: ["To register users online", "A central database used to store configuration information and settings", "To write emails", "To clean dust"], ans: 1 },
-            { q: "A device used for short-range wireless connection is?", opts: ["Bluetooth", "Ethernet", "Fiber Optic", "Satellite"], ans: 0 },
-            { q: "What is the function of the CPU fan?", opts: ["To make noise", "To actively cool the heat sink and CPU", "To spin the hard drive", "To power the monitor"], ans: 1 },
-            { q: "Which is NOT a type of computer case form factor?", opts: ["Tower", "Laptop", "Server"], ans: 2 },
-            { q: "Which device is NOT a type of Input/Output (I/O) device?", opts: ["Mouse", "Touchscreen", "CPU", "Modem"], ans: 2 },
-            { q: "Which is a type of computer battery used on the motherboard?", opts: ["CMOS Battery", "RAM Battery", "AA Battery", "Car Battery"], ans: 0 },
-            { q: "A device used for network protection from external threats is?", opts: ["Firewall", "Switch", "Hub", "Repeater"], ans: 0 },
-            { q: "The function of a RAID system is to?", opts: ["Kill computer bugs", "Combine multiple disk drive components into a logical unit for redundancy or performance", "Connect to WiFi", "Play videos"], ans: 1 },
-            { q: "Which is NOT a type of computer display connection?", opts: ["HDMI", "VGA", "DisplayPort", "RAM"], ans: 3 },
-            { q: "The purpose of System Restore is to?", opts: ["Clean the monitor", "Revert the computer's state to a previous point in time", "Delete all files", "Charge the battery"], ans: 1 },
-            { q: "Which is NOT a type of physical keyboard mechanism?", opts: ["Mechanical", "Membrane", "Digital (Virtual)", "Scissor-switch"], ans: 2 },
-            { q: "What is the purpose of Disk Defragmentation?", opts: ["To delete viruses", "To organize files on the disk to improve access speed", "To break the disk", "To install Windows"], ans: 1 },
-            { q: "What is a computer program?", opts: ["A TV show about computers", "A set of instructions that a computer can execute", "A hardware component", "A user manual"], ans: 1 },
-            { q: "A program used for software development (coding) is called?", opts: ["IDE (Integrated Development Environment)", "Media Player", "Calculator", "Browser"], ans: 0 },
-            { q: "An example of an interpreted language is?", opts: ["C++", "Python", "Assembly", "Machine Code"], ans: 1 },
-            { q: "What is Firmware?", opts: ["Soft pillows", "Permanent software programmed into a read-only memory", "A heavy monitor", "An antivirus"], ans: 1 },
-            { q: "The purpose of an algorithm is to?", opts: ["Confuse the user", "Provide a step-by-step procedure to solve a problem", "Heat the CPU", "Play music"], ans: 1 },
-            { q: "An example of Cloud Storage is?", opts: ["Google Drive / Dropbox", "USB Stick", "CD-ROM", "Floppy Disk"], ans: 0 },
-            { q: "Accumulation of dust in the cooling fan causes?", opts: ["Faster processing", "Overheating", "Better graphics", "More storage"], ans: 1 },
-            { q: "What is the full form of HTML?", opts: ["HyperText Markup Language", "HighText Machine Language", "HyperText Marking Link", "High Transfer Main Language"], ans: 0 },
-            { q: "What is an algorithm?", opts: ["A hardware part", "A specific set of instructions for carrying out a procedure", "A type of monitor", "An input device"], ans: 1 },
-            { q: "What is the difference between a compiler and an interpreter?", opts: ["Compiler runs line by line; Interpreter translates the whole code at once", "Compiler translates the whole code at once; Interpreter runs line by line", "Both do the exact same thing", "Compiler is hardware, Interpreter is software"], ans: 1 },
-            { q: "What is the main function of the Arithmetic Logic Unit (ALU)?", opts: ["To connect to the internet", "To perform arithmetic and logic operations", "To store the OS", "To boot the computer"], ans: 1 },
-            { q: "What is a bus in a computer system?", opts: ["A vehicle for transport", "A communication system that transfers data between components", "A type of power cable", "A cooling fan"], ans: 1 },
-            { q: "Which layer of the OSI Model is responsible for logical addressing (IP addresses)?", opts: ["Physical Layer", "Network Layer", "Application Layer", "Session Layer"], ans: 1 },
-            { q: "What is the purpose of caching?", opts: ["To delete old files", "To store frequently used data for quicker access", "To slow down the computer", "To encrypt data"], ans: 1 },
-            { q: "What is data encapsulation?", opts: ["Deleting data", "The process of adding headers and trailers to data as it moves down the protocol stack", "Breaking the computer", "Compressing files"], ans: 1 },
-            { q: "What is the primary difference between Open Source and Proprietary software?", opts: ["Open Source is free; Proprietary is always expensive", "Open Source source code is available to public; Proprietary is closed/owned by a company", "Open Source has viruses; Proprietary does not", "There is no difference"], ans: 1 },
-            { q: "What is the standard keyboard shortcut to \"Copy\" selected text?", opts: ["Ctrl + V", "Ctrl + C", "Ctrl + X", "Alt + F4"], ans: 1 },
-            { q: "What is the standard keyboard shortcut to \"Paste\" text?", opts: ["Ctrl + P", "Ctrl + V", "Ctrl + C", "Ctrl + Z"], ans: 1 },
-            { q: "Which component is often referred to as the \"brain\" of the computer?", opts: ["RAM", "CPU", "Hard Drive", "Motherboard"], ans: 1 },
-            { q: "Who is known as the \"Father of the Computer\"?", opts: ["Bill Gates", "Charles Babbage", "Steve Jobs", "Alan Turing"], ans: 1 },
-            { q: "What does \"SSD\" stand for in storage technology?", opts: ["Solid State Drive", "Super Speed Disk", "System Storage Device", "Serial State Disk"], ans: 0 },
-            { q: "Which of these is a social media platform?", opts: ["LinkedIn", "Excel", "Linux", "Apache"], ans: 0 },
-            { q: "What does \"WWW\" stand for in a website address?", opts: ["World Web Wide", "World Wide Web", "World Wide Wares", "Wide World Web"], ans: 1 },
-            { q: "Which key is used to refresh the active window in most browsers?", opts: ["F1", "F5", "F10", "Esc"], ans: 1 },
-            { q: "1 Kilobyte (KB) is equal to approximately:", opts: ["1000 Bytes (or 1024 Bytes)", "100 Bytes", "1000 Bits", "10 MegaBytes"], ans: 0 },
-            { q: "What is \"Phishing\"?", opts: ["A game about fishing", "A cyber attack trying to trick users into revealing sensitive information", "Installing software", "Editing photos"], ans: 1 },
-            { q: "Which of the following is an example of a Spreadsheet program?", opts: ["MS Word", "MS Excel", "Notepad", "VLC Player"], ans: 1 },
-            { q: "What is the recycle bin used for?", opts: ["To store viruses", "To temporarily store deleted files", "To burn documents", "To keep important files safe"], ans: 1 }
-        ];
-
-        const phyQuestions = [
-  { q: "The maximum range of a projectile occurs at an angle of ……", opts: ["30°", "45°", "60°", "90°"], ans: 1 },
-  { q: "A car travelling with a uniform velocity of 30 ms⁻¹ along a horizontal road overcomes a constant frictional force of 600 N. Calculate the power of the engine of the car.", opts: ["6,000 W", "12,000 W", "18,000 W", "24,000 W"], ans: 2 },
-  { q: "Name the device that converts heat energy to electrical energy.", opts: ["Dynamo", "Generator", "Thermocouple", "Transformer"], ans: 2 },
-  { q: "The point where the line of best fit cuts the vertical axis is called …", opts: ["Gradient", "Origin", "Y–intercept", "Axis"], ans: 2 },
-  { q: "Given T² = 4π²L/g, what is the correct equation for g if a graph of T² is plotted against L.", opts: ["g = 4π²S", "g = S/4π²", "g = 4π²/S", "g = Sπ²"], ans: 2 },
-  { q: "A body moving at a constant speed accelerates when it is in", opts: ["Rest", "Linear motion", "Circular motion", "Uniform motion"], ans: 2 },
-  { q: "A body accelerates uniformly from rest at 2 ms⁻². Calculate its velocity after travelling 4 m.", opts: ["2 ms⁻¹", "4 ms⁻¹", "6 ms⁻¹", "8 ms⁻¹"], ans: 1 },
-  { q: "An external force of magnitude 100 N acts on a particle of mass 0.15 kg for 0.03 s. Calculate the change in speed.", opts: ["10 ms⁻¹", "15 ms⁻¹", "20 ms⁻¹", "25 ms⁻¹"], ans: 2 },
-  { q: "An object is said to undergo oscillatory motion when it moves", opts: ["In a straight line", "In a circle", "To and fro about a fixed point", "Randomly"], ans: 2 },
-  { q: "A body rotates in a circle radius 2.5 m with angular speed 5 rad/s. Find radial acceleration.", opts: ["12.5 ms⁻²", "25 ms⁻²", "50 ms⁻²", "62.5 ms⁻²"], ans: 3 },
-  { q: "If A = 5i + 2j + k and B = 2i + 4j − 3k. Find A × B.", opts: ["10i + 17j + 16k", "−10i + 17j + 16k", "10i − 17j + 16k", "−10i − 17j − 16k"], ans: 1 },
-  { q: "The potential energy in an elastic string extended by x metres is", opts: ["Kx", "Kx²", "½Kx²", "2Kx"], ans: 2 },
-  { q: "If a = −100x, the period is", opts: ["0.628 s", "1.0 s", "2.0 s", "3.14 s"], ans: 0 },
-  { q: "Which is not a unit of energy?", opts: ["Watt", "Kilowatt-hour", "Calorie", "Joule"], ans: 0 },
-  { q: "X = 5t² + 2. Velocity at 2 s is", opts: ["10 ms⁻¹", "15 ms⁻¹", "20 ms⁻¹", "25 ms⁻¹"], ans: 2 },
-  { q: "The unit cycle per second is also called", opts: ["Newton", "Joule", "Hertz", "Watt"], ans: 2 },
-  { q: "The trajectory of a projectile is", opts: ["Straight line", "Circle", "Parabola", "Ellipse"], ans: 2 },
-  { q: "Which is a fundamental unit?", opts: ["ms⁻¹", "candela", "newton", "ms⁻²"], ans: 1 },
-  { q: "In T = KLˣgʸ, values are", opts: ["x = 1, y = 1", "x = ½, y = −½", "x = −½, y = ½", "x = 0, y = 1"], ans: 1 },
-  { q: "Points (20,5) and (10,3). Acceleration is", opts: ["0.1 ms⁻²", "0.2 ms⁻²", "0.3 ms⁻²", "0.4 ms⁻²"], ans: 1 },
-  { q: "F = 2i + 4j acts through S = i + 5j. Find the work done.", opts: ["12 J", "18 J", "20 J", "22 J"], ans: 3 },
-  { q: "Which of the following units is derived?", opts: ["kg", "m", "K", "N"], ans: 3 },
-  { q: "The slope of a straight line displacement-time graph represents", opts: ["Acceleration", "Velocity", "Force", "Momentum"], ans: 1 },
-  { q: "An object of mass 50 kg is projected at 20 ms⁻¹ at 60° to the vertical. Time of flight is", opts: ["1 s", "2 s", "3 s", "4 s"], ans: 1 },
-  { q: "Which of the following set of quantities is fundamental?", opts: ["Length, mass and time", "Speed, length and time", "Speed, mass and distance", "Distance, speed and time"], ans: 0 },
-  { q: "Given T = kmˣlʸgᶻ. Values of x, y and z are", opts: ["1, 0, 1", "0, ½, −½", "½, 0, −½", "0, 1, 1"], ans: 1 },
-  { q: "A constant force 20 N moves a body at 0.2 ms⁻¹. Power is", opts: ["2 W", "3 W", "4 W", "5 W"], ans: 2 },
-  { q: "If no net force acts on an object, it maintains rest or uniform motion. This is Newton’s", opts: ["First law", "Second law", "Third law", "Law of gravitation"], ans: 0 },
-  { q: "A bullet reaches height 500 m. Initial velocity is", opts: ["50 ms⁻¹", "70 ms⁻¹", "100 ms⁻¹", "120 ms⁻¹"], ans: 2 },
-  { q: "Force 5 N acts for 5 s on 5 kg mass. Final momentum is", opts: ["10 Ns", "15 Ns", "20 Ns", "25 Ns"], ans: 3 },
-  { q: "Acceleration is the gradient of", opts: ["Displacement-time graph", "Velocity-time graph", "Speed-time graph", "Distance-time graph"], ans: 1 },
-  { q: "A chemical balance is used for measuring", opts: ["Density", "Volume", "Mass", "Weight"], ans: 2 },
-  { q: "Car 30 ms⁻¹ overcomes 100 N. Power developed is", opts: ["1 kW", "2 kW", "3 kW", "4 kW"], ans: 2 },
-  { q: "Unit of moment of inertia is", opts: ["kg/m²", "kgm²", "kg/m³", "kg/cm²"], ans: 1 },
-  { q: "When an elastic material is stretched, the energy stored is", opts: ["Kinetic energy", "Chemical energy", "Elastic potential energy", "Heat energy"], ans: 2 },
-  { q: "Time taken to reach maximum height is", opts: ["u/g", "u cosθ/g", "u sinθ/g", "u tanθ/g"], ans: 2 },
-  { q: "Acceleration is calculated as", opts: ["(v − u)/t", "(u − v)/t", "(v + u)/t", "ut"], ans: 0 },
-  { q: "Mass 1000 kg falls from 10 m. KE before striking ground is", opts: ["10,000 J", "50,000 J", "100,000 J", "150,000 J"], ans: 2 },
-  { q: "Force between Earth and Moon is approximately", opts: ["1.75 × 10²⁰ N", "1.75 × 10¹⁸ N", "1.75 × 10²² N", "1.75 × 10¹⁶ N"], ans: 0 },
-  { q: "The product PV has same dimension as", opts: ["Force", "Power", "Work", "Pressure"], ans: 2 },
-  { q: "To determine density of liquid, measure", opts: ["Volume only", "Mass only", "Mass and volume", "Pressure"], ans: 2 },
-  { q: "Velocity at maximum height is", opts: ["Maximum", "Minimum", "Zero", "Constant"], ans: 2 },
-  { q: "Material that returns to original shape is", opts: ["Plastic", "Rigid", "Elastic", "Brittle"], ans: 2 },
-  { q: "If momentum is constant, net force is", opts: ["Maximum", "Zero", "Increasing", "Decreasing"], ans: 1 },
-  { q: "Which pair are vectors?", opts: ["Speed and displacement", "Mass and force", "Displacement and acceleration", "Momentum and length"], ans: 2 },
-  { q: "SI unit of power is", opts: ["Joule", "Newton", "Watt", "Pascal"], ans: 2 },
-  { q: "50 oscillations in 60 s. Period is", opts: ["0.8 s", "1.0 s", "1.2 s", "1.5 s"], ans: 2 },
-  { q: "Car covers 40 m in 10 s from rest. Acceleration is", opts: ["0.4 ms⁻²", "0.6 ms⁻²", "0.8 ms⁻²", "1.0 ms⁻²"], ans: 2 },
-  { q: "Equivalent to Watt is", opts: ["kgms⁻²", "kgm²s⁻³", "kgm²s⁻²", "kgm²s⁻¹"], ans: 1 },
-  { q: "If a(t) = −3 + t², velocity at t = 3 s is", opts: ["15 ms⁻¹", "−3 ms⁻¹", "9 ms⁻¹", "6 ms⁻¹"], ans: 2 },
-  { q: "Which of the following devices is used to determine the relative density of an acid?", opts: ["Manometer", "Hydrometer", "Hypsometer", "Hygrometer"], ans: 1 },
-  { q: "The electricity meters in houses measure energy units consumed in", opts: ["Joules", "Watts", "Kilowatt-hour", "Newton"], ans: 2 },
-  { q: "The tendency of a stationary body to remain at rest when a force is applied is known as", opts: ["Momentum", "Inertia", "Friction", "Impulse"], ans: 1 },
-  { q: "The total area under a force-time graph represents", opts: ["Work", "Power", "Impulse", "Acceleration"], ans: 2 },
-  { q: "The sound heard after reflection is called", opts: ["Echo", "Noise", "Reverberation", "Vibration"], ans: 0 },
-  { q: "Which dimension represents impulse?", opts: ["MLT⁻²", "MLT⁻¹", "ML⁻¹T", "ML⁻²T"], ans: 1 },
-  { q: "Which of the following is not an example of kinetic energy?", opts: ["Student running", "Electrical charges in motion", "Wind in motion", "None of the above"], ans: 3 },
-  { q: "Correct dimensions of density and pressure are", opts: ["ML⁻³, ML⁻¹T⁻²", "ML⁻¹T¹, ML⁻³", "ML⁻², ML⁻¹T²", "ML³, ML⁻¹T²"], ans: 0 },
-  { q: "Energy stored in spring (k = 2000 Nm⁻¹, x = 4 cm) is", opts: ["0.8 J", "1.6 J", "3.2 J", "6.4 J"], ans: 1 },
-  { q: "Bullet 0.2 kg at 800 ms⁻¹ hits 2 kg block. Final velocity (inelastic).", opts: ["60 ms⁻¹", "70 ms⁻¹", "72.7 ms⁻¹", "80 ms⁻¹"], ans: 2 },
-  { q: "Range of projected particle is", opts: ["Usinθ.H", "Ucosθ.T", "Utanθ.T", "Usinθ.T"], ans: 1 },
-  { q: "Boy 60 kg runs up 3 m. Work done is", opts: ["1200 J", "1500 J", "1800 J", "2000 J"], ans: 2 },
-  { q: "Maximum force before motion starts is", opts: ["Limiting friction", "Static friction", "Kinetic friction", "Thrust"], ans: 0 },
-  { q: "Density 150 gcm⁻³, mass 80 g. Volume is", opts: ["0.53 cm³", "0.67 cm³", "1.25 cm³", "2.0 cm³"], ans: 0 },
-  { q: "Which reading cannot be determined with micrometer screw gauge?", opts: ["20.15 mm", "5.02 mm", "21.130 cm", "2.54 cm"], ans: 2 },
-  { q: "Man 50 kg climbs 5 m in 5 s. Power is", opts: ["250 W", "400 W", "500 W", "600 W"], ans: 2 },
-  { q: "Under which condition is work done?", opts: ["Man holding load", "Boy climbs table", "Woman holding pot", "Bag on platform"], ans: 1 },
-  { q: "Loaded test tube slightly depressed and released. Motion is", opts: ["Random", "Circular", "Linear", "Oscillatory"], ans: 3 },
-  { q: "Which is correct?", opts: ["v = a/t", "v = u − at", "v = at − u", "v = u + at"], ans: 3 },
-  { q: "Time is measure of", opts: ["Different physical events", "Variation between events", "Rate of change", "Interval between events"], ans: 3 },
-  { q: "Physics deals with", opts: ["Matter", "Energy", "Relationship between energy forms", "Relationship between matter and energy"], ans: 3 },
-  { q: "Car 120 kmh⁻¹ for 4 min. Distance is", opts: ["6 km", "8 km", "10 km", "12 km"], ans: 1 },
-  { q: "Branch dealing with sound and waves", opts: ["Acoustics", "Geophysics", "Biophysics", "Mechanics"], ans: 0 },
-  { q: "Which is not a derived unit?", opts: ["Area", "Thrust", "Pressure", "Mass"], ans: 3 },
-  { q: "Which is incorrect?", opts: ["Distance is scalar", "Displacement is vector", "Speed is vector", "Velocity is vector"], ans: 2 },
-  { q: "Which motion could be uniform?", opts: ["Molecular motion", "Circular motion", "Vibrating pendulum", "Vibrational motion"], ans: 1 },
-  { q: "Engine power (500 N, 20 ms⁻¹) is", opts: ["5 kW", "8 kW", "10 kW", "12 kW"], ans: 2 },
-  { q: "Bullet 20 g at 216 kmh⁻¹. KE is", opts: ["18 J", "24 J", "36 J", "72 J"], ans: 2 },
-  { q: "The main cause of motion is", opts: ["Energy", "Force", "Speed", "Power"], ans: 1 },
-  { q: "Car 120 kmh⁻¹ for 4 min. Distance is", opts: ["6 km", "8 km", "10 km", "12 km"], ans: 1 },
-  { q: "A ball of mass 0.5 kg moving at 10 ms⁻¹ collides with another ball of equal mass at rest. If they move together after impact, their common velocity is", opts: ["2.5 ms⁻¹", "5 ms⁻¹", "7.5 ms⁻¹", "10 ms⁻¹"], ans: 1 },
-  { q: "Relationship between linear speed v and angular speed ω is", opts: ["v = ωr", "v = ω²r", "v = ωr²", "v = ω/r"], ans: 0 },
-  { q: "Motion is simple harmonic if", opts: ["Acceleration always toward fixed point", "Path is straight line", "Acceleration toward fixed point and proportional to distance", "Acceleration constant toward fixed point"], ans: 2 },
-  { q: "Angular speed of a body vibrating at 50 cycles per second is", opts: ["50 rad/s", "100π rad/s", "25π rad/s", "50π rad/s"], ans: 1 },
-  { q: "For vertical spring oscillation, acceleration has", opts: ["Varying magnitude, constant direction", "Constant magnitude, constant direction", "Constant magnitude, varying direction", "Varying magnitude, varying direction"], ans: 3 },
-  { q: "Period of simple pendulum is", opts: ["2π√(l/g)", "2π√(g/l)", "2l√(g/π)", "2g√(l/2π)"], ans: 0 },
-  { q: "Which is incorrect formula for uniform acceleration?", opts: ["a = (v² − u²)/2s", "v² = u² + 2as", "s = ut + ½at²", "v = u + at"], ans: 0 },
-  { q: "Energy conversion in catapult is", opts: ["KE to GPE", "GPE to KE", "Elastic PE to KE", "GPE to Elastic PE"], ans: 2 },
-  { q: "For freely falling body", opts: ["KE/PE constant", "KE + PE constant", "Total energy kinetic", "Total energy potential"], ans: 1 },
-  { q: "Impulse (50 N for 0.03 s) is", opts: ["0.5 Ns", "1.0 Ns", "1.5 Ns", "2.0 Ns"], ans: 2 },
-  { q: "Which is not a force?", opts: ["Tension", "Weight", "Mass", "Friction"], ans: 2 },
-  { q: "Which is not a conductor?", opts: ["Human body", "Silver", "Glass", "Copper"], ans: 2 },
-  { q: "Power is defined as", opts: ["Force × distance", "Work done per unit time", "Energy × time", "Force × velocity"], ans: 1 },
-  { q: "Haphazard motion is", opts: ["Random motion", "Translational motion", "Vibrational motion", "Circular motion"], ans: 0 },
-  { q: "Which has same unit as energy?", opts: ["Power", "Work", "Force", "Impulse"], ans: 1 },
-  { q: "Which is scalar?", opts: ["Tension", "Impulse", "Distance", "Force"], ans: 2 },
-  { q: "Two charges 2.0 × 10⁻¹⁰ C, 5 cm apart. Force is", opts: ["1.44 × 10⁻⁷ N", "7.2 × 10⁻⁹ N", "7.2 × 10⁻¹¹ N", "1.44 × 10⁻¹¹ N"], ans: 3 },
-  { q: "Renewable energy source", opts: ["Petroleum", "Charcoal", "Hydro", "Nuclear"], ans: 2 },
-  { q: "Centripetal force (50 kg, 5 ms⁻¹, r = 10 m)", opts: ["100 N", "125 N", "150 N", "200 N"], ans: 1 },
-  { q: "Centripetal acceleration (20 kg, 5 ms⁻¹, r = 10 m)", opts: ["1 ms⁻²", "2 ms⁻²", "2.5 ms⁻²", "5 ms⁻²"], ans: 2 },
-  { q: "Collision where objects join together is", opts: ["Elastic collision", "Inelastic collision", "Completely inelastic collision", "Oblique collision"], ans: 2 },
-  { q: "Given T² = 4π²L/g. Value of g from slope S is", opts: ["4π²L", "S/4π²", "4π²S", "4π²/S"], ans: 3 },
-  { q: "Potential energy in elastic string is", opts: ["Kx", "Kx²", "½Kx²", "2Kx"], ans: 2 },
-  { q: "In T = KLˣgʸ, values are", opts: ["½, −½", "−½, ½", "0, ½", "1, −½"], ans: 0 },
-  { q: "Given T = kmˣlʸgᶻ. Values are", opts: ["1,0,1", "0,½,−½", "0,1,½", "0,1,1"], ans: 1 },
-  { q: "A chemical balance is used for measuring", opts: ["Volume", "Density", "Mass", "Weight"], ans: 2 },
-  { q: "Energy stored when stretched is", opts: ["Kinetic energy", "Elastic potential energy", "Heat energy", "Chemical energy"], ans: 1 },
-  { q: "Material that returns to original form is", opts: ["Plastic", "Elastic", "Rigid", "Brittle"], ans: 1 },
-  { q: "If period is 1.2 s, oscillations in one minute are", opts: ["40", "45", "50", "60"], ans: 2 },
-  { q: "Density 150 gcm⁻³, mass 80 g. Volume is", opts: ["0.53 cm³", "0.67 cm³", "1.25 cm³", "2.0 cm³"], ans: 0 },
-  { q: "Which of the following is the unit of force?", opts: ["W", "J", "N", "Ns"], ans: 2 },
-  { q: "The graph showing variation of angle of deviation with angle of incidence is", opts: ["Straight line", "Curve", "Parabola", "Hyperbola"], ans: 1 },
-  { q: "Which graph will give more information?", opts: ["Linear graph", "Non-linear graph", "Asymptotic graph", "Quadratic graph"], ans: 0 },
-  { q: "If increase in A causes decrease in B, the relationship is", opts: ["Direct", "Inverse", "Quadratic", "Geometric"], ans: 1 },
-  { q: "The dependent variable in F = ke is", opts: ["k", "e", "F", "None"], ans: 2 },
-  { q: "The point where the line of best fit touches the vertical axis is called", opts: ["Gradient", "Origin", "Y–intercept", "Scale"], ans: 2 },
-  { q: "Which is not an essential component of a graph?", opts: ["Title", "Coordinate axes", "Scales", "None of the above"], ans: 3 },
-  { q: "Slope of l against T² graph is 0.25 ms⁻². Value of g is", opts: ["9.87 ms⁻²", "10 ms⁻²", "39.5 ms⁻²", "4.0 ms⁻²"], ans: 0 },
-  { q: "In simple pendulum experiment, T ____ as l increases", opts: ["Decreases", "Increases", "Remains constant", "Increases then decreases"], ans: 1 },
-  { q: "A simple pendulum makes 50 oscillations in one minute. Period is", opts: ["0.8 s", "1.0 s", "1.2 s", "1.5 s"], ans: 2 },
-  { q: "If period is 2 s at 64 cm, find period at 49 cm", opts: ["1.5 s", "1.75 s", "1.9 s", "2.0 s"], ans: 1 },
-  { q: "Force 10 N produces extension 2.5 cm. Spring constant is", opts: ["200 Nm⁻¹", "300 Nm⁻¹", "400 Nm⁻¹", "500 Nm⁻¹"], ans: 2 },
-  { q: "If slope of e vs F graph is 0.4 mN⁻¹, value of k is", opts: ["0.4 Nm⁻¹", "2.5 Nm⁻¹", "4 Nm⁻¹", "5 Nm⁻¹"], ans: 1 },
-  { q: "Energy stored in spring (k = 2000 Nm⁻¹, x = 4 cm) is", opts: ["0.8 J", "1.6 J", "3.2 J", "6.4 J"], ans: 1 },
-  { q: "Which affects period of simple pendulum?", opts: ["Length", "Mass", "Acceleration due to gravity", "Length and g"], ans: 3 },
-  { q: "Pendulum A has frequency 10 Hz, B has 5 Hz. Which is longer?", opts: ["A", "B", "Equal", "A slightly longer"], ans: 1 },
-  { q: "The period of oscillation is", opts: ["Number of oscillations per second", "Time for one complete oscillation", "Total oscillations", "Frequency"], ans: 1 },
-  { q: "Main scale reading 6.2 cm, vernier coincides at 7th division. Total reading is", opts: ["6.27 cm", "6.20 cm", "6.17 cm", "6.70 cm"], ans: 0 },
-  { q: "Diameter of wire is most accurately measured with", opts: ["Metre rule", "Vernier caliper", "Micrometer screw gauge", "Ruler"], ans: 2 },
-  { q: "Correct precision with metre rule is", opts: ["35 mm", "35.0 mm", "35.00 mm", "35.01 mm"], ans: 1 },
-  { q: "Smallest scale division of vernier caliper is", opts: ["0.1 cm", "0.01 cm", "0.1 mm", "0.01 mm"], ans: 2 },
-  { q: "Which is not part of micrometer screw gauge?", opts: ["Anvil", "Spindle", "None", "Thimble"], ans: 2 },
-  { q: "Anvil and spindle are brought into contact through", opts: ["Sleeve", "Ratchet", "Anvil", "Spindle"], ans: 1 },
-  { q: "Pendulum 0.64 m has period 1.2 s. For 0.36 m, period is", opts: ["0.9 s", "1.0 s", "1.1 s", "1.2 s"], ans: 0 },
-  { q: "Error due to defects in apparatus is", opts: ["Random error", "Systematic error", "Personal error", "Instrumental error"], ans: 1 },
-  { q: "Errors due to human reaction are", opts: ["Random errors", "Systematic errors", "Personal errors", "Instrumental errors"], ans: 2 },
-  { q: "Systematic errors can be eliminated by", opts: ["Repeating experiment", "Correcting instrument", "Averaging results", "Ignoring them"], ans: 1 },
-  { q: "Remedy to random errors is", opts: ["Repeating and averaging", "Ignoring", "Changing apparatus", "Estimating"], ans: 0 },
-  { q: "Errors due to scale division accuracy are", opts: ["Random", "Instrumental", "Systematic", "Personal"], ans: 1 },
-  { q: "Errors due to unknown causes are", opts: ["Systematic", "Personal", "Random", "Instrumental"], ans: 2 },
-  { q: "Experimental errors are divided into", opts: ["Personal & systematic", "Systematic & random", "Instrumental & random", "Human & apparatus"], ans: 1 },
-  { q: "At a glance, ____ gives comprehensive picture", opts: ["Device", "Curve", "Line", "Graph"], ans: 3 },
-  { q: "General equation of straight line is", opts: ["y = mx² + c", "xy = mc", "y = mx + c", "xy = m² + c"], ans: 2 },
-  { q: "SI unit of spring constant is", opts: ["Nm", "N", "Nm⁻¹", "N²"], ans: 2 },
-  { q: "Elongation e is", opts: ["L₁ + L₂", "L₂ − L₁", "L₁ − L₂", "L₂/L₁"], ans: 1 },
-  { q: "Change in velocity at particular time is", opts: ["Instantaneous velocity", "Instantaneous speed", "Instantaneous acceleration", "Free-fall"], ans: 2 },
-  { q: "If A = 5i + 2j + k and B = 2i + 4j − 3k. Find A • B", opts: ["13", "15", "17", "−13"], ans: 1 },
-  { q: "Mass 50 kg projected at 20 ms⁻¹ at 60° to horizontal. Time of flight is", opts: ["3.46 s", "2.0 s", "1.73 s", "1.0 s"], ans: 0 },
-  { q: "Process used to check validity of equation is", opts: ["Uncertainty", "Dimensional analysis", "Motion analysis", "Newton’s laws"], ans: 1 },
-  { q: "The independent variable in F = ke is", opts: ["F", "k", "e", "None"], ans: 2 }
-    ];
-
-      const cscQuestions = [
-        { q: "A DBMS is a collection of ________.", opts: ["Programs only", "Interrelated data only", "Interrelated data and programs", "Files only"], ans: 2 },
-        { q: "The primary goal of a DBMS is to provide ________.", opts: ["Fast computers", "Secure hardware", "Convenient and efficient data storage and retrieval", "Cheap storage"], ans: 2 },
-        { q: "Information is transformed from data mainly through ________.", opts: ["Hardware", "DBMS", "Compiler", "Operating system"], ans: 1 },
-        { q: "The word “data” comes from the word ________.", opts: ["Date", "Database", "Datum", "Detail"], ans: 2 },
-        { q: "Data is considered ________.", opts: ["Meaningless", "Interchangeable", "Fixed", "Permanent"], ans: 1 },
-        { q: "A database is an ________ collection of data.", opts: ["Random", "Unorganized", "Organized", "Temporary"], ans: 2 },
-        { q: "Which of the following is NOT a database?", opts: ["MySQL", "Oracle", "MongoDB", "MS Word"], ans: 3 },
-        { q: "File processing systems suffer from ________.", opts: ["Data independence", "Data redundancy", "High security", "Better performance"], ans: 1 },
-        { q: "Data redundancy leads to ________.", opts: ["Data integrity", "Data inconsistency", "Data independence", "Data security"], ans: 1 },
-        { q: "Difficulty in accessing data is a problem of ________.", opts: ["DBMS", "Database", "File system", "SQL"], ans: 2 },
-        { q: "When data is scattered in different files, it is called ________.", opts: ["Data abstraction", "Data isolation", "Data integrity", "Metadata"], ans: 1 },
-        { q: "Atomicity problems occur due to ________.", opts: ["User errors", "Incomplete transactions", "Hardware upgrades", "Backup systems"], ans: 1 },
-        { q: "Concurrent-access anomalies occur when ________.", opts: ["One user accesses data", "Many users update data simultaneously", "Data is read-only", "Data is encrypted"], ans: 1 },
-        { q: "Security is difficult to enforce in ________.", opts: ["DBMS", "Database", "File system", "SQL"], ans: 2 },
-        { q: "Integrity constraints are enforced by ________.", opts: ["Users", "Programs", "Hardware", "Compiler"], ans: 1 },
-        { q: "Data processed to be useful is called ________.", opts: ["Metadata", "Information", "Knowledge", "Database"], ans: 1 },
-        { q: "Data that describes data is called ________.", opts: ["Information", "Metadata", "Schema", "Instance"], ans: 1 },
-        { q: "A key is used to ________.", opts: ["Store data", "Encrypt data", "Uniquely identify records", "Delete data"], ans: 2 },
-        { q: "A database system consists of ________.", opts: ["Hardware only", "Software only", "Data only", "Hardware, software, people, and data"], ans: 3 },
-        { q: "DBMS software helps in ________.", opts: ["Playing media", "Data management", "Web browsing", "File compression"], ans: 1 },
-        { q: "The self-describing nature of DBMS uses ________.", opts: ["SQL", "Tables", "Metadata", "Index"], ans: 2 },
-        { q: "Program-data independence means ________.", opts: ["Programs depend on data", "Data depends on programs", "Programs and data are independent", "No programs are used"], ans: 2 },
-        { q: "Data abstraction hides ________.", opts: ["User interfaces", "Storage details", "Data values", "Programs"], ans: 1 },
-        { q: "Multiple views of data allow ________.", opts: ["One user view", "Same data for all users", "Different user perspectives", "No user access"], ans: 2 },
-        { q: "Concurrency control ensures ________.", opts: ["Faster computers", "Correct transaction execution", "Data duplication", "More users"], ans: 1 },
-        { q: "NTFS is an example of ________.", opts: ["DBMS", "File system", "Database", "Query language"], ans: 1 },
-        { q: "SQL is used in ________.", opts: ["File systems", "DBMS", "Operating systems", "Hardware"], ans: 1 },
-        { q: "DBMS provides ________ security than file system.", opts: ["Less", "Equal", "More", "No"], ans: 2 },
-        { q: "Data consistency in DBMS is ________.", opts: ["Low", "Medium", "High", "Absent"], ans: 2 },
-        { q: "Crash recovery is supported by ________.", opts: ["File system", "DBMS", "Compiler", "Editor"], ans: 1 },
-        { q: "Airlines use DBMS mainly for ________.", opts: ["Music", "Ticket booking", "Gaming", "Chatting"], ans: 1 },
-        { q: "DBMS is used in ________.", opts: ["Banking", "Education", "Healthcare", "All of the above"], ans: 3 },
-        { q: "Facebook stores ________.", opts: ["Small data", "No data", "Large databases", "Temporary data"], ans: 2 },
-        { q: "Wikipedia is an example of ________.", opts: ["Small database", "Very large database", "File system", "OS"], ans: 1 },
-        { q: "E-commerce websites depend heavily on ________.", opts: ["Hardware", "DBMS", "Compiler", "Browser"], ans: 1 },
-        { q: "Naive users ________.", opts: ["Write SQL", "Design databases", "Use applications without DBMS knowledge", "Maintain servers"], ans: 2 },
-        { q: "Railway ticket users are ________.", opts: ["Sophisticated users", "Naive users", "Database designers", "DBAs"], ans: 1 },
-        { q: "System analysts mainly ________.", opts: ["Write code", "Design hardware", "Analyze user requirements", "Backup databases"], ans: 2 },
-        { q: "Sophisticated users interact with DBMS using ________.", opts: ["Hardware", "SQL queries", "File systems", "Backup tools"], ans: 1 },
-        { q: "Database designers design ________.", opts: ["Queries only", "Tables and relationships", "Hardware", "Operating systems"], ans: 1 },
-        { q: "DBA controls ________ levels of database.", opts: ["One", "Two", "Three", "Four"], ans: 2 },
-        { q: "DBA provides ________.", opts: ["Security", "Backup", "Recovery", "All of the above"], ans: 3 },
-        { q: "DBA account is also called ________.", opts: ["Guest account", "Normal user", "Superuser account", "Temporary account"], ans: 2 },
-        { q: "Repairing database damage is the duty of ________.", opts: ["End user", "Programmer", "DBA", "Analyst"], ans: 2 },
-        { q: "Creating user accounts is done by ________.", opts: ["Naive users", "DBA", "Designers", "Casual users"], ans: 1 },
-        { q: "1-tier architecture has ________.", opts: ["Client only", "Server only", "Client, server, database on same machine", "Separate machines"], ans: 2 },
-        { q: "1-tier architecture is mostly used for ________.", opts: ["Large web apps", "Learning purposes", "Banking", "Telecom"], ans: 1 },
-        { q: "2-tier architecture follows ________.", opts: ["Peer-to-peer", "Client-server", "Centralized", "Distributed"], ans: 1 },
-        { q: "ODBC and JDBC are used in ________.", opts: ["1-tier", "2-tier", "3-tier", "File system"], ans: 1 },
-        { q: "3-tier architecture includes ________ layers.", opts: ["Two", "Three", "Four", "Five"], ans: 1 },
-        { q: "The middle layer in 3-tier architecture is called ________.", opts: ["Client", "Database", "Application server", "Storage"], ans: 2 },
-        { q: "3-tier architecture improves ________.", opts: ["Data loss", "Security", "Redundancy", "Inconsistency"], ans: 1 },
-        { q: "Direct client-server interaction is avoided in ________.", opts: ["1-tier", "2-tier", "3-tier", "File system"], ans: 2 }
-      ];
-
-  const vosQuestuons = [
-  { q: "A computer system is made up of ______.", opts: ["Input, CPU, Output", "Monitor and Printer", "Keyboard and Mouse", "Software only"], ans: 0 },
-  { q: "CPU stands for ______.", opts: ["Central Process Unit", "Central Processing Unit", "Computer Processing Unit", "Control Processing Unit"], ans: 1 },
-  { q: "The CPU performs ______.", opts: ["Printing", "Processing", "Scanning", "Typing"], ans: 1 },
-  { q: "The CPU is known as the ______ of the computer.", opts: ["Hand", "Brain", "Eye", "Screen"], ans: 1 },
-  { q: "Keyboard is a(n) ______ device.", opts: ["Output", "Input", "Storage", "Display"], ans: 1 },
-  { q: "Mouse is a(n) ______ device.", opts: ["Output", "Input", "Storage", "Display"], ans: 1 },
-  { q: "Scanner is a(n) ______ device.", opts: ["Output", "Input", "Storage", "Processing"], ans: 1 },
-  { q: "Light pen is a(n) ______ device.", opts: ["Output", "Input", "Storage", "Display"], ans: 1 },
-  { q: "Joystick is a(n) ______ device.", opts: ["Output", "Input", "Storage", "Display"], ans: 1 },
-  { q: "Monitor is a(n) ______ device.", opts: ["Input", "Output", "Storage", "Processing"], ans: 1 },
-  { q: "Printer is used to produce ______.", opts: ["Soft copy", "Hard copy", "Audio", "Video"], ans: 1 },
-  { q: "Speaker produces ______ output.", opts: ["Printed", "Visual", "Audio", "Stored"], ans: 2 },
-  { q: "Monitor produces ______ output.", opts: ["Audio", "Visual", "Printed", "Stored"], ans: 1 },
-  { q: "Hard disk is used for ______.", opts: ["Printing", "Storage", "Typing", "Display"], ans: 1 },
-  { q: "Memory is a component of the ______.", opts: ["Printer", "CPU", "Speaker", "Monitor"], ans: 1 },
-  { q: "Processor is responsible for ______.", opts: ["Printing", "Processing", "Scanning", "Storing"], ans: 1 },
-  { q: "CD/DVD ROM is used to ______ data.", opts: ["Delete", "Read", "Print", "Type"], ans: 1 },
-  { q: "Motherboard connects all ______.", opts: ["Software", "Hardware components", "Speakers", "Screens"], ans: 1 },
-  { q: "Cooling fan is used to ______.", opts: ["Store files", "Cool the system", "Print documents", "Type letters"], ans: 1 },
-  { q: "CMOS battery is usually ______ volts.", opts: ["1V", "2V", "3V", "5V"], ans: 2 },
-  { q: "CMOS battery looks like a ______.", opts: ["Chip", "Coin", "Card", "Disk"], ans: 1 },
-  { q: "CMOS battery stores ______.", opts: ["Music", "Date and time", "Pictures", "Games"], ans: 1 },
-  { q: "CMOS stands for ______.", opts: ["Complementary Metal Oxide Semiconductor", "Computer Metal Oxide System", "Central Memory Operating System", "Computer Memory Operating Software"], ans: 0 },
-  { q: "BIOS means ______.", opts: ["Binary Input Output System", "Basic Input Output System", "Basic Internal Operating System", "Binary Internal Operating System"], ans: 1 },
-  { q: "CMOS battery helps to clear ______.", opts: ["RAM", "BIOS", "Printer", "Mouse"], ans: 1 },
-  { q: "There are ______ types of casing.", opts: ["One", "Two", "Three", "Four"], ans: 1 },
-  { q: "One type of casing is ______.", opts: ["Tower casing", "Speaker casing", "Monitor casing", "Printer casing"], ans: 0 },
-  { q: "Another type of casing is ______.", opts: ["Desktop casing", "Laptop casing", "Mobile casing", "Flat casing"], ans: 0 },
-  { q: "CRT stands for ______.", opts: ["Central Ray Tube", "Cathode Ray Tube", "Computer Ray Tube", "Cathode Round Tube"], ans: 1 },
-  { q: "LCD means ______.", opts: ["Light Crystal Display", "Liquid Crystal Display", "Liquid Computer Display", "Light Computer Device"], ans: 1 },
-  { q: "CRT monitor uses ______ voltage.", opts: ["Low", "High", "Medium", "No"], ans: 1 },
-  { q: "LCD monitor uses ______ voltage.", opts: ["High", "Low", "Medium", "No"], ans: 1 },
-  { q: "CRT monitor is ______.", opts: ["Portable", "Lightweight", "Not portable", "Foldable"], ans: 2 },
-  { q: "LCD monitor is ______.", opts: ["Heavy", "Portable", "Large", "Fixed"], ans: 1 },
-  { q: "Laptop screen is an example of ______.", opts: ["CRT", "LCD", "Printer", "Scanner"], ans: 1 },
-  { q: "Laser jet printer uses ______.", opts: ["Ink", "Ribbon", "Toner", "Powder"], ans: 2 },
-  { q: "Desk jet printer uses ______.", opts: ["Toner", "Ink", "Ribbon", "Powder"], ans: 1 },
-  { q: "Line printer uses ______.", opts: ["Ink", "Toner", "Ribbon", "Water"], ans: 2 },
-  { q: "Laser printer can print in ______.", opts: ["Black only", "Red only", "Black/White and Color", "Blue only"], ans: 2 },
-  { q: "Line printer prints in ______.", opts: ["Blue only", "Black and Red only", "Green only", "Color only"], ans: 1 },
-  { q: "Desk jet printer uses ______ voltage than laser printer.", opts: ["Higher", "Lower", "Equal", "No"], ans: 1 },
-  { q: "Laser printer prints more ______ than desk jet printer.", opts: ["Sounds", "Copies", "Screens", "Files"], ans: 1 },
-  { q: "The mouse is used in ______ environment.", opts: ["DOS", "Windows", "Android", "Linux"], ans: 1 },
-  { q: "The mouse pointer is shaped like a ______.", opts: ["Circle", "Arrow", "Star", "Square"], ans: 1 },
-  { q: "Clicking the left mouse button once is called ______.", opts: ["Drag", "Click", "Scroll", "Drop"], ans: 1 },
-  { q: "Clicking the right mouse button is called ______.", opts: ["Double click", "Right click", "Drag", "Scroll"], ans: 1 },
-  { q: "Pressing the left mouse button twice quickly is called ______.", opts: ["Drag", "Double click", "Scroll", "Point"], ans: 1 },
-  { q: "Moving an object while holding the mouse button is called ______.", opts: ["Click", "Drag", "Print", "Type"], ans: 1 },
-  { q: "USB stands for ______.", opts: ["Universal Serial Bus", "United System Bus", "Universal System Board", "United Serial Board"], ans: 0 },
-  { q: "PS2 is mainly used for connecting ______.", opts: ["Monitor", "Mouse and Keyboard", "Printer", "Speaker"], ans: 1 },
-  { q: "Input devices send data to the ______.", opts: ["Monitor", "CPU", "Printer", "Speaker"], ans: 1 },
-  { q: "Output devices receive data from the ______.", opts: ["Keyboard", "CPU", "Mouse", "Scanner"], ans: 1 },
-  { q: "Printer is an example of ______ device.", opts: ["Input", "Output", "Storage", "Processing"], ans: 1 },
-  { q: "Speaker is an example of ______ device.", opts: ["Input", "Output", "Storage", "Processing"], ans: 1 },
-  { q: "Hard disk is a ______ device.", opts: ["Storage", "Input", "Output", "Display"], ans: 0 },
-  { q: "The full computer operation follows ______ order.", opts: ["CPU → Input → Output", "Input → CPU → Output", "Output → CPU → Input", "Input → Output → CPU"], ans: 1 },
-  { q: "Double clicking is mainly used to ______ files.", opts: ["Delete", "Open", "Hide", "Print"], ans: 1 },
-  { q: "Dragging is used to ______ objects.", opts: ["Move", "Store", "Delete", "Print"], ans: 0 },
-  { q: "If date and time reset automatically, the problem may be the ______.", opts: ["Hard disk", "CMOS battery", "Printer", "Mouse"], ans: 1 },
-  { q: "CRT monitor uses ______ transformer.", opts: ["Line", "Step-down", "Power", "Small"], ans: 0 },
-  { q: "The three main units of a computer system are:", opts: ["Input, Output, Storage", "Input, CPU, Output", "CPU, Monitor, Printer", "Mouse, Keyboard, Speaker"], ans: 1 },
-  { q: "Input devices are used to ______ data into the computer.", opts: ["Display", "Enter", "Print", "Delete"], ans: 1 },
-  { q: "Output devices are used to ______ results from the computer.", opts: ["Enter", "Store", "Display", "Scan"], ans: 2 },
-  { q: "The arrow seen on the screen when using a mouse is called the ______.", opts: ["Cursor", "Pointer", "Indicator", "Marker"], ans: 1 },
-  { q: "Holding down the left mouse button while moving the mouse is called ______ and drop.", opts: ["Click", "Drag", "Scroll", "Select"], ans: 1 },
-  { q: "A wired mouse is connected to the computer using a ______.", opts: ["Cable", "Battery", "Screen", "Speaker"], ans: 0 },
-  { q: "A wireless mouse uses ______ to operate.", opts: ["Ink", "Battery", "Ribbon", "Toner"], ans: 1 },
-  { q: "The difference between CRT and LCD monitors is mainly in their ______.", opts: ["Color", "Voltage and size", "Shape only", "Keyboard connection"], ans: 1 },
-  { q: "CRT monitor is also known as ______ monitor.", opts: ["Flat screen", "Tube", "Portable", "Slim"], ans: 1 },
-  { q: "LCD monitors are generally ______ than CRT monitors.", opts: ["Larger", "Heavier", "Slimmer", "Rounder"], ans: 2 },
-  { q: "A printer that uses powdered ink is called a ______ printer.", opts: ["Desk jet", "Laser", "Line", "Dot"], ans: 1 },
-  { q: "The speed of a printer is measured in ______.", opts: ["Pages per minute", "Volts", "Hertz", "Bytes"], ans: 0 },
-  { q: "The hard disk is located inside the ______.", opts: ["Monitor", "System unit", "Printer", "Speaker"], ans: 1 },
-  { q: "The casing protects the internal ______ of the computer.", opts: ["Software", "Files", "Hardware components", "Programs"], ans: 2 },
-  { q: "Desktop casing is usually placed ______.", opts: ["On the floor", "On the desk", "Inside the monitor", "Behind the keyboard"], ans: 1 },
-  { q: "Tower casing is usually placed ______ the desk.", opts: ["On", "Inside", "Under", "Above"], ans: 2 },
-  { q: "The processor is fixed on the ______.", opts: ["Hard disk", "Motherboard", "Monitor", "Printer"], ans: 1 },
-  { q: "RAM is used for ______ storage.", opts: ["Permanent", "Temporary", "External", "Printed"], ans: 1 },
-  { q: "When power is turned off, RAM data is ______.", opts: ["Saved", "Printed", "Lost", "Stored permanently"], ans: 2 },
-  { q: "The CMOS battery helps the computer remember ______ settings.", opts: ["Printer", "Date and time", "Mouse", "Speaker"], ans: 1 },
-  { q: "If CMOS battery is weak, the computer may lose ______.", opts: ["Monitor", "Sound", "Date and time", "Printer ink"], ans: 2 },
-  { q: "The system unit contains the ______.", opts: ["CPU", "Monitor", "Keyboard", "Speaker"], ans: 0 },
-  { q: "A monitor displays information in form of ______ copy.", opts: ["Hard", "Soft", "Printed", "Permanent"], ans: 1 },
-  { q: "A printer produces ______ copy.", opts: ["Soft", "Visual", "Hard", "Audio"], ans: 2 },
-  { q: "The mouse has ______ main buttons.", opts: ["One", "Two", "Three", "Four"], ans: 1 },
-  { q: "The scroll wheel is used to ______ a page.", opts: ["Print", "Delete", "Move up and down", "Type"], ans: 2 },
-  { q: "The keyboard is used mainly for ______.", opts: ["Printing", "Typing", "Scanning", "Cooling"], ans: 1 },
-  { q: "The speaker is connected to the system unit to produce ______.", opts: ["Light", "Sound", "Heat", "Image"], ans: 1 },
-  { q: "The CPU processes data according to given ______.", opts: ["Hardware", "Instructions", "Printer", "Speaker"], ans: 1 },
-  { q: "The full meaning of USB is ______.", opts: ["Universal Serial Bus", "United System Board", "Universal System Box", "Unit Serial Board"], ans: 0 },
-  { q: "USB port is commonly used to connect ______ devices.", opts: ["External", "Internal", "Built-in", "Permanent"], ans: 0 },
-  { q: "A laptop is a type of ______ computer.", opts: ["Desktop", "Portable", "Tower", "CRT"], ans: 1 },
-  { q: "The monitor is connected to the system unit through a ______ cable.", opts: ["Data", "Power", "Network", "Ink"], ans: 0 },
-  { q: "The printer receives instructions from the ______.", opts: ["Monitor", "CPU", "Speaker", "Mouse"], ans: 1 },
-  { q: "The keyboard sends data to the ______.", opts: ["Printer", "CPU", "Monitor", "Speaker"], ans: 1 },
-  { q: "A computer follows the cycle Input → Process → ______.", opts: ["Delete", "Print", "Output", "Store"], ans: 2 },
-  { q: "The motherboard is sometimes called the ______ board.", opts: ["Main", "Printer", "Hard", "Screen"], ans: 0 },
-  { q: "Laser printer is faster than ______ printer.", opts: ["Desk jet", "Line", "Monitor", "Scanner"], ans: 0 },
-  { q: "LCD monitors consume ______ power than CRT monitors.", opts: ["More", "Less", "Equal", "Double"], ans: 1 },
-  { q: "All input, output, and processing devices together form a ______.", opts: ["Printer", "Computer system", "Keyboard", "Monitor"], ans: 1 }
-  ];
-
-     const vos117Questions = [
-  { q: "Fish farming can only be done in rivers.", opts: ["TRUE", "FALSE"], ans: 1 },
-  { q: "Good water quality is important in fish farming.", opts: ["TRUE", "FALSE"], ans: 0 },
-  { q: "Overfeeding fish can cause water pollution.", opts: ["TRUE", "FALSE"], ans: 0 },
-  { q: "Tilapia grows faster than all fish species.", opts: ["TRUE", "FALSE"], ans: 1 },
-  { q: "Fish farming creates employment opportunities.", opts: ["TRUE", "FALSE"], ans: 0 },
-  { q: "Poor management can lead to fish mortality.", opts: ["TRUE", "FALSE"], ans: 0 },
-  { q: "Fish farming contributes to economic development.", opts: ["TRUE", "FALSE"], ans: 0 },
-  { q: "Disease outbreak can reduce fish production.", opts: ["TRUE", "FALSE"], ans: 0 },
-  { q: "Harvesting is the final stage in fish farming.", opts: ["TRUE", "FALSE"], ans: 0 },
-  { q: "Fish farming reduces dependence on imported fish.", opts: ["TRUE", "FALSE"], ans: 0 },
-  { q: "Fish farming, also called aquaculture, is the breeding, rearing, and harvesting of fish in controlled water environments such as ponds, tanks, or cages for food and commercial purposes.", opts: ["Forestry", "Aquaculture", "Irrigation", "Grazing"], ans: 1 },
-  { q: "Aquaculture is the rearing of fish and other aquatic animals in controlled water systems.", opts: ["Crop production", "Fish and aquatic organism production", "Mining", "Banking"], ans: 1 },
-  { q: "To provide protein-rich food for human consumption is one objective of fish farming.", opts: ["TRUE", "FALSE"], ans: 0 },
-  { q: "To generate income and create employment opportunities is an objective of fish farming.", opts: ["TRUE", "FALSE"], ans: 0 },
-  { q: "Which of the following is a type of fish farming system?", opts: ["Pond culture", "Mining", "Forestry", "Hunting"], ans: 0 },
-  { q: "Which of the following is a type of fish farming system?", opts: ["Tank culture", "Banking", "Trading", "Weaving"], ans: 0 },
-  { q: "Which of the following is a type of fish farming system?", opts: ["Cage culture", "Desert culture", "Forest culture", "Mountain culture"], ans: 0 },
-  { q: "Which of the following is commonly reared in Nigeria?", opts: ["Catfish", "Whale", "Shark", "Seal"], ans: 0 },
-  { q: "Which of the following is commonly reared in Nigeria?", opts: ["Tilapia", "Dolphin", "Whale", "Octopus"], ans: 0 },
-  { q: "What happens when water is too alkaline?", opts: ["Fish grow faster", "It reduces fish growth and can cause death", "It improves feeding", "It increases oxygen"], ans: 1 },
-  { q: "Why is oxygen important in fish farming?", opts: ["Fish breathe dissolved oxygen in water", "It changes fish color", "It increases pond size", "It reduces feeding"], ans: 0 },
-  { q: "What happens when water lacks oxygen?", opts: ["Fish grow faster", "Fish will die", "Fish multiply quickly", "Nothing happens"], ans: 1 },
-  { q: "What is fish feed?", opts: ["Sand given to fish", "Food given to fish to enable growth", "Leaves in pond", "Water chemical"], ans: 1 },
-  { q: "How should fish be fed?", opts: ["Randomly", "According to their size", "Once a week", "Only at night"], ans: 1 },
-  { q: "What type of feed do fingerlings eat?", opts: ["Floating pellets", "Powdered feed", "Leaves", "Stones"], ans: 1 },
-  { q: "Why should feed be rich in protein?", opts: ["Protein helps fish grow fast", "It colors the fish", "It reduces oxygen", "It kills bacteria"], ans: 0 },
-  { q: "How many times can fish be fed daily?", opts: ["Once", "Twice daily (in small amounts)", "Five times", "Once weekly"], ans: 1 },
-  { q: "What is overfeeding?", opts: ["Giving fish less feed", "Giving fish more feed than they can eat", "Feeding once daily", "Feeding small fish"], ans: 1 },
-  { q: "One danger of overfeeding?", opts: ["Faster growth", "Water pollution", "Bigger ponds", "More oxygen"], ans: 1 },
-  { q: "Name two types of fish feed.", opts: ["Floating feed and sinking feed", "Sand and stones", "Grass and leaves", "Fruits and seeds"], ans: 0 },
-  { q: "Which feed allows you to observe fish while eating?", opts: ["Sinking feed", "Floating feed", "Powdered sand", "Mud feed"], ans: 1 },
-  { q: "One advantage of floating feed?", opts: ["Prevents overfeeding", "Pollutes water", "Sinks immediately", "Reduces oxygen"], ans: 0 },
-  { q: "What is siphoning?", opts: ["Feeding fish", "Removing dirty water and waste using a tube", "Harvesting fish", "Sorting fish"], ans: 1 },
-  { q: "Why is siphoning important?", opts: ["It maintains water quality", "It increases pond size", "It reduces feeding", "It changes fish color"], ans: 0 },
-  { q: "How often should water be changed in an earthen pond?", opts: ["Daily", "Weekly", "Every 2 weeks", "Monthly"], ans: 2 },
-  { q: "How often should water be changed in a concrete pond?", opts: ["Daily", "Weekly", "Monthly", "Yearly"], ans: 1 },
-  { q: "What is fish seed?", opts: ["Fish egg only", "Young fish used to start farming", "Fish feed", "Pond fertilizer"], ans: 1 },
-  { q: "Mention three fish seed stages.", opts: ["Fry, fingerlings, juveniles", "Egg, sand, leaf", "Small, medium, big", "Hatch, grow, die"], ans: 0 },
-  { q: "Which is stronger: fingerlings or juveniles?", opts: ["Fingerlings", "Juveniles", "Both equal", "None"], ans: 1 },
-  { q: "What is mortality in fish farming?", opts: ["Growth rate", "Death rate of fish", "Feeding process", "Sorting method"], ans: 1 },
-  { q: "Mention one cause of fish mortality.", opts: ["Clean water", "Overcrowding", "Adequate feeding", "Good management"], ans: 1 },
-  { q: "Another cause of mortality?", opts: ["Transportation stress", "Balanced feed", "Clean pond", "Oxygen supply"], ans: 0 },
-  { q: "Another cause of mortality?", opts: ["Counting stress", "Proper feeding", "Sorting", "Harvesting"], ans: 0 },
-  { q: "What is cannibalism in fish?", opts: ["Fish sleeping", "Fish eating each other", "Fish breeding", "Fish sorting"], ans: 1 },
-  { q: "What causes cannibalism?", opts: ["Balanced feeding", "Mixing different fish sizes", "Clean water", "Harvesting"], ans: 1 },
-  { q: "Solution to cannibalism?", opts: ["Mix sizes", "Sort fish by size", "Reduce oxygen", "Stop feeding"], ans: 1 },
-  { q: "What does overcrowding cause?", opts: ["Healthy growth", "Oxygen shortage and death", "Faster breeding", "Bigger fish"], ans: 1 },
-  { q: "What does feed wastage cause?", opts: ["Water pollution", "Faster growth", "Clean pond", "Bigger fish"], ans: 0 },
-  { q: "What is the effect of polluted water?", opts: ["Reduced oxygen and fish death", "Faster growth", "Bigger pond", "Increased feeding"], ans: 0 },
-  { q: "What is a hatchery?", opts: ["A place where fish are bred and hatched", "A market", "A feed store", "A river"], ans: 0 },
-  { q: "The ideal pH range for most fish farming ponds is", opts: ["2–4", "4–5", "6.5–8.5", "9–11"], ans: 2 },
-  { q: "The process of selecting male and female fish for breeding is called", opts: ["Sorting", "Brooding", "Selection", "Harvesting"], ans: 2 },
-  { q: "A broodstock is", opts: ["Fish used for breeding", "Fish ready for sale", "Sick fish", "Dead fish"], ans: 0 },
-  { q: "The structure used to drain water from a pond is called ", opts: ["Siphon", "Spillway", "Outlet", "Net"], ans: 2 },
-  { q: "The main source of natural food in ponds comes from", opts: ["Fertilization", "Stones", "Sand", "Plastic"], ans: 0 },
-  { q: "Plankton serves as ", opts: ["Fish predator", "Natural fish food", "Pond waste", "Fertilizer only"], ans: 1 },
-  { q: "The measurement of dissolved oxygen is usually expressed in", opts: ["Liters", "Kilograms", "Milligrams per liter", "Meters"], ans: 2 },
-  { q: "Which of the following improves pond oxygen level?", opts: ["Overcrowding", "Aeration", "Overfeeding", "Pollution"], ans: 1 },
-  { q: "An aerator is used to ", opts: ["Feed fish", "Increase oxygen in water", "Harvest fish", "Measure weight"], ans: 1 },
-  { q: "Which stage comes immediately after fry? [attachment_0](attachment)", opts: ["Egg", "Fingerling", "Broodstock", "Harvest"], ans: 1 },
-  { q: "The removal of unwanted fish species from a pond is called", opts: ["Weeding", "Eradication", "Stocking", "Feeding"], ans: 1 },
-  { q: "The best time to feed fish is", opts: ["Midnight", "Early morning and evening", "Afternoon only", "Once weekly"], ans: 1 },
-  { q: "Which factor affects fish growth?", opts: ["Water quality", "Feed quality", "Stocking density", "All of the above"], ans: 3 },
-  { q: "Fish farming is considered profitable because of", opts: ["High demand for fish", "No feeding required", "No management needed", "Zero investment"], ans: 0 },
-  { q: "The term “stocking” means", opts: ["Selling fish", "Putting fish into pond", "Feeding fish", "Killing fish"], ans: 1 },
-  { q: "Which of the following is a predator in fish ponds?", opts: ["Frog", "Snake", "Bird", "All of the above"], ans: 3 },
-  { q: "Liming a pond helps to", opts: ["Increase acidity", "Reduce acidity", "Kill fish", "Pollute water"], ans: 1 },
-  { q: "The market size of catfish is usually reached in", opts: ["1 month", "2 months", "5–6 months", "2 years"], ans: 2 },
-  { q: "Fish farming helps to ensure", opts: ["Food security", "Food scarcity", "Pollution", "Deforestation"], ans: 0 },
-  { q: "The survival rate of fish depends largely on", opts: ["Management practices", "Luck", "Weather only", "Fish color"], ans: 0 },
-  { q: "Concrete ponds are easier to", opts: ["Manage and control", "Destroy", "Hide", "Abandon"], ans: 0 },
-  { q: "Earthen ponds are usually constructed on", opts: ["Rocky land", "Clay soil", "Desert sand", "Mountain top"], ans: 1 },
-  { q: "The feeding rate should be adjusted according to", opts: ["Fish size", "Water color", "Farmer’s mood", "Pond shape"], ans: 0 },
-  { q: "A sudden drop in oxygen level may cause", opts: ["Rapid fish growth", "Fish suffocation", "Water clarity", "Bigger pond"], ans: 1 },
-  { q: "Which of the following is a sign of fish stress?", opts: ["Active swimming", "Gasping at water surface", "Feeding normally", "Clear eyes"], ans: 1 },
-  { q: "The practice of raising different fish species together is called", opts: ["Monoculture", "Polyculture", "Sorting", "Harvesting"], ans: 1 },
-  { q: "Raising only one species in a pond is called", opts: ["Polyculture", "Monoculture", "Irrigation", "Forestry"], ans: 1 },
-  { q: "Fish farming requires good", opts: ["Record keeping", "Superstition", "Gambling", "Guesswork"], ans: 0 },
-  { q: "Transportation of fish should be done carefully to avoid", opts: ["Growth", "Stress and mortality", "Feeding", "Profit"], ans: 1 },
-  { q: "The main aim of grading fish is to", opts: ["Mix sizes", "Prevent cannibalism", "Kill weak fish", "Reduce feeding"], ans: 1 },
-  { q: "Fish pond preparation includes", opts: ["Draining and drying", "Overfeeding", "Polluting", "Overcrowding"], ans: 0 },
-  { q: "The color of healthy pond water is usually", opts: ["Light green", "Black", "Red", "White"], ans: 0 },
-  { q: "Which of the following is not needed in fish farming?", opts: ["Clean water", "Quality feed", "Good management", "Dirty environment"], ans: 3 },
-  { q: "Harvesting can be partial or", opts: ["Complete", "Impossible", "Weekly", "Monthly"], ans: 0 },
-  { q: "A seine net is used for ", opts: ["Feeding", "Harvesting", "Fertilizing", "Sorting eggs"], ans: 1 },
-  { q: "Overcrowding increases", opts: ["Oxygen", "Disease spread", "Growth rate", "Pond size"], ans: 1 },
-  { q: "The body covering of fish is called", opts: ["Fur", "Feather", "Scale", "Skin only"], ans: 2 },
-  { q: "Fish breathe through [attachment_1](attachment)", opts: ["Lungs", "Gills", "Nose", "Skin"], ans: 1 },
-  { q: "The business of fish farming is part of", opts: ["Agriculture", "Mining", "Trading only", "Construction"], ans: 0 },
-  { q: "The weight of fish is measured using", opts: ["Meter", "Scale", "Thermometer", "Ruler"], ans: 1 },
-  { q: "Temperature affects", opts: ["Fish growth", "Pond color", "Net size", "Market price only"], ans: 0 },
-  { q: "The ideal water temperature for tropical fish is", opts: ["0°C", "5°C", "25–30°C", "50°C"], ans: 2 },
-  { q: "A healthy fish is usually", opts: ["Weak and slow", "Active and responsive", "Floating sideways", "Gasping continuously"], ans: 1 },
-  { q: "The process of removing mud and waste from pond bottom is called", opts: ["Harvesting", "Desilting", "Feeding", "Stocking"], ans: 1 },
-  { q: "Good pond design should allow", opts: ["Easy drainage", "Water stagnation", "Flooding", "Overcrowding"], ans: 0 },
-  { q: "Fish farming reduces", opts: ["Unemployment", "Food production", "Fish demand", "Income"], ans: 0 },
-  { q: "Marketing is important in fish farming to", opts: ["Sell harvested fish", "Feed fish", "Increase oxygen", "Sort fingerlings"], ans: 0 },
-  { q: "Which of the following can contaminate pond water?", opts: ["Chemicals", "Oil spill", "Waste discharge", "All of the above"], ans: 3 },
-  { q: "Insurance in fish farming helps to", opts: ["Protect against losses", "Increase mortality", "Reduce feeding", "Change fish size"], ans: 0 },
-  { q: "Successful fish farming requires", opts: ["Planning and proper management", "Guesswork", "No feeding", "Overcrowding"], ans: 0 }
-];
-
+        // --- DATA BANKS (Now injected from the external JS files!) ---
       
         const courses = {
             'cos': { name: 'COS 101', title: 'Introduction to Computer Science', questions: cosQuestions },
             'phy': { name: 'PHY 101', title: 'General Physics I', questions: phyQuestions },
             'csc': { name: 'CSC 111', title: 'Introduction to Database Concept', questions: cscQuestions },
             'vos': { name: 'VOS 114', title: 'Computer Maintance And Percaution', questions: vosQuestuons },
-            'vos117': {name: 'VOS 117', title: 'Fish Farming', questions: vos117Questions }
+            'vos117': { name: 'VOS 117', title: 'Fish Farming', questions: vos117Questions },
+            'gns113': { name: 'GNS 113', title: 'Use of Library', questions: gnsQuestions }
         };
 
         // --- STATE VARIABLES ---
@@ -1241,7 +705,8 @@
             container.innerHTML = '';
             
             let options = [30, 50, 100];
-            if (selectedCourse === 'phy') options.push(150)
+            if (selectedCourse === 'phy') options.push(150);
+            if (selectedCourse === 'gns113') options = [10, 20, 30]; // Adjusted options since the sample is exactly 30 Qs. 
 
             options.forEach(num => {
                 const isSelected = num === selectedCount;
@@ -1266,6 +731,8 @@
 
         function updateWarningText() {
             const warning = document.getElementById('time-warning-text');
+            if (selectedCount === 10) warning.textContent = "You will have exactly 3 minutes to complete 10 questions.";
+            if (selectedCount === 20) warning.textContent = "You will have exactly 5 minutes to complete 20 questions.";
             if (selectedCount === 30) warning.textContent = "You will have exactly 7 minutes to complete 30 questions.";
             if (selectedCount === 50) warning.textContent = "You will have exactly 10 minutes to complete 50 questions.";
             if (selectedCount === 100) warning.textContent = "You will have exactly 20 minutes to complete 100 questions.";
@@ -1276,6 +743,8 @@
             hideWhatsApp(); 
 
             let minutes = 7;
+            if (selectedCount === 10) minutes = 3;
+            if (selectedCount === 20) minutes = 5;
             if (selectedCount === 50) minutes = 10;
             if (selectedCount === 100) minutes = 20;
             if (selectedCount === 150) minutes = 30;
@@ -1650,17 +1119,21 @@
             }
         }
 
-        // --- PURE VECTOR PDF GENERATOR (100% CRASH-PROOF, BALANCED MARGINS) ---
+        // --- PDF DOWNLOAD: GUARANTEED VISIBILITY ENGINE ---
         function handlePDFClick() {
             const btn = document.getElementById('pdf-download-btn');
             const textEl = document.getElementById('pdf-btn-text');
 
             if (!pdfConfirmWait) {
+                // FIRST CLICK: Ask for confirmation
                 pdfConfirmWait = true;
                 textEl.textContent = "Click again to download";
+                
+                // Change style to highlight the required action
                 btn.classList.remove('from-blue-600', 'to-purple-600');
                 btn.classList.add('from-rose-500', 'to-red-600', 'animate-pulse');
 
+                // Reset back to normal after 4 seconds if they don't click
                 pdfResetTimer = setTimeout(() => {
                     pdfConfirmWait = false;
                     textEl.textContent = "Save as PDF";
@@ -1668,191 +1141,122 @@
                     btn.classList.remove('from-rose-500', 'to-red-600', 'animate-pulse');
                 }, 4000);
             } else {
+                // SECOND CLICK: Build the Clean Print HTML and trigger download
                 clearTimeout(pdfResetTimer);
                 pdfConfirmWait = false;
                 
-                textEl.textContent = "Generating PDF...";
+                textEl.textContent = "Generating...";
                 btn.classList.remove('animate-pulse');
 
-                setTimeout(() => {
-                    generateVectorPDF();
+                generateCleanPDF().then(() => {
+                    // Restore button appearance after download
                     textEl.textContent = "Save as PDF";
                     btn.classList.add('from-blue-600', 'to-purple-600');
                     btn.classList.remove('from-rose-500', 'to-red-600');
-                }, 100);
+                }).catch(err => {
+                    alert("Download failed. Please try again.");
+                    console.error(err);
+                    textEl.textContent = "Save as PDF";
+                    btn.classList.add('from-blue-600', 'to-purple-600');
+                    btn.classList.remove('from-rose-500', 'to-red-600');
+                });
             }
         }
 
-        function generateVectorPDF() {
-            if (!currentResultView) return;
+        function generateCleanPDF() {
+            if (!currentResultView) return Promise.reject("No data");
 
-            const { name, course, score, total, questions, answers, passed } = currentResultView;
-            const pct = Math.round((score / total) * 100);
+            return new Promise((resolve, reject) => {
+                const { name, course, score, total, questions, answers, passed } = currentResultView;
+                const pct = Math.round((score / total) * 100);
 
-            // Access the pure jsPDF library
-            const { jsPDF } = window.jspdf;
-            
-            // Create a standard A4 portrait document
-            const doc = new jsPDF('p', 'pt', 'a4');
-            
-            const pageWidth = doc.internal.pageSize.getWidth();
-            const pageHeight = doc.internal.pageSize.getHeight();
-            
-            // STRICT MARGINS: Left = 40px, Right = 40px. 
-            const margin = 40;
-            const maxW = pageWidth - (margin * 2); 
-            let y = 40;
-
-            function drawWatermark() {
-                doc.saveGraphicsState();
-                doc.setGState(new doc.GState({opacity: 0.06}));
-                doc.setTextColor(147, 51, 234); 
-                doc.setFontSize(75);
-                doc.setFont("helvetica", "bold");
+                // Create a standalone HTML element strictly for html2pdf
+                const printDiv = document.createElement('div');
                 
-                // Stamp dynamically so it covers the whole document
-                doc.text("HoRly's_tech", pageWidth / 2, pageHeight * 0.25, { angle: -45, align: 'center' });
-                doc.text("HoRly's_tech", pageWidth / 2, pageHeight * 0.50, { angle: -45, align: 'center' });
-                doc.text("HoRly's_tech", pageWidth / 2, pageHeight * 0.75, { angle: -45, align: 'center' });
-                
-                doc.restoreGraphicsState();
-            }
+                // Pure Inline CSS for the PDF Document to prevent rendering bugs
+                let htmlStr = `
+                    <div style="width: 800px; padding: 40px; font-family: Helvetica, Arial, sans-serif; background-color: #ffffff; color: #000000; position: relative; z-index: 1;">
+                        
+                        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: -1; overflow: hidden; pointer-events: none;">
+                            <div style="color: rgba(147, 51, 234, 0.08); font-size: 110px; font-weight: bold; transform: rotate(-45deg); position: absolute; top: 300px; left: 50px;">HoRly's_tech</div>
+                            <div style="color: rgba(147, 51, 234, 0.08); font-size: 110px; font-weight: bold; transform: rotate(-45deg); position: absolute; top: 1100px; left: 50px;">HoRly's_tech</div>
+                            <div style="color: rgba(147, 51, 234, 0.08); font-size: 110px; font-weight: bold; transform: rotate(-45deg); position: absolute; top: 1900px; left: 50px;">HoRly's_tech</div>
+                            <div style="color: rgba(147, 51, 234, 0.08); font-size: 110px; font-weight: bold; transform: rotate(-45deg); position: absolute; top: 2700px; left: 50px;">HoRly's_tech</div>
+                            <div style="color: rgba(147, 51, 234, 0.08); font-size: 110px; font-weight: bold; transform: rotate(-45deg); position: absolute; top: 3500px; left: 50px;">HoRly's_tech</div>
+                        </div>
 
-            function checkPageBreak(neededSpace) {
-                if (y + neededSpace > pageHeight - margin) {
-                    doc.addPage();
-                    drawWatermark();
-                    y = margin + 10;
-                }
-            }
+                        <div style="text-align: center; border-bottom: 3px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px;">
+                            <h1 style="color: #7e22ce; font-size: 42px; margin: 0; font-weight: 900;">HoRly's_Tech</h1>
+                            <h2 style="color: #475569; font-size: 24px; margin: 10px 0 0 0;">Official Assessment Result</h2>
+                        </div>
 
-            drawWatermark();
+                        <div style="margin-bottom: 30px; font-size: 18px; line-height: 1.6;">
+                            <div><strong>Student Name:</strong> ${name}</div>
+                            <div><strong>Course Examined:</strong> ${course}</div>
+                            <div><strong>Date Completed:</strong> ${new Date().toLocaleDateString()}</div>
+                        </div>
 
-            // HEADER
-            doc.setFont("helvetica", "bold");
-            doc.setFontSize(28);
-            doc.setTextColor(126, 34, 206);
-            doc.text("HoRly's_Tech", pageWidth / 2, y, { align: 'center' });
-            y += 20;
+                        <div style="background-color: ${passed ? '#ecfdf5' : '#fff1f2'}; border: 3px solid ${passed ? '#10b981' : '#f43f5e'}; padding: 30px; text-align: center; border-radius: 12px; margin-bottom: 40px;">
+                            <div style="font-size: 70px; font-weight: 900; color: ${passed ? '#059669' : '#e11d48'}; margin: 0; line-height: 1;">${pct}%</div>
+                            <div style="font-size: 24px; font-weight: bold; margin: 15px 0; color: #334155;">Final Score: ${score} out of ${total} correct</div>
+                            <div style="font-size: 20px; font-weight: bold; color: ${passed ? '#065f46' : '#9f1239'};">${passed ? 'Status: PASSED' : 'Status: FAILED'}</div>
+                        </div>
 
-            doc.setFontSize(14);
-            doc.setTextColor(71, 85, 105);
-            doc.text("Official Assessment Result", pageWidth / 2, y, { align: 'center' });
-            y += 40;
+                        <h3 style="font-size: 26px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 25px; color: #1e293b;">Detailed Answer Review</h3>
+                `;
 
-            // STUDENT INFO
-            doc.setFont("helvetica", "normal");
-            doc.setFontSize(12);
-            doc.setTextColor(0, 0, 0);
-            doc.text(`Student Name: ${name}`, margin, y); y += 15;
-            doc.text(`Course Examined: ${course}`, margin, y); y += 15;
-            doc.text(`Date Completed: ${new Date().toLocaleDateString()}`, margin, y); y += 35;
-
-            // SCORE SUMMARY
-            doc.setFont("helvetica", "bold");
-            doc.setFontSize(40);
-            doc.setTextColor(passed ? 5 : 225, passed ? 150 : 29, passed ? 105 : 72); 
-            doc.text(`${pct}%`, pageWidth / 2, y, { align: 'center' }); y += 25;
-
-            doc.setFontSize(14);
-            doc.setTextColor(51, 65, 85);
-            doc.text(`Final Score: ${score} out of ${total} correct`, pageWidth / 2, y, { align: 'center' }); y += 20;
-
-            doc.setFontSize(12);
-            doc.setTextColor(passed ? 5 : 225, passed ? 150 : 29, passed ? 105 : 72);
-            doc.text(`Status: ${passed ? 'PASSED' : 'FAILED'}`, pageWidth / 2, y, { align: 'center' }); y += 40;
-
-            // DIVIDER
-            doc.setDrawColor(226, 232, 240);
-            doc.setLineWidth(1);
-            doc.line(margin, y, pageWidth - margin, y); y += 30;
-
-            doc.setFontSize(16);
-            doc.setTextColor(30, 41, 59);
-            doc.text("Detailed Answer Review", margin, y); y += 25;
-
-            // LOOP THROUGH QUESTIONS (Pure vector drawing logic)
-            questions.forEach((q, qIdx) => {
-                const userAns = answers[qIdx];
-                const isCorrect = userAns === q.ans;
-                const isUnanswered = userAns === undefined;
-
-                // PRE-CALCULATE ALL HEIGHTS PROPERLY FIRST
-                doc.setFont("helvetica", "bold");
-                doc.setFontSize(11);
-                
-                let qText = String(q.q);
-                let qLines = doc.splitTextToSize(`${qIdx + 1}. ${qText}`, maxW);
-                
-                let optionsData = q.opts.map((opt, optIdx) => {
-                    const isThisCorrectOpt = optIdx === q.ans;
-                    const isThisUserOpt = optIdx === userAns;
+                // Add Questions Loop
+                questions.forEach((q, qIdx) => {
+                    const userAns = answers[qIdx];
+                    const isCorrect = userAns === q.ans;
                     
-                    let prefix = "[   ]";
-                    let fontStyle = "normal";
+                    htmlStr += `
+                        <div style="margin-bottom: 25px; padding: 20px; border: 1px solid #cbd5e1; border-radius: 10px; background-color: rgba(255,255,255,0.95); page-break-inside: avoid;">
+                            <div style="font-weight: bold; font-size: 18px; margin-bottom: 15px; color: #0f172a;">${qIdx + 1}. ${q.q}</div>
+                    `;
                     
-                    if (isThisCorrectOpt) {
-                        prefix = "[ √ ]";
-                        fontStyle = "bold";
-                    } else if (isThisUserOpt && !isCorrect) {
-                        prefix = "[ X ]";
-                        fontStyle = "bold";
+                    q.opts.forEach((opt, optIdx) => {
+                        const isThisCorrectOpt = optIdx === q.ans;
+                        const isThisUserOpt = optIdx === userAns;
+                        
+                        let optStyle = "padding: 12px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 16px; color: #475569;";
+                        if (isThisCorrectOpt) {
+                            optStyle = "padding: 12px; margin-bottom: 8px; border-radius: 6px; border: 2px solid #34d399; background-color: #d1fae5; color: #065f46; font-weight: bold; font-size: 16px;";
+                        } else if (isThisUserOpt && !isCorrect) {
+                            optStyle = "padding: 12px; margin-bottom: 8px; border-radius: 6px; border: 2px solid #fb7185; background-color: #ffe4e6; color: #9f1239; font-weight: bold; font-size: 16px;";
+                        }
+                        
+                        htmlStr += `<div style="${optStyle}">${String.fromCharCode(65 + optIdx)}. ${opt}</div>`;
+                    });
+                    
+                    if (userAns === undefined) {
+                        htmlStr += `<div style="color: #e11d48; font-weight: bold; font-size: 16px; margin-top: 15px;">[!] You did not answer this question</div>`;
                     }
                     
-                    // CRITICAL FIX: Set exact font state BEFORE measuring text string bounds
-                    doc.setFont("helvetica", fontStyle);
-                    doc.setFontSize(11);
-                    
-                    let optString = `${prefix}  ${String.fromCharCode(65 + optIdx)}.  ${String(opt)}`;
-                    
-                    // Generous safety margin logic (Max Width - Right Margin allowance - Indent Space)
-                    let optLines = doc.splitTextToSize(optString, maxW - 35);
-                    return { lines: optLines, fontStyle: fontStyle, isCorrectOpt: isThisCorrectOpt, isUserOpt: isThisUserOpt };
+                    htmlStr += `</div>`;
                 });
+                
+                htmlStr += `</div>`; // Close wrapper
+                printDiv.innerHTML = htmlStr;
 
-                // Tally required space
-                let totalHeightNeeded = (qLines.length * 15) + 5;
-                optionsData.forEach(opt => totalHeightNeeded += (opt.lines.length * 15));
-                if (isUnanswered) totalHeightNeeded += 15;
-                totalHeightNeeded += 20;
+                // PDF Settings
+                const opt = {
+                    margin:       [0.4, 0.4, 0.4, 0.4], 
+                    filename:     `${name.replace(/\s+/g, '_')}_HoRly_Result.pdf`,
+                    image:        { type: 'jpeg', quality: 1.0 },
+                    // html2canvas config specifically tailored to avoid blank pages (no appending to DOM required)
+                    html2canvas:  { scale: 2, useCORS: true, letterRendering: true, windowWidth: 800 },
+                    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
+                    pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+                };
 
-                // Check page jump before writing anything
-                checkPageBreak(totalHeightNeeded);
-
-                // DRAW QUESTION
-                doc.setFont("helvetica", "bold");
-                doc.setTextColor(15, 23, 42); 
-                doc.text(qLines, margin, y);
-                y += qLines.length * 15 + 5;
-
-                // DRAW OPTIONS
-                optionsData.forEach((optData) => {
-                    doc.setFont("helvetica", optData.fontStyle);
-                    
-                    if (optData.isCorrectOpt) {
-                        doc.setTextColor(5, 150, 105); // Green
-                    } else if (optData.isUserOpt && !isCorrect) {
-                        doc.setTextColor(225, 29, 72); // Red
-                    } else {
-                        doc.setTextColor(71, 85, 105); // Gray
-                    }
-                    
-                    doc.text(optData.lines, margin + 20, y); 
-                    y += optData.lines.length * 15;
+                // html2pdf natively triggers the browser download properly
+                html2pdf().set(opt).from(printDiv).save().then(() => {
+                    resolve();
+                }).catch(err => {
+                    reject(err);
                 });
-
-                if (isUnanswered) {
-                     doc.setFont("helvetica", "bold");
-                     doc.setTextColor(225, 29, 72);
-                     doc.text("[!] You did not answer this question", margin + 20, y);
-                     y += 15;
-                }
-
-                y += 15; // Bottom spacing before next question
             });
-
-            const safeFilename = `${name.replace(/\s+/g, '_')}_HoRly_Result.pdf`;
-            doc.save(safeFilename);
         }
 
 
@@ -1921,5 +1325,3 @@
     </script>
 </body>
 </html>
-
-

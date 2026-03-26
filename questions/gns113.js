@@ -1,4 +1,4 @@
-const gnsQuestions = [
+const gns113Questions = [
     { q: "What is the primary function of a library?", opts: ["To sell books", "To store and provide access to information", "To print newspapers", "To repair computers"], ans: 1 },
     { q: "Which classification system is most commonly used in academic and university libraries?", opts: ["Dewey Decimal Classification", "Library of Congress Classification", "Alphabetical Classification", "ISBN System"], ans: 1 },
     { q: "What does ISBN stand for?", opts: ["International Standard Book Number", "Internal System Book Node", "International Standard Binding Number", "Inter-State Book Network"], ans: 0 },

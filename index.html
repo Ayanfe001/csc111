@@ -22,6 +22,13 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
+    <script src="questions/cos.js"></script>
+    <script src="questions/phy.js"></script>
+    <script src="questions/csc.js"></script>
+    <script src="questions/vos.js"></script>
+    <script src="questions/vos117.js"></script>
+    <script src="questions/gns113.js"></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
@@ -176,14 +183,6 @@
         html.dark .calc-btn { background: rgba(255,255,255,0.05); color: white; }
         html.dark .calc-btn:hover { background: rgba(255,255,255,0.15); }
     </style>
-    
-    <script src="questions/cos.js"></script>
-    <script src="questions/phy.js"></script>
-    <script src="questions/csc.js"></script>
-    <script src="questions/vos.js"></script>
-    <script src="questions/vos117.js"></script>
-    <script src="questions/gns113.js"></script>
-
 </head>
 <body class="text-slate-800 min-h-screen flex flex-col items-center p-4 sm:p-6 selection:bg-purple-200 selection:text-purple-900">
 
@@ -258,8 +257,8 @@
             </button>
         </div>
     </div>
-    
-    <div id="welcome-screen" class="glass-panel p-8 sm:p-12 rounded-[2.5rem] w-full max-w-lg z-10 screen-enter text-center">
+
+    <div id="welcome-screen" class="hidden glass-panel p-8 sm:p-12 rounded-[2.5rem] w-full max-w-lg z-10 screen-enter text-center">
         <div class="flex justify-center mb-8">
             <div class="bg-gradient-to-br from-white/80 to-white/30 dark:from-white/20 dark:to-white/5 p-5 rounded-3xl border border-white/60 dark:border-white/10 shadow-xl backdrop-blur-xl relative group">
                 <div class="absolute inset-0 bg-purple-400 rounded-3xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
@@ -272,6 +271,10 @@
         <button onclick="handleWelcomeStart()" class="glass-button-primary w-full font-bold py-4 px-6 rounded-2xl flex items-center justify-center transition-all text-lg mb-4">
             Get Started
             <svg class="ml-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </button>
+        
+        <button onclick="switchScreen('landing')" class="w-full text-slate-500 text-sm font-bold mt-2 mb-4 hover:text-slate-700 transition-colors">
+            Back to Home
         </button>
         
         <button onclick="showHistory()" class="w-full text-purple-600 dark:text-purple-400 font-bold py-3 px-6 rounded-2xl bg-white/30 dark:bg-black/30 border border-white/50 dark:border-white/10 hover:bg-white/50 dark:hover:bg-white/10 transition-all flex items-center justify-center">
@@ -335,7 +338,7 @@
                 </div>
             </button>
 
-            <button onclick="selectCourse('vos')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-blue-300 dark:hover:border-blue-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
+          <button onclick="selectCourse('vos')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-blue-300 dark:hover:border-blue-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
                 <div class="flex justify-between items-center">
                     <div>
                         <h3 class="text-xl font-bold text-slate-800 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">VOS 114</h3>
@@ -345,7 +348,7 @@
                 </div>
             </button>
 
-            <button onclick="selectCourse('vos117')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-purple-300 dark:hover:border-purple-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
+          <button onclick="selectCourse('vos117')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-purple-300 dark:hover:border-purple-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
                 <div class="flex justify-between items-center">
                     <div>
                         <h3 class="text-xl font-bold text-slate-800 group-hover:text-purple-700 dark:group-hover:text-purple-400 transition-colors">VOS 117</h3>
@@ -361,7 +364,7 @@
                         <h3 class="text-xl font-bold text-slate-800 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">GNS 113</h3>
                         <p class="text-slate-500 mt-1 text-sm font-medium">Use of Library</p>
                     </div>
-                    <span class="bg-blue-100/50 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">30 Qs Available</span>
+                    <span class="bg-blue-100/50 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">10 Qs Available</span>
                 </div>
             </button>
         </div>
@@ -501,7 +504,7 @@
                 <div class="mt-6 mx-auto max-w-lg bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-4 text-white shadow-lg border border-white/20 relative overflow-hidden break-inside-avoid">
                     <div class="absolute inset-0 bg-white/10 w-full h-full transform -skew-x-12 translate-x-full group-hover:animate-shimmer"></div>
                     <p class="font-extrabold text-lg mb-1">Need a new laptop for school?</p>
-                    <p class="text-sm font-medium opacity-90">Get 1.0% off at <a href="wa.me/+2349121213936"><span class="font-bold underline">HoRly's Tech Gadgets!</span></a> Show this result to claim.</p>
+                    <p class="text-sm font-medium opacity-90">Get 1.0% off at <span class="font-bold underline">HoRly's Tech Gadgets!</span> Show this result to claim.</p>
                 </div>
             </div>
 
@@ -592,16 +595,17 @@
         </div>
     </div>
 
+
     <script>
-        // --- DATA BANKS (Now injected from the external JS files!) ---
+        // --- DATA BANKS MOVED OUT TO SEPARATE JS FILES ---
       
         const courses = {
             'cos': { name: 'COS 101', title: 'Introduction to Computer Science', questions: cosQuestions },
             'phy': { name: 'PHY 101', title: 'General Physics I', questions: phyQuestions },
             'csc': { name: 'CSC 111', title: 'Introduction to Database Concept', questions: cscQuestions },
             'vos': { name: 'VOS 114', title: 'Computer Maintance And Percaution', questions: vosQuestuons },
-            'vos117': { name: 'VOS 117', title: 'Fish Farming', questions: vos117Questions },
-            'gns113': { name: 'GNS 113', title: 'Use of Library', questions: gns113Questions }
+            'vos117': {name: 'VOS 117', title: 'Fish Farming', questions: vos117Questions },
+            'gns113': {name: 'GNS 113', title: 'Use of Library', questions: gns113Questions }
         };
 
         // --- STATE VARIABLES ---
@@ -756,9 +760,21 @@
             const container = document.getElementById('question-count-buttons');
             container.innerHTML = '';
             
-            let options = [30, 50, 100];
-            if (selectedCourse === 'phy') options.push(150);
-            if (selectedCourse === 'gns113') options = [10, 20, 30]; // Adjusted options since the sample is exactly 30 Qs. 
+            // Using Math.min to prevent users from selecting 100 questions for a course that only has 10
+            let maxAvailable = courses[selectedCourse].questions.length;
+            let options = [];
+            
+            // Adjust options based on course array length so it dynamically handles shorter courses (like the new 10-question GNS 113)
+            if (maxAvailable >= 10) options.push(10);
+            if (maxAvailable >= 30) options.push(30);
+            if (maxAvailable >= 50) options.push(50);
+            if (maxAvailable >= 100) options.push(100);
+            if (selectedCourse === 'phy' && maxAvailable >= 150) options.push(150);
+
+            // Set default selected count to something valid if 30 isn't available
+            if (!options.includes(selectedCount)) {
+                selectedCount = options[0] || maxAvailable;
+            }
 
             options.forEach(num => {
                 const isSelected = num === selectedCount;
@@ -784,7 +800,6 @@
         function updateWarningText() {
             const warning = document.getElementById('time-warning-text');
             if (selectedCount === 10) warning.textContent = "You will have exactly 3 minutes to complete 10 questions.";
-            if (selectedCount === 20) warning.textContent = "You will have exactly 5 minutes to complete 20 questions.";
             if (selectedCount === 30) warning.textContent = "You will have exactly 7 minutes to complete 30 questions.";
             if (selectedCount === 50) warning.textContent = "You will have exactly 10 minutes to complete 50 questions.";
             if (selectedCount === 100) warning.textContent = "You will have exactly 20 minutes to complete 100 questions.";
@@ -794,9 +809,8 @@
         document.getElementById('start-quiz-btn').addEventListener('click', () => {
             hideWhatsApp(); 
 
-            let minutes = 7;
-            if (selectedCount === 10) minutes = 3;
-            if (selectedCount === 20) minutes = 5;
+            let minutes = 3;
+            if (selectedCount === 30) minutes = 7;
             if (selectedCount === 50) minutes = 10;
             if (selectedCount === 100) minutes = 20;
             if (selectedCount === 150) minutes = 30;

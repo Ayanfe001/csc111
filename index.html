@@ -26,7 +26,7 @@
     <script src="questions/phy.js"></script>
     <script src="questions/csc.js"></script>
     <script src="questions/vos.js"></script>
-    <script src="questions/vos117.js"></script>
+    <script src="queations/vos117.js"></script>
     <script src="questions/gns113.js"></script>
 
     <style>
@@ -303,71 +303,37 @@
         </form>
     </div>
 
+    <div id="semester-screen" class="hidden glass-panel p-6 sm:p-10 rounded-[2.5rem] w-full max-w-md z-10 screen-enter">
+        <h2 class="text-2xl font-bold mb-2 tracking-tight text-slate-800 text-center">Select Category</h2>
+        <p class="text-slate-500 mb-8 font-medium text-center">Choose your current semester or study path.</p>
+        
+        <div class="space-y-4">
+            <button onclick="selectSemester('first')" class="w-full p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-purple-300 dark:hover:border-purple-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all flex items-center justify-between group">
+                <span class="text-lg font-bold text-slate-800 group-hover:text-purple-700 dark:group-hover:text-purple-400 transition-colors">First Semester</span>
+                <svg class="w-5 h-5 text-slate-400 group-hover:text-purple-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+            
+            <button onclick="selectSemester('second')" class="w-full p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-blue-300 dark:hover:border-blue-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all flex items-center justify-between group">
+                <span class="text-lg font-bold text-slate-800 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">Second Semester</span>
+                <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+
+            <button onclick="selectSemester('vocational')" class="w-full p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-emerald-300 dark:hover:border-emerald-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all flex items-center justify-between group">
+                <span class="text-lg font-bold text-slate-800 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">Vocational Study</span>
+                <svg class="w-5 h-5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+        </div>
+        <button onclick="switchScreen('login')" class="w-full text-slate-500 text-sm font-bold mt-6 hover:text-slate-700 transition-colors">Back</button>
+    </div>
+
     <div id="course-screen" class="hidden glass-panel p-6 sm:p-10 rounded-[2.5rem] w-full max-w-lg z-10 screen-enter">
         <h2 class="text-2xl font-bold mb-2 tracking-tight text-slate-800">Welcome, <span id="course-display-name" class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400"></span>!</h2>
         <p class="text-slate-500 mb-8 font-medium">Select the course you want to attempt today.</p>
         
-        <div class="space-y-4">
-            <button onclick="selectCourse('cos')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-purple-300 dark:hover:border-purple-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h3 class="text-xl font-bold text-slate-800 group-hover:text-purple-700 dark:group-hover:text-purple-400 transition-colors">COS 101</h3>
-                        <p class="text-slate-500 mt-1 text-sm font-medium">Introduction to Computer Science</p>
-                    </div>
-                    <span class="bg-purple-100/50 dark:bg-purple-900/50 border border-purple-200 dark:border-purple-700 text-purple-800 dark:text-purple-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">100 Qs Available</span>
-                </div>
-            </button>
-
-            <button onclick="selectCourse('phy')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-blue-300 dark:hover:border-blue-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h3 class="text-xl font-bold text-slate-800 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">PHY 101</h3>
-                        <p class="text-slate-500 mt-1 text-sm font-medium">General Physics I</p>
-                    </div>
-                    <span class="bg-blue-100/50 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">150 Qs Available</span>
-                </div>
-            </button>
-          
-            <button onclick="selectCourse('csc')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-purple-300 dark:hover:border-purple-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h3 class="text-xl font-bold text-slate-800 group-hover:text-purple-700 dark:group-hover:text-purple-400 transition-colors">CSC 111</h3>
-                        <p class="text-slate-500 mt-1 text-sm font-medium">Introduction to Database Concept</p>
-                    </div>
-                    <span class="bg-purple-100/50 dark:bg-purple-900/50 border border-purple-200 dark:border-purple-700 text-purple-800 dark:text-purple-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">100 Qs Available</span>
-                </div>
-            </button>
-
-          <button onclick="selectCourse('vos')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-blue-300 dark:hover:border-blue-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h3 class="text-xl font-bold text-slate-800 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">VOS 114</h3>
-                        <p class="text-slate-500 mt-1 text-sm font-medium">Computer Maintance And Percaution</p>
-                    </div>
-                    <span class="bg-blue-100/50 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">60 Qs Available</span>
-                </div>
-            </button>
-
-          <button onclick="selectCourse('vos117')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-purple-300 dark:hover:border-purple-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h3 class="text-xl font-bold text-slate-800 group-hover:text-purple-700 dark:group-hover:text-purple-400 transition-colors">VOS 117</h3>
-                        <p class="text-slate-500 mt-1 text-sm font-medium">Fish Farming</p>
-                    </div>
-                    <span class="bg-purple-100/50 dark:bg-purple-900/50 border border-purple-200 dark:border-purple-700 text-purple-800 dark:text-purple-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">100 Qs Available</span>
-                </div>
-            </button>
-
-            <button onclick="selectCourse('gns113')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-blue-300 dark:hover:border-blue-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h3 class="text-xl font-bold text-slate-800 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">GNS 113</h3>
-                        <p class="text-slate-500 mt-1 text-sm font-medium">Use of Library</p>
-                    </div>
-                    <span class="bg-blue-100/50 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">10 Qs Available</span>
-                </div>
-            </button>
+        <div id="course-list-container" class="space-y-4">
         </div>
+
+        <button onclick="switchScreen('semester')" class="w-full text-slate-500 text-sm font-bold mt-6 hover:text-slate-700 transition-colors">Back to Categories</button>
     </div>
 
     <div id="setup-screen" class="hidden glass-panel p-6 sm:p-10 rounded-[2.5rem] w-full max-w-lg z-10 screen-enter">
@@ -597,19 +563,24 @@
 
 
     <script>
-        // --- DATA BANKS MOVED OUT TO SEPARATE JS FILES ---
-      
+        // --- DATA BANKS WITH SEMESTER CATEGORIZATION ---
+        // To add a course to the second semester later, simply add a new object here with `semester: 'second'`
         const courses = {
-            'cos': { name: 'COS 101', title: 'Introduction to Computer Science', questions: cosQuestions },
-            'phy': { name: 'PHY 101', title: 'General Physics I', questions: phyQuestions },
-            'csc': { name: 'CSC 111', title: 'Introduction to Database Concept', questions: cscQuestions },
-            'vos': { name: 'VOS 114', title: 'Computer Maintance And Percaution', questions: vosQuestuons },
-            'vos117': {name: 'VOS 117', title: 'Fish Farming', questions: vos117Questions },
-            'gns113': {name: 'GNS 113', title: 'Use of Library', questions: gns113Questions }
+            'cos': { name: 'COS 101', title: 'Introduction to Computer Science', semester: 'first', questions: cosQuestions },
+            'phy': { name: 'PHY 101', title: 'General Physics I', semester: 'first', questions: phyQuestions },
+            'csc': { name: 'CSC 111', title: 'Introduction to Database Concept', semester: 'first', questions: cscQuestions },
+            'gns113': {name: 'GNS 113', title: 'Use of Library', semester: 'first', questions: gns113Questions },
+            
+            'vos': { name: 'VOS 114', title: 'Computer Maintance And Percaution', semester: 'vocational', questions: vosQuestuons },
+            'vos117': {name: 'VOS 117', title: 'Fish Farming', semester: 'vocational', questions: vos117Questions }
+            
+            // Example of adding a second semester course in the future:
+            // 'mth102': { name: 'MTH 102', title: 'Calculus II', semester: 'second', questions: mth102Questions }
         };
 
         // --- STATE VARIABLES ---
         let userName = "";
+        let selectedSemester = null;
         let selectedCourse = null;
         let selectedCount = 30;
         let timeRemaining = 0;
@@ -625,7 +596,7 @@
         
         let pdfConfirmWait = false;
         let pdfResetTimer = null;
-        let currentResultView = null; // Stores data for the currently viewed result (for PDF generation)
+        let currentResultView = null; 
 
         // Sound System
         const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -661,6 +632,7 @@
             landing: document.getElementById('landing-screen'),
             welcome: document.getElementById('welcome-screen'),
             login: document.getElementById('login-screen'),
+            semester: document.getElementById('semester-screen'),
             course: document.getElementById('course-screen'),
             setup: document.getElementById('setup-screen'),
             quiz: document.getElementById('quiz-screen'),
@@ -741,9 +713,59 @@
             if (nameInput) {
                 userName = nameInput;
                 document.getElementById('course-display-name').textContent = userName;
-                switchScreen('course');
+                switchScreen('semester');
             }
         });
+
+        // Dynamic Semester and Course Handling
+        function selectSemester(semester) {
+            selectedSemester = semester;
+            renderCourses();
+            switchScreen('course');
+        }
+
+        function renderCourses() {
+            const container = document.getElementById('course-list-container');
+            container.innerHTML = '';
+            
+            let coursesFound = false;
+
+            // Iterate through the courses object and only display matching semester
+            for (const [key, course] of Object.entries(courses)) {
+                if (course.semester === selectedSemester) {
+                    coursesFound = true;
+                    
+                    // Assign colors dynamically based on category
+                    let colorTheme = "purple";
+                    if(selectedSemester === 'second') colorTheme = "blue";
+                    if(selectedSemester === 'vocational') colorTheme = "emerald";
+
+                    const buttonHtml = `
+                        <button onclick="selectCourse('${key}')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-${colorTheme}-300 dark:hover:border-${colorTheme}-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="text-xl font-bold text-slate-800 group-hover:text-${colorTheme}-700 dark:group-hover:text-${colorTheme}-400 transition-colors">${course.name}</h3>
+                                    <p class="text-slate-500 mt-1 text-sm font-medium">${course.title}</p>
+                                </div>
+                                <span class="bg-${colorTheme}-100/50 dark:bg-${colorTheme}-900/50 border border-${colorTheme}-200 dark:border-${colorTheme}-700 text-${colorTheme}-800 dark:text-${colorTheme}-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">${course.questions.length} Qs Available</span>
+                            </div>
+                        </button>
+                    `;
+                    container.innerHTML += buttonHtml;
+                }
+            }
+
+            // Fallback if no courses exist in this category yet
+            if (!coursesFound) {
+                container.innerHTML = `
+                    <div class="p-8 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 text-center backdrop-blur-md">
+                        <svg class="w-12 h-12 mx-auto text-slate-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <h3 class="text-lg font-bold text-slate-700 dark:text-slate-300 mb-1">No Courses Available</h3>
+                        <p class="text-slate-500 text-sm">There are currently no courses uploaded for this semester. Please check back later.</p>
+                    </div>
+                `;
+            }
+        }
 
         function selectCourse(courseKey) {
             selectedCourse = courseKey;
@@ -764,14 +786,14 @@
             let maxAvailable = courses[selectedCourse].questions.length;
             let options = [];
             
-            // Adjust options based on course array length so it dynamically handles shorter courses (like the new 10-question GNS 113)
+            // Adjust options based on course array length so it dynamically handles shorter courses
             if (maxAvailable >= 10) options.push(10);
             if (maxAvailable >= 30) options.push(30);
             if (maxAvailable >= 50) options.push(50);
             if (maxAvailable >= 100) options.push(100);
             if (selectedCourse === 'phy' && maxAvailable >= 150) options.push(150);
 
-            // Set default selected count to something valid if 30 isn't available
+            // Set default selected count to something valid if current selection isn't available
             if (!options.includes(selectedCount)) {
                 selectedCount = options[0] || maxAvailable;
             }
@@ -840,7 +862,7 @@
                 
                 if (timeRemaining <= 60 && timeRemaining > 0) {
                     timerDisplay.className = "flex items-center font-mono font-bold text-lg px-4 py-2 rounded-2xl bg-rose-500/20 border border-rose-500/40 text-rose-800 dark:text-rose-400 animate-pulse shadow-sm backdrop-blur-md transition-colors duration-300";
-                    if(timeRemaining % 2 === 0) playTick(); // Sound effect every 2 seconds in last minute
+                    if(timeRemaining % 2 === 0) playTick(); 
                 } else if (timeRemaining > 60) {
                     timerDisplay.className = "flex items-center font-mono font-bold text-lg px-4 py-2 rounded-2xl bg-white/40 dark:bg-white/10 border border-white/50 dark:border-white/10 text-slate-800 shadow-sm backdrop-blur-md transition-colors duration-300";
                 }
@@ -878,7 +900,6 @@
                 
                 if(i === currentIndex) {
                     baseClass += "ring-2 ring-purple-500 scale-110 ";
-                    // Smooth scroll active button into view
                     btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
                 }
 
@@ -906,7 +927,7 @@
             } else {
                 flaggedQuestions.add(currentIndex);
             }
-            renderQuestion(); // updates flag button UI
+            renderQuestion(); 
             updateGridColors();
         }
 
@@ -931,23 +952,21 @@
                 }
 
                 btn.onclick = () => {
-                    if (btn.disabled) return; // Prevent double firing during timeout
+                    if (btn.disabled) return; 
 
                     userAnswers[currentIndex] = idx;
                     updateProgress();
                     updateGridColors();
-                    renderQuestion(); // Immediately re-render to highlight selection
+                    renderQuestion(); 
 
-                    // Auto-advance logic
                     if (currentIndex < activeQuestions.length - 1) {
-                        // Disable buttons temporarily to prevent quick double clicking
                         const allOpts = document.querySelectorAll('#options-container button');
                         allOpts.forEach(b => b.disabled = true);
 
                         setTimeout(() => {
                             currentIndex++;
                             renderQuestion();
-                        }, 400); // 400ms delay to let user see selection
+                        }, 400); 
                     }
                 };
                 
@@ -962,7 +981,6 @@
                 optsContainer.appendChild(btn);
             });
 
-            // Update Nav Buttons
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
             const submitBtn = document.getElementById('submit-btn');
@@ -1018,9 +1036,7 @@
             warningModal.classList.add('hidden');
         }
 
-        // Dedicated rendering function so it can be reused for past history reviews
         function renderResultsView(rName, rCourse, rScore, rTotal, rQuestions, rAnswers, rPassed) {
-            // Save state globally so the PDF generator has access to it
             currentResultView = { name: rName, course: rCourse, score: rScore, total: rTotal, questions: rQuestions, answers: rAnswers, passed: rPassed };
             
             const percentage = Math.round((rScore / rTotal) * 100);
@@ -1116,7 +1132,6 @@
             if(passed) playCheer();
             else playBuzzer();
 
-            // Save to LocalStorage WITH questions and answers so it can be reviewed later
             const history = JSON.parse(localStorage.getItem('horlyTechHistory') || '[]');
             history.push({
                 date: new Date().toLocaleDateString(),
@@ -1143,12 +1158,10 @@
             if(history.length === 0) {
                 container.innerHTML = '<p class="text-slate-500 text-center py-4">No past results found.</p>';
             } else {
-                // Slice and reverse to show newest first, while keeping track of true original array index
                 history.slice().reverse().forEach((entry, idx) => {
                     const originalIndex = history.length - 1 - idx;
                     const pct = Math.round((entry.score/entry.total)*100);
                     
-                    // Only show Review button if questions and answers were saved in this entry
                     const hasDetails = entry.questions && entry.answers;
                     
                     container.innerHTML += `
@@ -1180,26 +1193,21 @@
             const history = JSON.parse(localStorage.getItem('horlyTechHistory') || '[]');
             const entry = history[index];
             if (entry && entry.questions && entry.answers) {
-                // Safely load up the past result view
                 renderResultsView(entry.name, entry.course, entry.score, entry.total, entry.questions, entry.answers, entry.passed);
             }
         }
 
-        // --- PDF DOWNLOAD: GUARANTEED VISIBILITY ENGINE ---
+        // --- PDF DOWNLOAD ---
         function handlePDFClick() {
             const btn = document.getElementById('pdf-download-btn');
             const textEl = document.getElementById('pdf-btn-text');
 
             if (!pdfConfirmWait) {
-                // FIRST CLICK: Ask for confirmation
                 pdfConfirmWait = true;
                 textEl.textContent = "Click again to download";
-                
-                // Change style to highlight the required action
                 btn.classList.remove('from-blue-600', 'to-purple-600');
                 btn.classList.add('from-rose-500', 'to-red-600', 'animate-pulse');
 
-                // Reset back to normal after 4 seconds if they don't click
                 pdfResetTimer = setTimeout(() => {
                     pdfConfirmWait = false;
                     textEl.textContent = "Save as PDF";
@@ -1207,7 +1215,6 @@
                     btn.classList.remove('from-rose-500', 'to-red-600', 'animate-pulse');
                 }, 4000);
             } else {
-                // SECOND CLICK: Build the Clean Print HTML and trigger download
                 clearTimeout(pdfResetTimer);
                 pdfConfirmWait = false;
                 
@@ -1215,7 +1222,6 @@
                 btn.classList.remove('animate-pulse');
 
                 generateCleanPDF().then(() => {
-                    // Restore button appearance after download
                     textEl.textContent = "Save as PDF";
                     btn.classList.add('from-blue-600', 'to-purple-600');
                     btn.classList.remove('from-rose-500', 'to-red-600');
@@ -1236,13 +1242,10 @@
                 const { name, course, score, total, questions, answers, passed } = currentResultView;
                 const pct = Math.round((score / total) * 100);
 
-                // Create a standalone HTML element strictly for html2pdf
                 const printDiv = document.createElement('div');
                 
-                // Pure Inline CSS for the PDF Document to prevent rendering bugs
                 let htmlStr = `
                     <div style="width: 800px; padding: 40px; font-family: Helvetica, Arial, sans-serif; background-color: #ffffff; color: #000000; position: relative; z-index: 1;">
-                        
                         <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: -1; overflow: hidden; pointer-events: none;">
                             <div style="color: rgba(147, 51, 234, 0.08); font-size: 110px; font-weight: bold; transform: rotate(-45deg); position: absolute; top: 300px; left: 50px;">HoRly's_tech</div>
                             <div style="color: rgba(147, 51, 234, 0.08); font-size: 110px; font-weight: bold; transform: rotate(-45deg); position: absolute; top: 1100px; left: 50px;">HoRly's_tech</div>
@@ -1271,7 +1274,6 @@
                         <h3 style="font-size: 26px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 25px; color: #1e293b;">Detailed Answer Review</h3>
                 `;
 
-                // Add Questions Loop
                 questions.forEach((q, qIdx) => {
                     const userAns = answers[qIdx];
                     const isCorrect = userAns === q.ans;
@@ -1302,21 +1304,18 @@
                     htmlStr += `</div>`;
                 });
                 
-                htmlStr += `</div>`; // Close wrapper
+                htmlStr += `</div>`; 
                 printDiv.innerHTML = htmlStr;
 
-                // PDF Settings
                 const opt = {
                     margin:       [0.4, 0.4, 0.4, 0.4], 
                     filename:     `${name.replace(/\s+/g, '_')}_HoRly_Result.pdf`,
                     image:        { type: 'jpeg', quality: 1.0 },
-                    // html2canvas config specifically tailored to avoid blank pages (no appending to DOM required)
                     html2canvas:  { scale: 2, useCORS: true, letterRendering: true, windowWidth: 800 },
                     jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
                     pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
                 };
 
-                // html2pdf natively triggers the browser download properly
                 html2pdf().set(opt).from(printDiv).save().then(() => {
                     resolve();
                 }).catch(err => {
@@ -1341,7 +1340,6 @@
                 calcValue = calcValue.length > 1 ? calcValue.slice(0, -1) : '0';
             } else if(val === '=') {
                 try {
-                    // Safe eval wrapper for basic math
                     calcValue = String(new Function('return ' + calcValue)());
                 } catch(e) {
                     calcValue = 'Error';
@@ -1371,7 +1369,6 @@
         });
         document.addEventListener('mouseup', () => isDragging = false);
 
-        // Touch support for dragging calc
         document.getElementById('calc-header').addEventListener('touchstart', (e) => {
             isDragging = true;
             startX = e.touches[0].clientX;

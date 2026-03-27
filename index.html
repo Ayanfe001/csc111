@@ -429,13 +429,17 @@
         
         <div class="glass-panel p-4 sm:p-6 rounded-[2rem] flex flex-col sm:flex-row justify-between items-center gap-4">
             <h3 class="text-xl font-bold text-slate-800 dark:text-white tracking-tight">Assessment Actions</h3>
-            <div class="flex gap-2 w-full sm:w-auto">
-                <button id="pdf-download-btn" onclick="handlePDFClick()" class="flex-1 sm:flex-none flex items-center justify-center text-white font-bold bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 px-5 py-3 rounded-2xl transition-all shadow-md">
-                    <svg class="w-5 h-5 mr-2" id="pdf-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+            <div class="flex flex-wrap gap-2 w-full sm:w-auto justify-center sm:justify-end">
+                <button id="pdf-download-btn" onclick="handlePDFClick()" class="flex-1 sm:flex-none flex items-center justify-center text-white font-bold bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 px-4 py-3 rounded-2xl transition-all shadow-md text-sm">
+                    <svg class="w-4 h-4 mr-2" id="pdf-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                     <span id="pdf-btn-text">Save as PDF</span>
                 </button>
-                <button onclick="location.reload()" class="flex-1 sm:flex-none flex items-center justify-center text-slate-700 dark:text-slate-200 font-bold bg-white/50 dark:bg-white/10 hover:bg-white/70 dark:hover:bg-white/20 px-5 py-3 rounded-2xl transition-all border border-white/60 dark:border-white/10 shadow-sm">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg> 
+                <button onclick="retakeExactTest()" class="flex-1 sm:flex-none flex items-center justify-center text-white font-bold bg-gradient-to-r from-emerald-500 to-teal-500 hover:opacity-90 px-4 py-3 rounded-2xl transition-all shadow-md text-sm">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    Retake Exact Test
+                </button>
+                <button onclick="location.reload()" class="flex-1 sm:flex-none flex items-center justify-center text-slate-700 dark:text-slate-200 font-bold bg-white/50 dark:bg-white/10 hover:bg-white/70 dark:hover:bg-white/20 px-4 py-3 rounded-2xl transition-all border border-white/60 dark:border-white/10 shadow-sm text-sm">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg> 
                     Start Over
                 </button>
             </div>
@@ -470,11 +474,15 @@
                 <div class="mt-6 mx-auto max-w-lg bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-4 text-white shadow-lg border border-white/20 relative overflow-hidden break-inside-avoid">
                     <div class="absolute inset-0 bg-white/10 w-full h-full transform -skew-x-12 translate-x-full group-hover:animate-shimmer"></div>
                     <p class="font-extrabold text-lg mb-1">Need a new laptop for school?</p>
-                    <p class="text-sm font-medium opacity-90">Get 1.0% off at <span class="font-bold underline">HoRly's Tech Gadgets!</span> Show this result to claim.</p>
+                    <p class="text-sm font-medium opacity-90">Get 1.0% off at <a href="wa.me/2349121213936"><span class="font-bold underline">HoRly's Tech Gadgets!</span></a> Show this result to claim.</p>
                 </div>
+
+                <button id="toggle-review-btn" onclick="toggleReview()" class="mt-8 w-full bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-bold py-3.5 px-6 rounded-2xl hover:bg-purple-200 dark:hover:bg-purple-900/50 transition-colors border border-purple-200 dark:border-purple-800">
+                    Show Detailed Review
+                </button>
             </div>
 
-            <div class="glass-panel p-6 sm:p-10 rounded-[2.5rem]">
+            <div id="review-section" class="hidden glass-panel p-6 sm:p-10 rounded-[2.5rem]">
                 <h3 class="text-2xl font-bold text-slate-800 dark:text-white tracking-tight mb-6 border-b border-white/40 dark:border-white/10 pb-4">Detailed Review</h3>
                 <div id="review-container" class="space-y-6">
                     </div>
@@ -730,12 +738,10 @@
             
             let coursesFound = false;
 
-            // Iterate through the courses object and only display matching semester
             for (const [key, course] of Object.entries(courses)) {
                 if (course.semester === selectedSemester) {
                     coursesFound = true;
                     
-                    // Assign colors dynamically based on category
                     let colorTheme = "purple";
                     if(selectedSemester === 'second') colorTheme = "blue";
                     if(selectedSemester === 'vocational') colorTheme = "emerald";
@@ -755,7 +761,6 @@
                 }
             }
 
-            // Fallback if no courses exist in this category yet
             if (!coursesFound) {
                 container.innerHTML = `
                     <div class="p-8 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 text-center backdrop-blur-md">
@@ -782,18 +787,15 @@
             const container = document.getElementById('question-count-buttons');
             container.innerHTML = '';
             
-            // Using Math.min to prevent users from selecting 100 questions for a course that only has 10
             let maxAvailable = courses[selectedCourse].questions.length;
             let options = [];
             
-            // Adjust options based on course array length so it dynamically handles shorter courses
             if (maxAvailable >= 10) options.push(10);
             if (maxAvailable >= 30) options.push(30);
             if (maxAvailable >= 50) options.push(50);
             if (maxAvailable >= 100) options.push(100);
             if (selectedCourse === 'phy' && maxAvailable >= 150) options.push(150);
 
-            // Set default selected count to something valid if current selection isn't available
             if (!options.includes(selectedCount)) {
                 selectedCount = options[0] || maxAvailable;
             }
@@ -828,22 +830,16 @@
             if (selectedCount === 150) warning.textContent = "You will have exactly 30 minutes to complete 150 questions.";
         }
 
-        document.getElementById('start-quiz-btn').addEventListener('click', () => {
+        // TIMER LOGIC EXTRACTED FOR REUSE
+        function startTimerLogic() {
             hideWhatsApp(); 
-
+            
             let minutes = 3;
             if (selectedCount === 30) minutes = 7;
             if (selectedCount === 50) minutes = 10;
             if (selectedCount === 100) minutes = 20;
             if (selectedCount === 150) minutes = 30;
 
-            let sourceQuestions = courses[selectedCourse].questions;
-            let shuffled = shuffle([...sourceQuestions]);
-            activeQuestions = shuffled.slice(0, selectedCount);
-            
-            currentIndex = 0;
-            userAnswers = {};
-            flaggedQuestions.clear();
             timeRemaining = minutes * 60;
             
             document.getElementById('course-badge').textContent = courses[selectedCourse].name;
@@ -854,6 +850,7 @@
 
             const timerDisplay = document.getElementById('timer-display');
             const timeText = document.getElementById('time-remaining');
+            timeText.textContent = formatTime(timeRemaining);
             
             clearInterval(timerInterval);
             timerInterval = setInterval(() => {
@@ -872,7 +869,32 @@
                     forceSubmit();
                 }
             }, 1000);
+        }
+
+        document.getElementById('start-quiz-btn').addEventListener('click', () => {
+            let sourceQuestions = courses[selectedCourse].questions;
+            let shuffled = shuffle([...sourceQuestions]);
+            activeQuestions = shuffled.slice(0, selectedCount);
+            
+            currentIndex = 0;
+            userAnswers = {};
+            flaggedQuestions.clear();
+            
+            startTimerLogic();
         });
+
+        // RETAKE EXACT TEST FUNCTION
+        function retakeExactTest() {
+            // Keep activeQuestions as they are, just reset the user data
+            currentIndex = 0;
+            userAnswers = {};
+            flaggedQuestions.clear();
+            
+            document.getElementById('review-section').classList.add('hidden');
+            document.getElementById('toggle-review-btn').textContent = "Show Detailed Review";
+            
+            startTimerLogic();
+        }
 
         function buildNavGrid() {
             const grid = document.getElementById('nav-grid');
@@ -1036,6 +1058,20 @@
             warningModal.classList.add('hidden');
         }
 
+        // TOGGLE REVIEW BUTTON
+        function toggleReview() {
+            const revSec = document.getElementById('review-section');
+            const btn = document.getElementById('toggle-review-btn');
+            if (revSec.classList.contains('hidden')) {
+                revSec.classList.remove('hidden');
+                btn.textContent = "Hide Detailed Review";
+                revSec.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                revSec.classList.add('hidden');
+                btn.textContent = "Show Detailed Review";
+            }
+        }
+
         function renderResultsView(rName, rCourse, rScore, rTotal, rQuestions, rAnswers, rPassed) {
             currentResultView = { name: rName, course: rCourse, score: rScore, total: rTotal, questions: rQuestions, answers: rAnswers, passed: rPassed };
             
@@ -1092,299 +1128,4 @@
 
                 const iconSvg = isCorrect 
                     ? `<div class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900 border border-emerald-300 flex items-center justify-center text-emerald-600 dark:text-emerald-400"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg></div>`
-                    : `<div class="w-8 h-8 rounded-full bg-rose-100 dark:bg-rose-900 border border-rose-300 flex items-center justify-center text-rose-600 dark:text-rose-400"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></div>`;
-
-                const blockClass = `p-5 sm:p-6 rounded-3xl border backdrop-blur-lg shadow-sm ${isCorrect ? 'bg-emerald-500/5 border-emerald-300/50' : 'bg-rose-500/5 border-rose-300/50'}`;
-
-                const blockHtml = `
-                    <div class="${blockClass}">
-                        <div class="flex items-start">
-                            <div class="mt-0.5 mr-4 flex-shrink-0">${iconSvg}</div>
-                            <div class="w-full">
-                                <p class="font-bold text-slate-800 dark:text-slate-200 mb-5 text-lg leading-snug">${qIdx + 1}. ${q.q}</p>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-                                    ${optsHtml}
-                                </div>
-                                ${isUnanswered ? `<p class="text-rose-700 dark:text-rose-400 text-sm font-bold mt-4 bg-rose-500/20 border border-rose-400/50 inline-block px-3 py-1.5 rounded-lg backdrop-blur-md">You did not answer this question</p>` : ''}
-                            </div>
-                        </div>
-                    </div>
-                `;
-                reviewContainer.innerHTML += blockHtml;
-            });
-
-            switchScreen('results');
-        }
-
-        function forceSubmit() {
-            clearInterval(timerInterval);
-            warningModal.classList.add('hidden');
-            document.getElementById('calculator-modal').classList.add('hidden');
-            document.getElementById('calc-trigger-btn').classList.add('hidden');
-            
-            let score = 0;
-            activeQuestions.forEach((q, idx) => {
-                if (userAnswers[idx] === q.ans) score++;
-            });
-            
-            const passed = (score / selectedCount) >= 0.5;
-
-            if(passed) playCheer();
-            else playBuzzer();
-
-            const history = JSON.parse(localStorage.getItem('horlyTechHistory') || '[]');
-            history.push({
-                date: new Date().toLocaleDateString(),
-                name: userName,
-                course: courses[selectedCourse].name,
-                score: score,
-                total: selectedCount,
-                passed: passed,
-                questions: activeQuestions, 
-                answers: userAnswers        
-            });
-            localStorage.setItem('horlyTechHistory', JSON.stringify(history));
-
-            renderResultsView(userName, courses[selectedCourse].name, score, selectedCount, activeQuestions, userAnswers, passed);
-            showWhatsApp(false); 
-        }
-
-        // --- HISTORY FUNCTIONALITY ---
-        function showHistory() {
-            const history = JSON.parse(localStorage.getItem('horlyTechHistory') || '[]');
-            const container = document.getElementById('history-container');
-            container.innerHTML = '';
-            
-            if(history.length === 0) {
-                container.innerHTML = '<p class="text-slate-500 text-center py-4">No past results found.</p>';
-            } else {
-                history.slice().reverse().forEach((entry, idx) => {
-                    const originalIndex = history.length - 1 - idx;
-                    const pct = Math.round((entry.score/entry.total)*100);
-                    
-                    const hasDetails = entry.questions && entry.answers;
-                    
-                    container.innerHTML += `
-                        <div class="bg-white/40 dark:bg-black/40 border border-white/50 dark:border-white/10 p-4 rounded-xl shadow-sm mb-3">
-                            <div class="flex justify-between items-center mb-2">
-                                <div>
-                                    <p class="font-bold text-slate-800 dark:text-white">${entry.course}</p>
-                                    <p class="text-xs text-slate-500">${entry.date} - ${entry.name}</p>
-                                </div>
-                                <div class="text-right">
-                                    <p class="font-black ${entry.passed ? 'text-emerald-500' : 'text-rose-500'}">${pct}%</p>
-                                    <p class="text-xs font-bold text-slate-500">${entry.score}/${entry.total}</p>
-                                </div>
-                            </div>
-                            ${hasDetails ? `<button onclick="reviewPastResult(${originalIndex})" class="w-full mt-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-bold text-sm py-2 rounded-lg hover:bg-purple-200 dark:hover:bg-purple-900/50 transition-colors border border-purple-200 dark:border-purple-800">Review Answers</button>` : ''}
-                        </div>
-                    `;
-                });
-            }
-            document.getElementById('history-modal').classList.remove('hidden');
-        }
-
-        function closeHistory() {
-            document.getElementById('history-modal').classList.add('hidden');
-        }
-
-        function reviewPastResult(index) {
-            closeHistory();
-            const history = JSON.parse(localStorage.getItem('horlyTechHistory') || '[]');
-            const entry = history[index];
-            if (entry && entry.questions && entry.answers) {
-                renderResultsView(entry.name, entry.course, entry.score, entry.total, entry.questions, entry.answers, entry.passed);
-            }
-        }
-
-        // --- PDF DOWNLOAD ---
-        function handlePDFClick() {
-            const btn = document.getElementById('pdf-download-btn');
-            const textEl = document.getElementById('pdf-btn-text');
-
-            if (!pdfConfirmWait) {
-                pdfConfirmWait = true;
-                textEl.textContent = "Click again to download";
-                btn.classList.remove('from-blue-600', 'to-purple-600');
-                btn.classList.add('from-rose-500', 'to-red-600', 'animate-pulse');
-
-                pdfResetTimer = setTimeout(() => {
-                    pdfConfirmWait = false;
-                    textEl.textContent = "Save as PDF";
-                    btn.classList.add('from-blue-600', 'to-purple-600');
-                    btn.classList.remove('from-rose-500', 'to-red-600', 'animate-pulse');
-                }, 4000);
-            } else {
-                clearTimeout(pdfResetTimer);
-                pdfConfirmWait = false;
-                
-                textEl.textContent = "Generating...";
-                btn.classList.remove('animate-pulse');
-
-                generateCleanPDF().then(() => {
-                    textEl.textContent = "Save as PDF";
-                    btn.classList.add('from-blue-600', 'to-purple-600');
-                    btn.classList.remove('from-rose-500', 'to-red-600');
-                }).catch(err => {
-                    alert("Download failed. Please try again.");
-                    console.error(err);
-                    textEl.textContent = "Save as PDF";
-                    btn.classList.add('from-blue-600', 'to-purple-600');
-                    btn.classList.remove('from-rose-500', 'to-red-600');
-                });
-            }
-        }
-
-        function generateCleanPDF() {
-            if (!currentResultView) return Promise.reject("No data");
-
-            return new Promise((resolve, reject) => {
-                const { name, course, score, total, questions, answers, passed } = currentResultView;
-                const pct = Math.round((score / total) * 100);
-
-                const printDiv = document.createElement('div');
-                
-                let htmlStr = `
-                    <div style="width: 800px; padding: 40px; font-family: Helvetica, Arial, sans-serif; background-color: #ffffff; color: #000000; position: relative; z-index: 1;">
-                        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: -1; overflow: hidden; pointer-events: none;">
-                            <div style="color: rgba(147, 51, 234, 0.08); font-size: 110px; font-weight: bold; transform: rotate(-45deg); position: absolute; top: 300px; left: 50px;">HoRly's_tech</div>
-                            <div style="color: rgba(147, 51, 234, 0.08); font-size: 110px; font-weight: bold; transform: rotate(-45deg); position: absolute; top: 1100px; left: 50px;">HoRly's_tech</div>
-                            <div style="color: rgba(147, 51, 234, 0.08); font-size: 110px; font-weight: bold; transform: rotate(-45deg); position: absolute; top: 1900px; left: 50px;">HoRly's_tech</div>
-                            <div style="color: rgba(147, 51, 234, 0.08); font-size: 110px; font-weight: bold; transform: rotate(-45deg); position: absolute; top: 2700px; left: 50px;">HoRly's_tech</div>
-                            <div style="color: rgba(147, 51, 234, 0.08); font-size: 110px; font-weight: bold; transform: rotate(-45deg); position: absolute; top: 3500px; left: 50px;">HoRly's_tech</div>
-                        </div>
-
-                        <div style="text-align: center; border-bottom: 3px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px;">
-                            <h1 style="color: #7e22ce; font-size: 42px; margin: 0; font-weight: 900;">HoRly's_Tech</h1>
-                            <h2 style="color: #475569; font-size: 24px; margin: 10px 0 0 0;">Official Assessment Result</h2>
-                        </div>
-
-                        <div style="margin-bottom: 30px; font-size: 18px; line-height: 1.6;">
-                            <div><strong>Student Name:</strong> ${name}</div>
-                            <div><strong>Course Examined:</strong> ${course}</div>
-                            <div><strong>Date Completed:</strong> ${new Date().toLocaleDateString()}</div>
-                        </div>
-
-                        <div style="background-color: ${passed ? '#ecfdf5' : '#fff1f2'}; border: 3px solid ${passed ? '#10b981' : '#f43f5e'}; padding: 30px; text-align: center; border-radius: 12px; margin-bottom: 40px;">
-                            <div style="font-size: 70px; font-weight: 900; color: ${passed ? '#059669' : '#e11d48'}; margin: 0; line-height: 1;">${pct}%</div>
-                            <div style="font-size: 24px; font-weight: bold; margin: 15px 0; color: #334155;">Final Score: ${score} out of ${total} correct</div>
-                            <div style="font-size: 20px; font-weight: bold; color: ${passed ? '#065f46' : '#9f1239'};">${passed ? 'Status: PASSED' : 'Status: FAILED'}</div>
-                        </div>
-
-                        <h3 style="font-size: 26px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 25px; color: #1e293b;">Detailed Answer Review</h3>
-                `;
-
-                questions.forEach((q, qIdx) => {
-                    const userAns = answers[qIdx];
-                    const isCorrect = userAns === q.ans;
-                    
-                    htmlStr += `
-                        <div style="margin-bottom: 25px; padding: 20px; border: 1px solid #cbd5e1; border-radius: 10px; background-color: rgba(255,255,255,0.95); page-break-inside: avoid;">
-                            <div style="font-weight: bold; font-size: 18px; margin-bottom: 15px; color: #0f172a;">${qIdx + 1}. ${q.q}</div>
-                    `;
-                    
-                    q.opts.forEach((opt, optIdx) => {
-                        const isThisCorrectOpt = optIdx === q.ans;
-                        const isThisUserOpt = optIdx === userAns;
-                        
-                        let optStyle = "padding: 12px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 16px; color: #475569;";
-                        if (isThisCorrectOpt) {
-                            optStyle = "padding: 12px; margin-bottom: 8px; border-radius: 6px; border: 2px solid #34d399; background-color: #d1fae5; color: #065f46; font-weight: bold; font-size: 16px;";
-                        } else if (isThisUserOpt && !isCorrect) {
-                            optStyle = "padding: 12px; margin-bottom: 8px; border-radius: 6px; border: 2px solid #fb7185; background-color: #ffe4e6; color: #9f1239; font-weight: bold; font-size: 16px;";
-                        }
-                        
-                        htmlStr += `<div style="${optStyle}">${String.fromCharCode(65 + optIdx)}. ${opt}</div>`;
-                    });
-                    
-                    if (userAns === undefined) {
-                        htmlStr += `<div style="color: #e11d48; font-weight: bold; font-size: 16px; margin-top: 15px;">[!] You did not answer this question</div>`;
-                    }
-                    
-                    htmlStr += `</div>`;
-                });
-                
-                htmlStr += `</div>`; 
-                printDiv.innerHTML = htmlStr;
-
-                const opt = {
-                    margin:       [0.4, 0.4, 0.4, 0.4], 
-                    filename:     `${name.replace(/\s+/g, '_')}_HoRly_Result.pdf`,
-                    image:        { type: 'jpeg', quality: 1.0 },
-                    html2canvas:  { scale: 2, useCORS: true, letterRendering: true, windowWidth: 800 },
-                    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
-                    pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
-                };
-
-                html2pdf().set(opt).from(printDiv).save().then(() => {
-                    resolve();
-                }).catch(err => {
-                    reject(err);
-                });
-            });
-        }
-
-
-        // --- CALCULATOR FUNCTIONALITY ---
-        const calcModal = document.getElementById('calculator-modal');
-        const calcDisplay = document.getElementById('calc-display');
-        
-        function toggleCalculator() {
-            calcModal.classList.toggle('hidden');
-        }
-
-        function calcAction(val) {
-            if(val === 'C') {
-                calcValue = '0';
-            } else if(val === 'DEL') {
-                calcValue = calcValue.length > 1 ? calcValue.slice(0, -1) : '0';
-            } else if(val === '=') {
-                try {
-                    calcValue = String(new Function('return ' + calcValue)());
-                } catch(e) {
-                    calcValue = 'Error';
-                }
-            } else {
-                if(calcValue === '0' && val !== '.') calcValue = val;
-                else calcValue += val;
-            }
-            calcDisplay.value = calcValue;
-        }
-
-        // Dragging logic for Calculator
-        let isDragging = false, startX, startY, startLeft, startBottom;
-        document.getElementById('calc-header').addEventListener('mousedown', (e) => {
-            isDragging = true;
-            startX = e.clientX;
-            startY = e.clientY;
-            startLeft = parseInt(window.getComputedStyle(calcModal).left, 10);
-            startBottom = parseInt(window.getComputedStyle(calcModal).bottom, 10);
-        });
-        document.addEventListener('mousemove', (e) => {
-            if(!isDragging) return;
-            const dx = e.clientX - startX;
-            const dy = e.clientY - startY;
-            calcModal.style.left = `${startLeft + dx}px`;
-            calcModal.style.bottom = `${startBottom - dy}px`;
-        });
-        document.addEventListener('mouseup', () => isDragging = false);
-
-        document.getElementById('calc-header').addEventListener('touchstart', (e) => {
-            isDragging = true;
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-            startLeft = parseInt(window.getComputedStyle(calcModal).left, 10);
-            startBottom = parseInt(window.getComputedStyle(calcModal).bottom, 10);
-        });
-        document.addEventListener('touchmove', (e) => {
-            if(!isDragging) return;
-            const dx = e.touches[0].clientX - startX;
-            const dy = e.touches[0].clientY - startY;
-            calcModal.style.left = `${startLeft + dx}px`;
-            calcModal.style.bottom = `${startBottom - dy}px`;
-        });
-        document.addEventListener('touchend', () => isDragging = false);
-
-    </script>
-</body>
-</html>
+                    : `<div class="w-8 h-8 rounded-full bg-rose-100 dark:bg-rose-900 border border-rose-300 flex items-center justify-center text-rose-600 dark:text-rose-400"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="

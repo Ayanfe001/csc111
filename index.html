@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=0.8, user-scalable=no">
-    <title>HoRly's Tech CBT</title>
+    <title>HoRly's Tech Gadgets Quiz</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -21,6 +21,13 @@
     </script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script src="cos.js"></script>
+    <script src="phy.js"></script>
+    <script src="csc.js"></script>
+    <script src="vos.js"></script>
+    <script src="vos117.js"></script>
+    <script src="gns113.js"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -133,6 +140,7 @@
             transform: translateY(-2px);
         }
 
+        /* Scrollbar styles for horizontal nav */
         #nav-grid::-webkit-scrollbar { height: 6px; }
         #nav-grid::-webkit-scrollbar-track { background: transparent; }
         #nav-grid::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.5); border-radius: 10px; }
@@ -140,6 +148,7 @@
 
         .hidden { display: none !important; }
 
+        /* Animations */
         @keyframes fadeBlurIn { 
             from { opacity: 0; filter: blur(10px); transform: scale(0.98) translateY(10px); } 
             to { opacity: 1; filter: blur(0); transform: scale(1) translateY(0); } 
@@ -152,6 +161,7 @@
         }
         .wa-animate-in { animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
 
+        /* Calculator Styles */
         #calculator-modal {
             position: fixed;
             bottom: 80px;
@@ -173,14 +183,6 @@
         html.dark .calc-btn { background: rgba(255,255,255,0.05); color: white; }
         html.dark .calc-btn:hover { background: rgba(255,255,255,0.15); }
     </style>
-    
-    <script src="questions/cos.js"></script>
-    <script src="questions/phy.js"></script>
-    <script src="questions/csc.js"></script>
-    <script src="questions/vos.js"></script>
-    <script src="questions/vos117.js"></script>
-    <script src="questions/gns113.js"></script>
-
 </head>
 <body class="text-slate-800 min-h-screen flex flex-col items-center p-4 sm:p-6 selection:bg-purple-200 selection:text-purple-900">
 
@@ -200,24 +202,79 @@
         </div>
         
         <button id="theme-toggle" class="p-2 rounded-full bg-white/30 dark:bg-black/30 border border-white/50 dark:border-white/10 shadow-sm hover:scale-105 transition-transform" onclick="toggleDarkMode()">
-            <svg id="theme-toggle-light-icon" class="w-5 h-5 hidden text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-            <svg id="theme-toggle-dark-icon" class="w-5 h-5 text-slate-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+            <svg id="theme-toggle-dark-icon" class="w-5 h-5 hidden text-slate-700" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
         </button>
     </div>
 
-    <div id="welcome-screen" class="glass-panel p-8 sm:p-12 rounded-[2.5rem] w-full max-w-lg z-10 screen-enter text-center">
+    <div id="landing-screen" class="glass-panel p-8 sm:p-12 rounded-[2.5rem] w-full max-w-3xl z-10 screen-enter flex flex-col gap-8">
+        
+        <div class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-purple-100/50 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-300 text-sm font-bold mb-2 backdrop-blur-md shadow-sm">
+                🚀 The Ultimate CBT Simulator
+            </div>
+            <h2 class="text-3xl sm:text-5xl font-black text-slate-800 tracking-tight leading-tight">
+                More Than Just a Quiz.<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400">Your Personal Exam Coach.</span>
+            </h2>
+            <p class="text-slate-600 dark:text-slate-300 text-lg font-medium max-w-xl mx-auto leading-relaxed mt-4">
+                Welcome to the most effective way to prepare for your exams. The HoRly's_Tech platform is a comprehensive CBT simulator designed to pinpoint your weaknesses, master your time management, and build your confidence before the real test.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="bg-white/40 dark:bg-white/5 border border-white/50 dark:border-white/10 p-5 rounded-2xl backdrop-blur-md shadow-sm">
+                <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/50 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-400 mb-3">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3 class="font-bold text-slate-800 dark:text-slate-100 mb-1">Authentic CBT Experience</h3>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Strict countdown timers, flag-for-review buttons, and an interactive question grid mimic actual university exam conditions.</p>
+            </div>
+            <div class="bg-white/40 dark:bg-white/5 border border-white/50 dark:border-white/10 p-5 rounded-2xl backdrop-blur-md shadow-sm">
+                <div class="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/50 rounded-xl flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-3">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                </div>
+                <h3 class="font-bold text-slate-800 dark:text-slate-100 mb-1">Deep Analytics & Reports</h3>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Get instant scoring, thoroughly review every answer with correct highlights, and download professional PDF reports of your performance.</p>
+            </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-purple-600/10 to-blue-600/10 dark:from-purple-900/20 dark:to-blue-900/20 border border-purple-200 dark:border-purple-800/50 p-6 sm:p-8 rounded-[2rem] text-center relative overflow-hidden backdrop-blur-md shadow-inner">
+            <h3 class="text-xl sm:text-2xl font-extrabold text-slate-800 dark:text-slate-100 mb-2">Powered by HoRly's_Tech</h3>
+            <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base font-medium mb-6 max-w-lg mx-auto">
+                Need a reliable laptop, phone, or POS device to power your studies or business? At <strong class="text-slate-800 dark:text-white">HoRly's_Tech Gadgets Sales N Repair</strong>, we provide top-tier tech solutions, accessories, and swift repairs perfectly tailored for students. 
+            </p>
+            <button onclick="window.open('https://horlystech.vercel.app', '_blank')" class="inline-flex items-center justify-center px-6 py-3 bg-slate-800 dark:bg-white text-white dark:text-slate-900 font-bold rounded-2xl hover:scale-105 transition-transform shadow-[0_8px_24px_rgba(0,0,0,0.2)] dark:shadow-[0_8px_24px_rgba(255,255,255,0.2)]">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                Shop HoRly's Tech Inventory
+            </button>
+        </div>
+
+        <div class="pt-2">
+            <button onclick="switchScreen('welcome')" class="glass-button-primary w-full font-bold py-5 px-6 rounded-2xl flex items-center justify-center transition-all text-xl shadow-xl">
+                Enter Assessment Portal
+                <svg class="ml-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </button>
+        </div>
+    </div>
+
+    <div id="welcome-screen" class="hidden glass-panel p-8 sm:p-12 rounded-[2.5rem] w-full max-w-lg z-10 screen-enter text-center">
         <div class="flex justify-center mb-8">
             <div class="bg-gradient-to-br from-white/80 to-white/30 dark:from-white/20 dark:to-white/5 p-5 rounded-3xl border border-white/60 dark:border-white/10 shadow-xl backdrop-blur-xl relative group">
                 <div class="absolute inset-0 bg-purple-400 rounded-3xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
                 <svg class="text-purple-600 dark:text-purple-400 w-16 h-16 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
             </div>
         </div>
-        <h2 class="text-3xl font-extrabold text-slate-800 mb-3 tracking-tight">Welcome to HoRly's_tech CBT</h2>
+        <h2 class="text-3xl font-extrabold text-slate-800 mb-3 tracking-tight">Welcome to HoRly's_tech Quiz</h2>
         <p class="text-slate-600 mb-10 text-lg font-medium leading-relaxed">Test your knowledge with our premium interactive question banks.</p>
         
         <button onclick="handleWelcomeStart()" class="glass-button-primary w-full font-bold py-4 px-6 rounded-2xl flex items-center justify-center transition-all text-lg mb-4">
             Get Started
             <svg class="ml-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </button>
+        
+        <button onclick="switchScreen('landing')" class="w-full text-slate-500 text-sm font-bold mt-2 mb-4 hover:text-slate-700 transition-colors">
+            Back to Home
         </button>
         
         <button onclick="showHistory()" class="w-full text-purple-600 dark:text-purple-400 font-bold py-3 px-6 rounded-2xl bg-white/30 dark:bg-black/30 border border-white/50 dark:border-white/10 hover:bg-white/50 dark:hover:bg-white/10 transition-all flex items-center justify-center">
@@ -233,11 +290,10 @@
             </div>
         </div>
         <h2 class="text-2xl font-bold text-center mb-2 text-slate-800 tracking-tight">Student Portal</h2>
-        <p class="text-slate-500 text-center mb-8 font-medium">Please enter your details to proceed</p>
+        <p class="text-slate-500 text-center mb-8 font-medium">Please enter your name to proceed</p>
         <form id="login-form" class="space-y-6">
             <div>
-                <input type="text" id="student-name" required class="glass-input w-full px-5 py-4 rounded-2xl text-slate-800 placeholder-slate-400 font-medium transition-all mb-4" placeholder="Full Name (e.g. John Doe)" />
-                <input type="tel" id="student-phone" required class="glass-input w-full px-5 py-4 rounded-2xl text-slate-800 placeholder-slate-400 font-medium transition-all" placeholder="WhatsApp / Phone Number" />
+                <input type="text" id="student-name" required class="glass-input w-full px-5 py-4 rounded-2xl text-slate-800 placeholder-slate-400 font-medium transition-all" placeholder="e.g. HoRly's_tech" />
             </div>
             <button type="submit" class="glass-button-primary w-full font-bold py-4 px-4 rounded-2xl flex items-center justify-center transition-all">
                 Continue 
@@ -247,71 +303,37 @@
         </form>
     </div>
 
+    <div id="semester-screen" class="hidden glass-panel p-6 sm:p-10 rounded-[2.5rem] w-full max-w-md z-10 screen-enter">
+        <h2 class="text-2xl font-bold mb-2 tracking-tight text-slate-800 text-center">Select Category</h2>
+        <p class="text-slate-500 mb-8 font-medium text-center">Choose your current semester or study path.</p>
+        
+        <div class="space-y-4">
+            <button onclick="selectSemester('first')" class="w-full p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-purple-300 dark:hover:border-purple-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all flex items-center justify-between group">
+                <span class="text-lg font-bold text-slate-800 group-hover:text-purple-700 dark:group-hover:text-purple-400 transition-colors">First Semester</span>
+                <svg class="w-5 h-5 text-slate-400 group-hover:text-purple-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+            
+            <button onclick="selectSemester('second')" class="w-full p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-blue-300 dark:hover:border-blue-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all flex items-center justify-between group">
+                <span class="text-lg font-bold text-slate-800 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">Second Semester</span>
+                <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+
+            <button onclick="selectSemester('vocational')" class="w-full p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-emerald-300 dark:hover:border-emerald-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all flex items-center justify-between group">
+                <span class="text-lg font-bold text-slate-800 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">Vocational Study</span>
+                <svg class="w-5 h-5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+        </div>
+        <button onclick="switchScreen('login')" class="w-full text-slate-500 text-sm font-bold mt-6 hover:text-slate-700 transition-colors">Back</button>
+    </div>
+
     <div id="course-screen" class="hidden glass-panel p-6 sm:p-10 rounded-[2.5rem] w-full max-w-lg z-10 screen-enter">
         <h2 class="text-2xl font-bold mb-2 tracking-tight text-slate-800">Welcome, <span id="course-display-name" class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400"></span>!</h2>
         <p class="text-slate-500 mb-8 font-medium">Select the course you want to attempt today.</p>
         
-        <div class="space-y-4">
-            <button onclick="selectCourse('cos')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-purple-300 dark:hover:border-purple-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h3 class="text-xl font-bold text-slate-800 group-hover:text-purple-700 dark:group-hover:text-purple-400 transition-colors">COS 101</h3>
-                        <p class="text-slate-500 mt-1 text-sm font-medium">Introduction to Computer Science</p>
-                    </div>
-                    <span class="bg-purple-100/50 dark:bg-purple-900/50 border border-purple-200 dark:border-purple-700 text-purple-800 dark:text-purple-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">100 Qs Available</span>
-                </div>
-            </button>
-
-            <button onclick="selectCourse('phy')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-blue-300 dark:hover:border-blue-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h3 class="text-xl font-bold text-slate-800 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">PHY 101</h3>
-                        <p class="text-slate-500 mt-1 text-sm font-medium">General Physics I</p>
-                    </div>
-                    <span class="bg-blue-100/50 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">150 Qs Available</span>
-                </div>
-            </button>
-          
-            <button onclick="selectCourse('csc')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-purple-300 dark:hover:border-purple-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h3 class="text-xl font-bold text-slate-800 group-hover:text-purple-700 dark:group-hover:text-purple-400 transition-colors">CSC 111</h3>
-                        <p class="text-slate-500 mt-1 text-sm font-medium">Introduction to Database Concept</p>
-                    </div>
-                    <span class="bg-purple-100/50 dark:bg-purple-900/50 border border-purple-200 dark:border-purple-700 text-purple-800 dark:text-purple-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">100 Qs Available</span>
-                </div>
-            </button>
-
-            <button onclick="selectCourse('vos')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-blue-300 dark:hover:border-blue-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h3 class="text-xl font-bold text-slate-800 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">VOS 114</h3>
-                        <p class="text-slate-500 mt-1 text-sm font-medium">Computer Maintance And Percaution</p>
-                    </div>
-                    <span class="bg-blue-100/50 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">60 Qs Available</span>
-                </div>
-            </button>
-
-            <button onclick="selectCourse('vos117')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-purple-300 dark:hover:border-purple-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h3 class="text-xl font-bold text-slate-800 group-hover:text-purple-700 dark:group-hover:text-purple-400 transition-colors">VOS 117</h3>
-                        <p class="text-slate-500 mt-1 text-sm font-medium">Fish Farming</p>
-                    </div>
-                    <span class="bg-purple-100/50 dark:bg-purple-900/50 border border-purple-200 dark:border-purple-700 text-purple-800 dark:text-purple-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">100 Qs Available</span>
-                </div>
-            </button>
-
-            <button onclick="selectCourse('gns113')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-blue-300 dark:hover:border-blue-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h3 class="text-xl font-bold text-slate-800 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">GNS 113</h3>
-                        <p class="text-slate-500 mt-1 text-sm font-medium">Use of Library</p>
-                    </div>
-                    <span class="bg-blue-100/50 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">30 Qs Available</span>
-                </div>
-            </button>
+        <div id="course-list-container" class="space-y-4">
         </div>
+
+        <button onclick="switchScreen('semester')" class="w-full text-slate-500 text-sm font-bold mt-6 hover:text-slate-700 transition-colors">Back to Categories</button>
     </div>
 
     <div id="setup-screen" class="hidden glass-panel p-6 sm:p-10 rounded-[2.5rem] w-full max-w-lg z-10 screen-enter">
@@ -404,21 +426,27 @@
     </div>
 
     <div id="results-screen" class="hidden w-full max-w-4xl space-y-6 pb-12 z-10 screen-enter">
+        
         <div class="glass-panel p-4 sm:p-6 rounded-[2rem] flex flex-col sm:flex-row justify-between items-center gap-4">
             <h3 class="text-xl font-bold text-slate-800 dark:text-white tracking-tight">Assessment Actions</h3>
-            <div class="flex gap-2 w-full sm:w-auto">
-                <button id="pdf-download-btn" onclick="handlePDFClick()" class="flex-1 sm:flex-none flex items-center justify-center text-white font-bold bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 px-5 py-3 rounded-2xl transition-all shadow-md">
-                    <svg class="w-5 h-5 mr-2" id="pdf-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+            <div class="flex flex-wrap gap-2 w-full sm:w-auto justify-center sm:justify-end">
+                <button id="pdf-download-btn" onclick="handlePDFClick()" class="flex-1 sm:flex-none flex items-center justify-center text-white font-bold bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 px-4 py-3 rounded-2xl transition-all shadow-md text-sm">
+                    <svg class="w-4 h-4 mr-2" id="pdf-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                     <span id="pdf-btn-text">Save as PDF</span>
                 </button>
-                <button onclick="location.reload()" class="flex-1 sm:flex-none flex items-center justify-center text-slate-700 dark:text-slate-200 font-bold bg-white/50 dark:bg-white/10 hover:bg-white/70 dark:hover:bg-white/20 px-5 py-3 rounded-2xl transition-all border border-white/60 dark:border-white/10 shadow-sm">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg> 
+                <button onclick="retakeExactTest()" class="flex-1 sm:flex-none flex items-center justify-center text-white font-bold bg-gradient-to-r from-emerald-500 to-teal-500 hover:opacity-90 px-4 py-3 rounded-2xl transition-all shadow-md text-sm">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    Retake Exact Test
+                </button>
+                <button onclick="location.reload()" class="flex-1 sm:flex-none flex items-center justify-center text-slate-700 dark:text-slate-200 font-bold bg-white/50 dark:bg-white/10 hover:bg-white/70 dark:hover:bg-white/20 px-4 py-3 rounded-2xl transition-all border border-white/60 dark:border-white/10 shadow-sm text-sm">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg> 
                     Start Over
                 </button>
             </div>
         </div>
 
         <div id="browser-view-area" class="space-y-6 relative rounded-[2.5rem]">
+            
             <div class="glass-panel p-8 sm:p-12 rounded-[2.5rem] text-center relative overflow-hidden">
                 <div id="result-bar" class="absolute top-0 left-0 w-full h-2 backdrop-blur-md"></div>
                 
@@ -443,10 +471,18 @@
 
                 <div id="pass-fail-msg" class="inline-block px-8 py-3 rounded-full font-bold text-lg backdrop-blur-xl shadow-sm mb-6"></div>
 
-                <div id="promo-banner-container"></div>
+                <div class="mt-6 mx-auto max-w-lg bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-4 text-white shadow-lg border border-white/20 relative overflow-hidden break-inside-avoid">
+                    <div class="absolute inset-0 bg-white/10 w-full h-full transform -skew-x-12 translate-x-full group-hover:animate-shimmer"></div>
+                    <p class="font-extrabold text-lg mb-1">Need a new laptop for school?</p>
+                    <p class="text-sm font-medium opacity-90">Get 1.0% off at <span class="font-bold underline">HoRly's Tech Gadgets!</span> Show this result to claim.</p>
+                </div>
+
+                <button id="toggle-review-btn" onclick="toggleReview()" class="mt-8 w-full bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-bold py-3.5 px-6 rounded-2xl hover:bg-purple-200 dark:hover:bg-purple-900/50 transition-colors border border-purple-200 dark:border-purple-800">
+                    Show Detailed Review
+                </button>
             </div>
 
-            <div class="glass-panel p-6 sm:p-10 rounded-[2.5rem]">
+            <div id="review-section" class="hidden glass-panel p-6 sm:p-10 rounded-[2.5rem]">
                 <h3 class="text-2xl font-bold text-slate-800 dark:text-white tracking-tight mb-6 border-b border-white/40 dark:border-white/10 pb-4">Detailed Review</h3>
                 <div id="review-container" class="space-y-6">
                     </div>
@@ -485,13 +521,13 @@
         </div>
     </div>
 
-    <a id="wa-button" href="https://wa.me/2348143361701" target="_blank" class="hidden fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-[90] bg-white/20 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/10 text-emerald-600 dark:text-emerald-400 px-5 py-3 rounded-full shadow-[0_8px_32px_rgba(16,185,129,0.15)] flex items-center gap-3 hover:bg-white/40 dark:hover:bg-white/20 transition-transform transform hover:-translate-y-1 hover:scale-105">
+    <a id="wa-button" href="https://chat.whatsapp.com/B9KnUjaH6xN1yIF5HMKLT9?mode=gi_t" target="_blank" class="hidden fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-[90] bg-white/20 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/10 text-emerald-600 dark:text-emerald-400 px-5 py-3 rounded-full shadow-[0_8px_32px_rgba(16,185,129,0.15)] flex items-center gap-3 hover:bg-white/40 dark:hover:bg-white/20 transition-transform transform hover:-translate-y-1 hover:scale-105">
         <div class="bg-emerald-500 text-white p-1.5 rounded-full shadow-inner">
             <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 sm:w-7 sm:h-7"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.195 1.604 6.014L.045 24l6.105-1.602a11.968 11.968 0 005.881 1.536h.005c6.645 0 12.03-5.385 12.03-12.031 0-3.222-1.255-6.25-3.475-8.471A11.963 11.963 0 0012.031 0zm0 19.957h-.004a9.981 9.981 0 01-5.088-1.385l-.365-.216-3.784.992.992-3.69-.237-.377a9.966 9.966 0 01-1.523-5.25c0-5.502 4.478-9.98 9.98-9.98 2.673 0 5.184 1.042 7.073 2.931 1.889 1.89 2.93 4.4 2.93 7.073 0 5.502-4.478 9.98-9.98 9.98zm5.474-7.485c-.3-.15-1.776-.876-2.052-.977-.276-.1-.477-.15-.678.15s-.777.977-.953 1.177c-.176.2-.352.226-.652.076-.3-.15-1.267-.468-2.414-1.492-.892-.797-1.494-1.78-1.67-2.08-.176-.3-.02-.462.131-.611.135-.135.3-.35.45-.526.15-.175.2-.3.301-.5.1-.2.05-.375-.025-.525-.075-.15-.678-1.635-.928-2.239-.244-.59-.492-.51-.678-.519-.175-.01-.376-.01-.577-.01-.2 0-.526.075-.801.375-.276.3-1.053 1.028-1.053 2.505 0 1.477 1.078 2.903 1.228 3.103.15.2 2.115 3.228 5.123 4.526 2.054.887 2.723.953 3.327.852.684-.113 2.185-.892 2.492-1.753.307-.862.307-1.598.215-1.753-.092-.15-.343-.226-.643-.376z"/></svg>
         </div>
         <div class="flex flex-col text-left">
-            <span class="font-extrabold text-sm sm:text-base leading-tight text-slate-800">Message Us</span>
-            <span class="font-bold text-[10px] sm:text-xs text-slate-500 uppercase tracking-wider">HoRly's_Tech on WhatsApp</span>
+            <span class="font-extrabold text-sm sm:text-base leading-tight text-slate-800">Join our channel</span>
+            <span class="font-bold text-[10px] sm:text-xs text-slate-500 uppercase tracking-wider">for intensive tutorial</span>
         </div>
     </a>
 
@@ -533,27 +569,26 @@
         </div>
     </div>
 
-    <button id="music-trigger-btn" onclick="toggleMusic()" class="fixed bottom-24 left-6 sm:bottom-24 sm:left-8 z-[90] bg-slate-800 dark:bg-slate-700 text-white p-4 rounded-full shadow-lg hover:bg-slate-900 transition-transform transform hover:scale-105">
-        <svg id="music-icon-play" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-        <svg id="music-icon-pause" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-    </button>
-    <audio id="focus-audio" loop preload="none">
-        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
-    </audio>
 
     <script>
+        // --- DATA BANKS WITH SEMESTER CATEGORIZATION ---
+        // To add a course to the second semester later, simply add a new object here with `semester: 'second'`
         const courses = {
-            'cos': { name: 'COS 101', title: 'Introduction to Computer Science', questions: cosQuestions },
-            'phy': { name: 'PHY 101', title: 'General Physics I', questions: phyQuestions },
-            'csc': { name: 'CSC 111', title: 'Introduction to Database Concept', questions: cscQuestions },
-            'vos': { name: 'VOS 114', title: 'Computer Maintance And Percaution', questions: vosQuestuons },
-            'vos117': { name: 'VOS 117', title: 'Fish Farming', questions: vos117Questions },
-            'gns113': { name: 'GNS 113', title: 'Use of Library', questions: gns113Questions }
+            'cos': { name: 'COS 101', title: 'Introduction to Computer Science', semester: 'first', questions: cosQuestions },
+            'phy': { name: 'PHY 101', title: 'General Physics I', semester: 'first', questions: phyQuestions },
+            'csc': { name: 'CSC 111', title: 'Introduction to Database Concept', semester: 'first', questions: cscQuestions },
+            'gns113': {name: 'GNS 113', title: 'Use of Library', semester: 'first', questions: gns113Questions },
+            
+            'vos': { name: 'VOS 114', title: 'Computer Maintance And Percaution', semester: 'vocational', questions: vosQuestuons },
+            'vos117': {name: 'VOS 117', title: 'Fish Farming', semester: 'vocational', questions: vos117Questions }
+            
+            // Example of adding a second semester course in the future:
+            // 'mth102': { name: 'MTH 102', title: 'Calculus II', semester: 'second', questions: mth102Questions }
         };
 
         // --- STATE VARIABLES ---
         let userName = "";
-        let userPhone = "";
+        let selectedSemester = null;
         let selectedCourse = null;
         let selectedCount = 30;
         let timeRemaining = 0;
@@ -571,54 +606,7 @@
         let pdfResetTimer = null;
         let currentResultView = null; 
 
-        // New State Variables for Security & Audio
-        let isQuizActive = false;
-        let cheatWarnings = 0;
-        let isMusicPlaying = false;
-
-        // --- ANTI-CHEAT SYSTEM ---
-        document.addEventListener("visibilitychange", () => {
-            if (isQuizActive && document.visibilityState === "hidden") {
-                cheatWarnings++;
-                if (cheatWarnings === 1) {
-                    alert("WARNING: You left the quiz tab! This is an exam violation. If you leave again, your quiz will be auto-submitted.");
-                } else if (cheatWarnings >= 2) {
-                    alert("Exam Violation: You left the tab again. Your assessment has been automatically submitted.");
-                    forceSubmit();
-                }
-            }
-        });
-
-        document.addEventListener('contextmenu', event => {
-            if(isQuizActive) event.preventDefault();
-        });
-        document.addEventListener('copy', event => {
-            if(isQuizActive) {
-                event.preventDefault();
-                alert("Copying is disabled during the assessment.");
-            }
-        });
-
-        // --- FOCUS MUSIC PLAYER ---
-        function toggleMusic() {
-            const audio = document.getElementById('focus-audio');
-            const playIcon = document.getElementById('music-icon-play');
-            const pauseIcon = document.getElementById('music-icon-pause');
-            
-            if (isMusicPlaying) {
-                audio.pause();
-                playIcon.classList.remove('hidden');
-                pauseIcon.classList.add('hidden');
-            } else {
-                audio.volume = 0.3; 
-                audio.play();
-                playIcon.classList.add('hidden');
-                pauseIcon.classList.remove('hidden');
-            }
-            isMusicPlaying = !isMusicPlaying;
-        }
-
-        // Sound System (Buzzer/Cheer)
+        // Sound System
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         let audioCtx;
 
@@ -649,8 +637,10 @@
 
         // --- DOM ELEMENTS ---
         const screens = {
+            landing: document.getElementById('landing-screen'),
             welcome: document.getElementById('welcome-screen'),
             login: document.getElementById('login-screen'),
+            semester: document.getElementById('semester-screen'),
             course: document.getElementById('course-screen'),
             setup: document.getElementById('setup-screen'),
             quiz: document.getElementById('quiz-screen'),
@@ -677,6 +667,7 @@
             void screens[screenName].offsetWidth;
             screens[screenName].classList.add('screen-enter');
             
+            // Show calc button only in quiz screen AND only for PHY 101
             if(screenName === 'quiz' && selectedCourse === 'phy') {
                 document.getElementById('calc-trigger-btn').classList.remove('hidden');
             } else {
@@ -716,6 +707,8 @@
             if (waVanishTimer) clearTimeout(waVanishTimer);
         }
 
+        // --- EVENT LISTENERS ---
+
         function handleWelcomeStart() {
             initAudio();
             switchScreen('login');
@@ -725,14 +718,59 @@
         document.getElementById('login-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const nameInput = document.getElementById('student-name').value.trim();
-            const phoneInput = document.getElementById('student-phone').value.trim();
-            if (nameInput && phoneInput) {
+            if (nameInput) {
                 userName = nameInput;
-                userPhone = phoneInput;
                 document.getElementById('course-display-name').textContent = userName;
-                switchScreen('course');
+                switchScreen('semester');
             }
         });
+
+        // Dynamic Semester and Course Handling
+        function selectSemester(semester) {
+            selectedSemester = semester;
+            renderCourses();
+            switchScreen('course');
+        }
+
+        function renderCourses() {
+            const container = document.getElementById('course-list-container');
+            container.innerHTML = '';
+            
+            let coursesFound = false;
+
+            for (const [key, course] of Object.entries(courses)) {
+                if (course.semester === selectedSemester) {
+                    coursesFound = true;
+                    
+                    let colorTheme = "purple";
+                    if(selectedSemester === 'second') colorTheme = "blue";
+                    if(selectedSemester === 'vocational') colorTheme = "emerald";
+
+                    const buttonHtml = `
+                        <button onclick="selectCourse('${key}')" class="w-full text-left p-5 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 hover:bg-white/60 dark:hover:bg-white/10 hover:border-${colorTheme}-300 dark:hover:border-${colorTheme}-500 backdrop-blur-md shadow-sm hover:shadow-md transition-all group">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="text-xl font-bold text-slate-800 group-hover:text-${colorTheme}-700 dark:group-hover:text-${colorTheme}-400 transition-colors">${course.name}</h3>
+                                    <p class="text-slate-500 mt-1 text-sm font-medium">${course.title}</p>
+                                </div>
+                                <span class="bg-${colorTheme}-100/50 dark:bg-${colorTheme}-900/50 border border-${colorTheme}-200 dark:border-${colorTheme}-700 text-${colorTheme}-800 dark:text-${colorTheme}-300 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm">${course.questions.length} Qs Available</span>
+                            </div>
+                        </button>
+                    `;
+                    container.innerHTML += buttonHtml;
+                }
+            }
+
+            if (!coursesFound) {
+                container.innerHTML = `
+                    <div class="p-8 rounded-2xl border border-white/60 dark:border-white/10 bg-white/30 dark:bg-black/20 text-center backdrop-blur-md">
+                        <svg class="w-12 h-12 mx-auto text-slate-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <h3 class="text-lg font-bold text-slate-700 dark:text-slate-300 mb-1">No Courses Available</h3>
+                        <p class="text-slate-500 text-sm">There are currently no courses uploaded for this semester. Please check back later.</p>
+                    </div>
+                `;
+            }
+        }
 
         function selectCourse(courseKey) {
             selectedCourse = courseKey;
@@ -749,9 +787,18 @@
             const container = document.getElementById('question-count-buttons');
             container.innerHTML = '';
             
-            let options = [30, 50, 100];
-            if (selectedCourse === 'phy') options.push(150);
-            if (selectedCourse === 'gns113') options = [10, 20, 30]; 
+            let maxAvailable = courses[selectedCourse].questions.length;
+            let options = [];
+            
+            if (maxAvailable >= 10) options.push(10);
+            if (maxAvailable >= 30) options.push(30);
+            if (maxAvailable >= 50) options.push(50);
+            if (maxAvailable >= 100) options.push(100);
+            if (selectedCourse === 'phy' && maxAvailable >= 150) options.push(150);
+
+            if (!options.includes(selectedCount)) {
+                selectedCount = options[0] || maxAvailable;
+            }
 
             options.forEach(num => {
                 const isSelected = num === selectedCount;
@@ -777,30 +824,22 @@
         function updateWarningText() {
             const warning = document.getElementById('time-warning-text');
             if (selectedCount === 10) warning.textContent = "You will have exactly 3 minutes to complete 10 questions.";
-            if (selectedCount === 20) warning.textContent = "You will have exactly 5 minutes to complete 20 questions.";
             if (selectedCount === 30) warning.textContent = "You will have exactly 7 minutes to complete 30 questions.";
             if (selectedCount === 50) warning.textContent = "You will have exactly 10 minutes to complete 50 questions.";
             if (selectedCount === 100) warning.textContent = "You will have exactly 20 minutes to complete 100 questions.";
             if (selectedCount === 150) warning.textContent = "You will have exactly 30 minutes to complete 150 questions.";
         }
 
-        document.getElementById('start-quiz-btn').addEventListener('click', () => {
+        // TIMER LOGIC EXTRACTED FOR REUSE
+        function startTimerLogic() {
             hideWhatsApp(); 
-
-            let minutes = 7;
-            if (selectedCount === 10) minutes = 3;
-            if (selectedCount === 20) minutes = 5;
+            
+            let minutes = 3;
+            if (selectedCount === 30) minutes = 7;
             if (selectedCount === 50) minutes = 10;
             if (selectedCount === 100) minutes = 20;
             if (selectedCount === 150) minutes = 30;
 
-            let sourceQuestions = courses[selectedCourse].questions;
-            let shuffled = shuffle([...sourceQuestions]);
-            activeQuestions = shuffled.slice(0, selectedCount);
-            
-            currentIndex = 0;
-            userAnswers = {};
-            flaggedQuestions.clear();
             timeRemaining = minutes * 60;
             
             document.getElementById('course-badge').textContent = courses[selectedCourse].name;
@@ -808,12 +847,10 @@
             renderQuestion();
             updateProgress();
             switchScreen('quiz');
-            
-            isQuizActive = true;
-            cheatWarnings = 0;
 
             const timerDisplay = document.getElementById('timer-display');
             const timeText = document.getElementById('time-remaining');
+            timeText.textContent = formatTime(timeRemaining);
             
             clearInterval(timerInterval);
             timerInterval = setInterval(() => {
@@ -832,7 +869,32 @@
                     forceSubmit();
                 }
             }, 1000);
+        }
+
+        document.getElementById('start-quiz-btn').addEventListener('click', () => {
+            let sourceQuestions = courses[selectedCourse].questions;
+            let shuffled = shuffle([...sourceQuestions]);
+            activeQuestions = shuffled.slice(0, selectedCount);
+            
+            currentIndex = 0;
+            userAnswers = {};
+            flaggedQuestions.clear();
+            
+            startTimerLogic();
         });
+
+        // RETAKE EXACT TEST FUNCTION
+        function retakeExactTest() {
+            // Keep activeQuestions as they are, just reset the user data
+            currentIndex = 0;
+            userAnswers = {};
+            flaggedQuestions.clear();
+            
+            document.getElementById('review-section').classList.add('hidden');
+            document.getElementById('toggle-review-btn').textContent = "Show Detailed Review";
+            
+            startTimerLogic();
+        }
 
         function buildNavGrid() {
             const grid = document.getElementById('nav-grid');
@@ -887,7 +949,7 @@
             } else {
                 flaggedQuestions.add(currentIndex);
             }
-            renderQuestion();
+            renderQuestion(); 
             updateGridColors();
         }
 
@@ -996,6 +1058,20 @@
             warningModal.classList.add('hidden');
         }
 
+        // TOGGLE REVIEW BUTTON
+        function toggleReview() {
+            const revSec = document.getElementById('review-section');
+            const btn = document.getElementById('toggle-review-btn');
+            if (revSec.classList.contains('hidden')) {
+                revSec.classList.remove('hidden');
+                btn.textContent = "Hide Detailed Review";
+                revSec.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                revSec.classList.add('hidden');
+                btn.textContent = "Show Detailed Review";
+            }
+        }
+
         function renderResultsView(rName, rCourse, rScore, rTotal, rQuestions, rAnswers, rPassed) {
             currentResultView = { name: rName, course: rCourse, score: rScore, total: rTotal, questions: rQuestions, answers: rAnswers, passed: rPassed };
             
@@ -1024,22 +1100,6 @@
                 ? 'Exceptional Work! You Passed. Brilliant! You deserve a new gadget.' 
                 : 'Keep studying! You failed this time. Don\'t give up! Join our tutorial group to ace it next time.';
             msgEl.className = `inline-block px-8 py-3 rounded-full font-bold text-sm sm:text-lg backdrop-blur-xl shadow-sm border ${rPassed ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-400/50' : 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-400/50'}`;
-
-            // DYNAMIC PROMO LOGIC FOR HORLY'S TECH
-            const promoContainer = document.getElementById('promo-banner-container');
-            const isHighScore = passed && (rScore / rTotal) >= 0.8;
-            
-            promoContainer.innerHTML = `
-                <div class="mt-6 mx-auto max-w-lg bg-gradient-to-r ${isHighScore ? 'from-purple-600 to-pink-600' : 'from-blue-600 to-purple-600'} rounded-2xl p-4 text-white shadow-lg border border-white/20 relative overflow-hidden break-inside-avoid">
-                    <div class="absolute inset-0 bg-white/10 w-full h-full transform -skew-x-12 translate-x-full group-hover:animate-shimmer"></div>
-                    <p class="font-extrabold text-lg mb-1">${isHighScore ? 'Excellent Score! 🎉' : 'Need a gadget upgrade or POS repair?'}</p>
-                    <p class="text-sm font-medium opacity-90">
-                        ${isHighScore 
-                            ? `You unlocked a <strong>10% discount</strong> at HoRly's_Tech Gadgets Sales N Repair! Screenshot this and send it to our WhatsApp.` 
-                            : `Get 1.0% off your next purchase or repair at HoRly's_Tech. Show this result to claim.`}
-                    </p>
-                </div>
-            `;
 
             const reviewContainer = document.getElementById('review-container');
             reviewContainer.innerHTML = '';
@@ -1089,12 +1149,15 @@
                 reviewContainer.innerHTML += blockHtml;
             });
 
+            // Ensure review is hidden by default when page is loaded
+            document.getElementById('review-section').classList.add('hidden');
+            document.getElementById('toggle-review-btn').textContent = "Show Detailed Review";
+
             switchScreen('results');
         }
 
         function forceSubmit() {
             clearInterval(timerInterval);
-            isQuizActive = false;
             warningModal.classList.add('hidden');
             document.getElementById('calculator-modal').classList.add('hidden');
             document.getElementById('calc-trigger-btn').classList.add('hidden');
@@ -1113,7 +1176,6 @@
             history.push({
                 date: new Date().toLocaleDateString(),
                 name: userName,
-                phone: userPhone,
                 course: courses[selectedCourse].name,
                 score: score,
                 total: selectedCount,
@@ -1127,6 +1189,7 @@
             showWhatsApp(false); 
         }
 
+        // --- HISTORY FUNCTIONALITY ---
         function showHistory() {
             const history = JSON.parse(localStorage.getItem('horlyTechHistory') || '[]');
             const container = document.getElementById('history-container');
@@ -1138,6 +1201,7 @@
                 history.slice().reverse().forEach((entry, idx) => {
                     const originalIndex = history.length - 1 - idx;
                     const pct = Math.round((entry.score/entry.total)*100);
+                    
                     const hasDetails = entry.questions && entry.answers;
                     
                     container.innerHTML += `
@@ -1170,9 +1234,14 @@
             const entry = history[index];
             if (entry && entry.questions && entry.answers) {
                 renderResultsView(entry.name, entry.course, entry.score, entry.total, entry.questions, entry.answers, entry.passed);
+                
+                // When looking at history, auto-show the review
+                document.getElementById('review-section').classList.remove('hidden');
+                document.getElementById('toggle-review-btn').textContent = "Hide Detailed Review";
             }
         }
 
+        // --- PDF DOWNLOAD ---
         function handlePDFClick() {
             const btn = document.getElementById('pdf-download-btn');
             const textEl = document.getElementById('pdf-btn-text');
@@ -1180,7 +1249,6 @@
             if (!pdfConfirmWait) {
                 pdfConfirmWait = true;
                 textEl.textContent = "Click again to download";
-                
                 btn.classList.remove('from-blue-600', 'to-purple-600');
                 btn.classList.add('from-rose-500', 'to-red-600', 'animate-pulse');
 
@@ -1222,7 +1290,6 @@
                 
                 let htmlStr = `
                     <div style="width: 800px; padding: 40px; font-family: Helvetica, Arial, sans-serif; background-color: #ffffff; color: #000000; position: relative; z-index: 1;">
-                        
                         <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: -1; overflow: hidden; pointer-events: none;">
                             <div style="color: rgba(147, 51, 234, 0.08); font-size: 110px; font-weight: bold; transform: rotate(-45deg); position: absolute; top: 300px; left: 50px;">HoRly's_tech</div>
                             <div style="color: rgba(147, 51, 234, 0.08); font-size: 110px; font-weight: bold; transform: rotate(-45deg); position: absolute; top: 1100px; left: 50px;">HoRly's_tech</div>
@@ -1301,7 +1368,34 @@
             });
         }
 
-        // Calculator Dragging Logic
+
+        // --- CALCULATOR FUNCTIONALITY ---
+        const calcModal = document.getElementById('calculator-modal');
+        const calcDisplay = document.getElementById('calc-display');
+        
+        function toggleCalculator() {
+            calcModal.classList.toggle('hidden');
+        }
+
+        function calcAction(val) {
+            if(val === 'C') {
+                calcValue = '0';
+            } else if(val === 'DEL') {
+                calcValue = calcValue.length > 1 ? calcValue.slice(0, -1) : '0';
+            } else if(val === '=') {
+                try {
+                    calcValue = String(new Function('return ' + calcValue)());
+                } catch(e) {
+                    calcValue = 'Error';
+                }
+            } else {
+                if(calcValue === '0' && val !== '.') calcValue = val;
+                else calcValue += val;
+            }
+            calcDisplay.value = calcValue;
+        }
+
+        // Dragging logic for Calculator
         let isDragging = false, startX, startY, startLeft, startBottom;
         document.getElementById('calc-header').addEventListener('mousedown', (e) => {
             isDragging = true;

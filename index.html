@@ -208,6 +208,57 @@
         </button>
     </div>
 
+    <div id="landing-screen" class="glass-panel p-8 sm:p-12 rounded-[2.5rem] w-full max-w-3xl z-10 screen-enter flex flex-col gap-8">
+        
+        <div class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-purple-100/50 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-300 text-sm font-bold mb-2 backdrop-blur-md shadow-sm">
+                🚀 The Ultimate CBT Simulator
+            </div>
+            <h2 class="text-3xl sm:text-5xl font-black text-slate-800 tracking-tight leading-tight">
+                More Than Just a Quiz.<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400">Your Personal Exam Coach.</span>
+            </h2>
+            <p class="text-slate-600 dark:text-slate-300 text-lg font-medium max-w-xl mx-auto leading-relaxed mt-4">
+                Welcome to the most effective way to prepare for your exams. The HoRly's_Tech platform is a comprehensive CBT simulator designed to pinpoint your weaknesses, master your time management, and build your confidence before the real test.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="bg-white/40 dark:bg-white/5 border border-white/50 dark:border-white/10 p-5 rounded-2xl backdrop-blur-md shadow-sm">
+                <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/50 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-400 mb-3">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3 class="font-bold text-slate-800 dark:text-slate-100 mb-1">Authentic CBT Experience</h3>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Strict countdown timers, flag-for-review buttons, and an interactive question grid mimic actual university exam conditions.</p>
+            </div>
+            <div class="bg-white/40 dark:bg-white/5 border border-white/50 dark:border-white/10 p-5 rounded-2xl backdrop-blur-md shadow-sm">
+                <div class="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/50 rounded-xl flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-3">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                </div>
+                <h3 class="font-bold text-slate-800 dark:text-slate-100 mb-1">Deep Analytics & Reports</h3>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Get instant scoring, thoroughly review every answer with correct highlights, and download professional PDF reports of your performance.</p>
+            </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-purple-600/10 to-blue-600/10 dark:from-purple-900/20 dark:to-blue-900/20 border border-purple-200 dark:border-purple-800/50 p-6 sm:p-8 rounded-[2rem] text-center relative overflow-hidden backdrop-blur-md shadow-inner">
+            <h3 class="text-xl sm:text-2xl font-extrabold text-slate-800 dark:text-slate-100 mb-2">Powered by HoRly's_Tech</h3>
+            <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base font-medium mb-6 max-w-lg mx-auto">
+                Need a reliable laptop, phone, or POS device to power your studies or business? At <strong class="text-slate-800 dark:text-white">HoRly's_Tech Gadgets Sales N Repair</strong>, we provide top-tier tech solutions, accessories, and swift repairs perfectly tailored for students. 
+            </p>
+            <button onclick="window.open('https://horlystech.vercel.app', '_blank')" class="inline-flex items-center justify-center px-6 py-3 bg-slate-800 dark:bg-white text-white dark:text-slate-900 font-bold rounded-2xl hover:scale-105 transition-transform shadow-[0_8px_24px_rgba(0,0,0,0.2)] dark:shadow-[0_8px_24px_rgba(255,255,255,0.2)]">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                Shop HoRly's Tech Inventory
+            </button>
+        </div>
+
+        <div class="pt-2">
+            <button onclick="switchScreen('welcome')" class="glass-button-primary w-full font-bold py-5 px-6 rounded-2xl flex items-center justify-center transition-all text-xl shadow-xl">
+                Enter Assessment Portal
+                <svg class="ml-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </button>
+        </div>
+    </div>
+    
     <div id="welcome-screen" class="glass-panel p-8 sm:p-12 rounded-[2.5rem] w-full max-w-lg z-10 screen-enter text-center">
         <div class="flex justify-center mb-8">
             <div class="bg-gradient-to-br from-white/80 to-white/30 dark:from-white/20 dark:to-white/5 p-5 rounded-3xl border border-white/60 dark:border-white/10 shadow-xl backdrop-blur-xl relative group">

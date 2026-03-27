@@ -1,4 +1,3 @@
-<script>
         // --- DATA BANKS WITH SEMESTER CATEGORIZATION ---
         // To add a course to the second semester later, simply add a new object here with `semester: 'second'`
         const courses = {
@@ -856,5 +855,3 @@
             calcModal.style.bottom = `${startBottom - dy}px`;
         });
         document.addEventListener('touchend', () => isDragging = false);
-
-    </script>

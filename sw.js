@@ -1,4 +1,4 @@
-const CACHE_NAME = 'horly-cbt-v1';
+const CACHE_NAME = 'horly-cbt-v1.0.1';
 
 // List all the files your app needs to work offline
 const ASSETS_TO_CACHE = [

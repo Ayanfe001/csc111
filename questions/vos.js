@@ -1,4 +1,4 @@
-const vosQuestuons = [
+const vosQuestions = [
   { q: "A computer system is made up of ______.", opts: ["Input, CPU, Output", "Monitor and Printer", "Keyboard and Mouse", "Software only"], ans: 0 },
   { q: "CPU stands for ______.", opts: ["Central Process Unit", "Central Processing Unit", "Computer Processing Unit", "Control Processing Unit"], ans: 1 },
   { q: "The CPU performs ______.", opts: ["Printing", "Processing", "Scanning", "Typing"], ans: 1 },

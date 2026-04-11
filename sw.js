@@ -12,7 +12,9 @@ const ASSETS_TO_CACHE = [
   './questions/csc.js',
   './questions/vos.js',
   './questions/vos117.js',
-  './questions/gns113.js'
+  './questions/gns113.js',
+  './questions/gst112.js',
+  './questions/csc124.js'
 ];
 
 // 1. Install Event: Cache all assets

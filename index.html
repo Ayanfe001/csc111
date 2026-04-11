@@ -604,6 +604,22 @@
             <button class="calc-btn bg-purple-500/20 text-purple-700 dark:text-purple-400" onclick="calcAction('=')">=</button>
         </div>
     </div>
+    
+        <div id="pwa-install-prompt" class="hidden fixed bottom-4 left-4 right-4 sm:bottom-8 sm:left-auto sm:right-8 sm:w-96 z-[100] glass-panel p-5 rounded-3xl shadow-2xl border border-white/50 dark:border-white/10 flex flex-col gap-4 transform transition-all duration-500 translate-y-10 opacity-0">
+        <div class="flex items-center gap-4">
+            <div class="bg-gradient-to-br from-purple-500 to-blue-500 p-3.5 rounded-2xl text-white shadow-md flex-shrink-0">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+            </div>
+            <div>
+                <h4 class="text-slate-800 dark:text-white font-extrabold text-lg leading-tight">Install HoRly's CBT</h4>
+                <p class="text-slate-500 dark:text-slate-400 text-xs font-medium mt-1">Add to your home screen to practice 100% offline and save data!</p>
+            </div>
+        </div>
+        <div class="flex gap-3 mt-1">
+            <button onclick="hideInstallPrompt()" class="flex-1 bg-white/40 dark:bg-black/30 text-slate-700 dark:text-slate-300 font-bold py-3 rounded-xl border border-white/50 dark:border-white/10 hover:bg-white/60 dark:hover:bg-black/50 transition-colors text-sm">Not Now</button>
+            <button onclick="installPWA()" class="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold py-3 rounded-xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 text-sm">Install App</button>
+        </div>
+    </div>
 
 
     <script>
@@ -667,6 +683,57 @@
         function playCheer() {
             [440, 554, 659, 880].forEach((f, i) => setTimeout(() => playTone(f, 'sine', 0.2, 0.1), i*120));
         }
+
+                // --- PWA INSTALL PROMPT LOGIC ---
+        let deferredPrompt;
+        const installPromptUI = document.getElementById('pwa-install-prompt');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent the browser's default mini-infobar from appearing on mobile
+            e.preventDefault();
+            
+            // Stash the event so it can be triggered later
+            deferredPrompt = e;
+            
+            // Wait 3 seconds after the app loads, then show the custom popup
+            setTimeout(() => {
+                installPromptUI.classList.remove('hidden');
+                // A tiny delay to allow the browser to render the block before animating
+                setTimeout(() => {
+                    installPromptUI.classList.remove('translate-y-10', 'opacity-0');
+                }, 50);
+            }, 3000); 
+        });
+
+        function hideInstallPrompt() {
+            // Animate it sliding down and fading out
+            installPromptUI.classList.add('translate-y-10', 'opacity-0');
+            setTimeout(() => {
+                installPromptUI.classList.add('hidden');
+            }, 500); // Wait for the 500ms CSS animation to finish
+        }
+
+        async function installPWA() {
+            if (!deferredPrompt) return;
+            
+            // Show the official browser install prompt
+            deferredPrompt.prompt();
+            
+            // Wait for the user to respond to the prompt
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response to the install prompt: ${outcome}`);
+            
+            // We've used the prompt, throw it away
+            deferredPrompt = null;
+            hideInstallPrompt();
+        }
+
+        // If they successfully install it, hide the popup permanently
+        window.addEventListener('appinstalled', () => {
+            hideInstallPrompt();
+            deferredPrompt = null;
+            console.log('HoRly\'s Tech CBT was successfully installed!');
+        });
 
         // --- DOM ELEMENTS ---
         const screens = {

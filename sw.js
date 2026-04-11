@@ -1,6 +1,6 @@
-const CACHE_NAME = 'horly-cbt-v1.0.1';
+// BUMPED VERSION: Forces phones to update the service worker
+const CACHE_NAME = 'horly-cbt-v2.0.1'; 
 
-// List all the files your app needs to work offline
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -17,26 +17,28 @@ const ASSETS_TO_CACHE = [
   './questions/csc124.js'
 ];
 
-// 1. Install Event: Cache all assets
+// 1. Install Event: Cache all assets safely
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('Caching offline assets');
-      return cache.addAll(ASSETS_TO_CACHE);
+      console.log('Caching offline assets...');
+      // .addAll can fail if a single file is missing. 
+      return cache.addAll(ASSETS_TO_CACHE).catch(err => {
+          console.error("Warning: Some files failed to cache.", err);
+      });
     })
   );
-  // Force the waiting service worker to become the active service worker.
-  self.skipWaiting();
+  self.skipWaiting(); 
 });
 
-// 2. Activate Event: Clean up old caches if you update the version
+// 2. Activate Event: Delete old versions
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cache) => {
           if (cache !== CACHE_NAME) {
-            console.log('Clearing old cache');
+            console.log('Clearing old cache: ', cache);
             return caches.delete(cache);
           }
         })
@@ -46,12 +48,32 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// 3. Fetch Event: Serve from cache first, then network
+// 3. Fetch Event: Network-First with Bulletproof Offline Fallback
 self.addEventListener('fetch', (event) => {
+  // Only intercept standard GET requests
+  if (event.request.method !== 'GET') return;
+
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      // Return cached file if found, otherwise fetch from the internet
-      return cachedResponse || fetch(event.request);
-    })
+    fetch(event.request)
+      .then((networkResponse) => {
+        // Internet is ON: Save newest version to cache and show it
+        return caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, networkResponse.clone());
+          return networkResponse;
+        });
+      })
+      .catch(() => {
+        // Internet is OFF: Look in the cache. 
+        // ignoreSearch: true ignores the ?source=pwa tags Android adds
+        return caches.match(event.request, { ignoreSearch: true }).then((cachedResponse) => {
+          if (cachedResponse) {
+            return cachedResponse;
+          }
+          // If the file is still not found, but they are trying to load the app, force load index.html
+          if (event.request.mode === 'navigate') {
+            return caches.match('./index.html', { ignoreSearch: true });
+          }
+        });
+      })
   );
 });

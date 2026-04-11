@@ -1,5 +1,5 @@
 // BUMPED VERSION: Forces phones to update the service worker
-const CACHE_NAME = 'horly-cbt-v2.0.1'; 
+const CACHE_NAME = 'horly-cbt-v2.0.2'; 
 
 const ASSETS_TO_CACHE = [
   './',
@@ -7,14 +7,15 @@ const ASSETS_TO_CACHE = [
   './manifest.json',
   './launchericon-192x192.png',
   './launchericon-512x512.png',
-  './questions/cos.js',
-  './questions/phy.js',
-  './questions/csc.js',
+  './questions/first/cos.js',
+  './questions/first/phy.js',
+  './questions/first/csc.js',
   './questions/vos.js',
   './questions/vos117.js',
   './questions/gns113.js',
-  './questions/gst112.js',
-  './questions/csc124.js'
+  './questions/second/gst112.js',
+  './questions/second/csc124.js',
+  './questions/second/csc122.js'
 ];
 
 // 1. Install Event: Cache all assets safely

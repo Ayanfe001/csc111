@@ -26,14 +26,15 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-    <script src="questions/cos.js"></script>
-    <script src="questions/phy.js"></script>
-    <script src="questions/csc.js"></script>
+    <script src="questions/first/cos.js"></script>
+    <script src="questions/first/phy.js"></script>
+    <script src="questions/first/csc.js"></script>
     <script src="questions/vos.js"></script>
     <script src="questions/vos117.js"></script>
-    <script src="questions/gns113.js"></script>
-    <script src="questions/csc124.js"></script>
-    <script src="questions/gst112.js"></script>
+    <script src="questions/first/gns113.js"></script>
+    <script src="questions/second/csc124.js"></script>
+    <script src="questions/second/gst112.js"></script>
+    <script src="questions/second/csc122.js"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -634,7 +635,8 @@
             'vos': { name: 'VOS 114', title: 'Computer Maintance And Percaution', semester: 'vocational', questions: typeof vosQuestions !== 'undefined' ? vosQuestions : [] },
             'vos117': {name: 'VOS 117', title: 'Fish Farming', semester: 'vocational', questions: typeof vos117Questions !== 'undefined' ? vos117Questions : [] },
             'csc124': {name: 'CSC 124', title: 'Computer NetWork', semester: 'second', questions: typeof csc124Questions !== 'undefined' ? csc124Questions : [] },
-            'gst112': {name: 'GST 112', title: 'Nigerian People And Culture', semester: 'second', questions: typeof gst112Questions !== 'undefined' ? gst112Questions : [] }
+            'gst112': {name: 'GST 112', title: 'Nigerian People And Culture', semester: 'second', questions: typeof gst112Questions !== 'undefined' ? gst112Questions : [] },
+            'csc122': {name: 'CSC 122', title: 'Computer Hardware', semester: 'second', questions: typeof csc122Questions !== 'undefined' ? csc122Questions : [] }
         };
 
         // --- STATE VARIABLES ---
@@ -759,16 +761,24 @@
             document.getElementById('theme-toggle-dark-icon').classList.toggle('hidden', isDark);
         }
 
-        function switchScreen(screenName) {
+                        function switchScreen(screenName) {
+            // Notice that 'results' is NO LONGER in this array. 
+            // This allows users to view their history reviews without logging in.
+            const protectedScreens = ['semester', 'course', 'setup', 'quiz'];
+            
+            if (protectedScreens.includes(screenName) && (!userName || userName.trim() === "")) {
+                screenName = 'login';
+            }
+
             Object.values(screens).forEach(s => {
                 s.classList.add('hidden');
                 s.classList.remove('screen-enter');
             });
+            
             screens[screenName].classList.remove('hidden');
             void screens[screenName].offsetWidth;
             screens[screenName].classList.add('screen-enter');
             
-            // Show calc button only in quiz screen AND only for PHY 101
             if(screenName === 'quiz' && selectedCourse === 'phy') {
                 document.getElementById('calc-trigger-btn').classList.remove('hidden');
             } else {
@@ -776,8 +786,6 @@
                 document.getElementById('calculator-modal').classList.add('hidden');
             }
 
-            // --- WHATSAPP LOGIC ---
-            // Stay persistently once user leaves landing, but hide during quiz
             if (screenName === 'landing' || screenName === 'quiz') {
                 hideWhatsApp();
             } else {
@@ -987,20 +995,30 @@
             startTimerLogic();
         });
 
-                function startOver() {
-            // Reset the state of the review panel so it's closed for the next test
+                        function startOver() {
+            // Reset the state of the review panel
             document.getElementById('review-section').classList.add('hidden');
             document.getElementById('toggle-review-btn').textContent = "Show Detailed Review";
             
-            // Clear current selections to prevent accidental data carryover
             selectedSemester = null;
             selectedCourse = null;
             
-            // Route the user back to the semester screen
-            switchScreen('semester');
+            // If they are browsing history and don't have a name, force them to login. 
+            // Otherwise, take them to the semester screen.
+            if (!userName || userName.trim() === "") {
+                switchScreen('login');
+            } else {
+                switchScreen('semester');
+            }
         }
 
-        function retakeExactTest() {
+                function retakeExactTest() {
+            // Prevent the test from starting if they haven't entered a name
+            if (!userName || userName.trim() === "") {
+                switchScreen('login');
+                return; // Stop the function here so the timer doesn't start
+            }
+
             currentIndex = 0;
             userAnswers = {};
             flaggedQuestions.clear();
@@ -1010,6 +1028,7 @@
             
             startTimerLogic();
         }
+
 
         function buildNavGrid() {
             const grid = document.getElementById('nav-grid');
